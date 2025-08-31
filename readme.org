@@ -1,0 +1,73 @@
+#+title: NonStdLib
+
+* NonStdLib
+
+A non-standard library for C. This contains a collection of types, functions, utilities, etc.
+that are designed to work together. The library utilizes the [[https://github.com/nothings/stb][stb-style header-only design]]. As
+such, parts of the library can be used simply by copying the header file. Not all files are
+capable of this, however, as they rely on other parts of the library. Additionally, if desired,
+source files exist for each part of the library.
+
+#+begin_quote
+[!WARNING]
+This library has only been testing using gcc on Linux. There is no guarantee that it will function
+correctly with any other computer / on any other platform.
+#+end_quote
+
+** Table of Contents :toc:
+- [[#nonstdlib][NonStdLib]]
+  - [[#file-structure][File Structure]]
+  - [[#features][Features]]
+
+** File Structure
+
+- [[file:inc][Header Files]] - The actual implementation of the library units. Everything of note exists within
+  this folder.
+- [[file:src][Source Files]] - Optional individual library units. These files simply include and corresponding
+  header file and implementation.
+- [[file:doc][Documentation]] - Each unit of the library has corresponding documentation in this folder.
+- [[file:test][Tests]] - Unit tests for the library.
+
+** Features
+
+*** Miscellaneous
+
+- *TODO* - TODO
+
+*** Data Structures
+
+- *Array* - TODO
+- *DynamicArray* - TODO
+- *LinkedList* - TODO
+- *SinglyLinkedList* - TODO
+- *BinaryTree* - TODO
+- *Tree* - TODO
+- *Map* - TODO
+- *HashMap* - TODO
+- *RedBlackTree* - TODO
+
+*** String Types
+
+- *String* - TODO
+- *StringView* - TODO
+- *StringBuilder* - TODO
+- *Rope* - TODO
+
+*** Allocators
+
+[[http://www.gingerbill.org/series/memory-allocation-strategies/][Reference]]
+
+- *Pool* - TODO
+- *Stack* - TODO
+- *Arena* - TODO
+- *FreeList* - TODO
+- *Buddy* - TODO
+
+*** Larger Tools
+
+- *Sequencer* - TODO
+- *Unit Test* - TODO
+- *Build Tool* - TODO
+- *Pretty Printer* - TODO
+- *Command Line Arguments Parser* - TODO
+- *JSON Serializer / De-Serializer* - TODO

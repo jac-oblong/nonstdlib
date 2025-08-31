@@ -1,0 +1,39 @@
+#+title: Developer Documentation
+
+* Developer Documentation
+
+The majority of documentation for developers exists within the [[file:doc/][documentation folder]]. The
+documentation there is designed primarily for users of this library, but it is also assumed
+that they may want to know about internal workings, so that information is included.
+
+This document serves to fill in the gaps and provides a general, high-level overview of the
+patterns, conventions, and decisions that exist throughout the entire library.
+
+** Table of Contents :toc:
+- [[#developer-documentation][Developer Documentation]]
+  - [[#naming-convention][Naming Convention]]
+
+** Naming Convention
+
+*EVERYTHING* that is public facing / publicly accessible is prefixed with ~nsl_~. An additional
+prefix will be used that corresponds with the name of the module. This is not always the full
+name of the module, but may be a shortened name (similar to how ~nsl~ is the shorted form of
+~NonStdLib~). Some, but not all, prefixes can be removed. If removal of a prefix would cause a
+name collision, it will not be removed.
+
+- *Functions* - All functions follow the ~snake_case~ naming convention. Any macro that is meant to
+  be used as a function also follows the same convention. If a function is meant to be private,
+  it *should not* be included in the function declaration section of the header file.
+  Additionally, it will be prefixed with one underscore and be declared as static so that it
+  does not show up in the global scope.
+- *Structs* - All structs follow the ~PascalCase~ naming convention. This includes any macros that
+  evaluates to a struct. All struct member variables follow the ~snake_case~ naming convention.
+- *Enums* - All enums follow the ~PascalCase~ naming convention. All enum values follow the
+  ~ALL_CAPS~ naming convention.
+- *Macros* - With the exception of the macros defined above, all macros follow the ~ALL_CAPS~ naming
+  convention.
+- *Local Variables* - All local variables follow the ~snake_case~ naming convention. This is not
+  particularly relevant to users, but it is important to be consistent.
+- *Global Variables* - All global variables follow the ~snake_case~ naming convention and are
+  prefixed with ~g_~ (this prefix cannot be removed and should go in front of any library /
+  module prefix). Usage of global variables should be avoided if possible.
