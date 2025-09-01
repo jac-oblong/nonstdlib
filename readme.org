@@ -31,7 +31,7 @@ correctly with any other computer / on any other platform.
 
 *** Miscellaneous
 
-- *Todo* - TODO
+- *Todo* - Provides a macro for marking things that need to be done.
 - *Unused* - TODO
 - *Deprecated* - TODO
 - *Logging* - TODO
