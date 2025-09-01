@@ -25,14 +25,16 @@ correctly with any other computer / on any other platform.
   this folder.
 - [[file:src][Source Files]] - Optional individual library units. These files simply include and corresponding
   header file and implementation.
-- [[file:doc][Documentation]] - Each unit of the library has corresponding documentation in this folder.
 - [[file:test][Tests]] - Unit tests for the library.
 
 ** Features
 
 *** Miscellaneous
 
-- *TODO* - TODO
+- *Todo* - TODO
+- *Unused* - TODO
+- *Deprecated* - TODO
+- *Logging* - TODO
 
 *** Data Structures
 
