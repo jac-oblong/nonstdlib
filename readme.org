@@ -32,7 +32,7 @@ correctly with any other computer / on any other platform.
 *** Miscellaneous
 
 - *Todo* - Provides a macro for marking things that need to be done.
-- *Unused* - TODO
+- *Unused* - Provides a macro for marking variables as unused.
 - *Deprecated* - TODO
 - *Logging* - TODO
 

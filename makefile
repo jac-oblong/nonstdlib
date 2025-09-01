@@ -5,6 +5,8 @@ endif
 BUILD_DIR   = build
 TEST_DIR    = test
 INCLUDE_DIR = inc
+TESTS		= $(BUILD_DIR)/todo \
+			  $(BUILD_DIR)/unused
 CC			= gcc
 CC_FLAGS	= -Wall -Wextra -Werror -I$(INCLUDE_DIR) -fsanitize=address
 
@@ -13,12 +15,15 @@ CC_FLAGS	= -Wall -Wextra -Werror -I$(INCLUDE_DIR) -fsanitize=address
 all: test
 
 .PHONY: test
-test: $(BUILD_DIR) $(BUILD_DIR)/todo
+test: $(BUILD_DIR) $(TESTS)
 
 $(BUILD_DIR)/todo: $(TEST_DIR)/todo.c $(INCLUDE_DIR)/todo.h
 	$(Q)$(CC) $(CC_FLAGS) $< -o $@
-	$(Q)if $@; then false; else true; fi
-	$(Q)if $(CC) $(CC_FLAGS) $< -o $@ -DNSL_TODO=NSL_TODO_COMPTIME; then false; else true; fi
+	$(Q)if $@ &>/dev/null; then false; else true; fi
+	$(Q)if $(CC) $(CC_FLAGS) $< -o $@ -DNSL_TODO=NSL_TODO_COMPTIME &>/dev/null; then false; else true; fi
+
+$(BUILD_DIR)/unused: $(TEST_DIR)/unused.c $(INCLUDE_DIR)/unused.h
+	$(Q)$(CC) $(CC_FLAGS) $< -o $@
 
 $(BUILD_DIR):
 	mkdir -p $@
