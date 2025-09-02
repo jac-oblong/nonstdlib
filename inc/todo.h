@@ -23,7 +23,7 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-/**
+/*!
  * This module provides one primary macro (`NSL_TODO`) and two secondary macros
  * (`NSL_TODO_RUNTIME` and `NSL_TODO_COMPTIME`). Each of the macros take one
  * argument and are meant to stop execution of the program with an error
@@ -65,7 +65,7 @@
 #define NSL_TODO_MINOR 2
 #define NSL_TODO_PATCH 0
 
-/**
+/*!
  * This macro can optionally be user defined if using `fprintf` from `stdio.h`
  * is undesirable. The macro accepts a string literal formatter and should be
  * variadic.
@@ -75,7 +75,7 @@
 #    define NSL_TODO_EPRINTF(format, ...) fprintf(stderr, format, __VA_ARGS__)
 #endif  // NSL_TODO_EPRINTF
 
-/**
+/*!
  * This macro can optionally be user defined if using `exit(EXIT_FAILURE)` from
  * `stdlib.h` is undesirable. The macro does not have arguments and should
  * evaluate to a statement.
@@ -86,12 +86,12 @@
 #endif  // NSL_TODO_EXIT
 
 #ifndef NSL_TODO
-/**
+/*!
  * Generates a TODO error. This macro is defined to redirect to either
  * `NSL_TODO_RUNTIME`, in order to generate an error at runtime, or
  * `NSL_TODO_COMPTIME`, in order to generate an error at compile time.
  *
- * # Arguments
+ * # Parameters
  * - `message`: The message to print. Should ideally be a string literal. Look
  *   at documentation for `NSL_TODO_RUNTIME` and `NSL_TODO_COMPTIME` for more
  *   information.
@@ -99,12 +99,12 @@
 #    define NSL_TODO NSL_TODO_RUNTIME
 #endif  // NSL_TODO
 
-/**
+/*!
  * Generates an error at runtime. The error message is printed to `stderr` and
  * will include the file and line that the macro was invoked on. The process
  * will immediately exit after printing the error.
  *
- * # Arguments
+ * # Parameters
  * - `message`: The message to print. Ideally, this should be a string literal,
  *   but it can be any type that can be printed with `"%s"`.
  */
@@ -114,10 +114,10 @@
         NSL_TODO_EXIT;                                                         \
     } while (0)
 
-/**
+/*!
  * Generates an error at compile time.
  *
- * # Arguments
+ * # Parameters
  * - `message`: The message to print. Ideally, this should be a string literal,
  *   but it can be anything as a type mismatch will also cause a compile time
  *   error.

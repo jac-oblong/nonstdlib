@@ -7,6 +7,22 @@ know about internal workings, so that information is included.
 This document serves to fill in the gaps and provides a general, high-level overview of the
 patterns, conventions, and decisions that exist throughout the entire library.
 
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
+
+- [Developer Documentation](#developer-documentation)
+  - [Naming Convention](#naming-convention)
+  - [Version Convention](#version-convention)
+  - [Module Organization](#module-organization)
+  - [Design Patterns / Philosophies](#design-patterns--philosophies)
+    - [Using the C Standard Library](#using-the-c-standard-library)
+    - [Handling Library Inter-Dependencies](#handling-library-inter-dependencies)
+    - [Handling External Dependencies](#handling-external-dependencies)
+  - [Documentation Comments](#documentation-comments)
+
+<!-- markdown-toc end -->
+
+
 ## Naming Convention
 
 **EVERYTHING** that is public facing / publicly accessible is prefixed with `nsl_`. An additional
@@ -112,3 +128,19 @@ As each module is meant to be usable on their own, requiring external dependenci
 avoided if possible. Obviously, if the module is designed to be a wrapper around some other
 library, avoiding the dependency is impossible. However, if reasonable, it is better to create
 macros that can be redefined by the user or functions that the user can implement.
+
+## Documentation Comments
+
+All documentation comments are written as though they were markdown. Comments that are meant to be
+treated as documentation will use the `/*! ... */` or `//! ...` format. For structs, enums, etc.
+the type itself will be documented and each member will also have their documentation. For
+functions, in addition to a general overview of the function, the following sections will be
+implemented as necessary:
+
+- **Parameters**: Details about each parameter that the function accepts.
+- **Requires**: Lists any conditions that must be met prior to calling the function. This can be
+  constraints on the parameters, on global variables, etc.
+- **Modifies**: Lists any values (either parameters or global variables) that are modified by the
+  function. This also includes the effects of the modification.
+- **Aborts**: Describes any behavior / conditions that might cause the program to crash.
+- **Returns**: Details about the value returned by the function.
