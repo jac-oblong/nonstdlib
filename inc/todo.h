@@ -62,10 +62,8 @@
 #define NSL_TODO_H_
 
 #define NSL_TODO_MAJOR 0
-#define NSL_TODO_MINOR 1
+#define NSL_TODO_MINOR 2
 #define NSL_TODO_PATCH 0
-
-#include <assert.h>
 
 /**
  * This macro can optionally be user defined if using `fprintf` from `stdio.h`
