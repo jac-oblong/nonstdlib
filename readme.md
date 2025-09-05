@@ -27,11 +27,14 @@ library.
 
 ## File Structure
 
-- [Header Files](file:inc) - The actual implementation of the library units. Everything of note exists within
-  this folder.
-- [Source Files](file:src) - Optional individual library units. These files simply include and corresponding
-  header file and implementation.
+- [Header Files](file:inc) - The actual implementation of the library units. Everything of note
+  exists within this folder.
+- [Source Files](file:src) - Optional individual library units. These files simply include and
+  corresponding header file and implementation.
 - [Tests](file:test) - Unit tests for the library.
+- [Documentation](file:doc) - Various pieces of documentation. The documentation / examples for each
+  module are in the header files themselves. This folder holds other pieces of documentation that
+  do not fit elsewhere.
 
 ## Features
 
