@@ -49,7 +49,7 @@ library.
 
 ### Data Structures
 
-- **Array** - TODO
+- **Array** - Auto-Generated Wrapper for C Arrays
 - **DynamicArray** - TODO
 - **LinkedList** - TODO
 - **SinglyLinkedList** - TODO
