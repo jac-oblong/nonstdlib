@@ -1,36 +1,39 @@
-# Array Type Implementation ADR
+# Generic Type Implementation ADR
 
-NonStdLib's Array type is meant to wrap around C's built-in arrays and provide additional
-information like the length and capacity of the array. C, however, does not easily support generic
-types, which makes designing an Array implementation that much more difficult. This document
-examines the different options that were identified and why the final design was chosen.
+NonStdLib is meant to implement multiple generic data structures. C, however, does not easily
+support generic types. This document examines the different options for implementing generic types
+in C that were identified and why the final design was chosen. A simple `Array` type that is a
+wrapper around C's builtin arrays will be used as a case study.
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
 
-- [Array Type Implementation ADR](#array-type-implementation-adr)
-  - [Generic Array with `void*`](#generic-array-with-void)
+- [Generic Type Implementation ADR](#generic-type-implementation-adr)
+  - [Generic Types with `void*`](#generic-types-with-void)
     - [Pros](#pros)
     - [Cons](#cons)
-  - [Generic Array with `char*`](#generic-array-with-char)
+  - [Generic Type with `char*`](#generic-type-with-char)
     - [Pros](#pros-1)
     - [Cons](#cons-1)
-  - [Generic Array with Macro Magic](#generic-array-with-macro-magic)
+  - [Generic Type with Macro Magic](#generic-type-with-macro-magic)
     - [Pros](#pros-2)
     - [Cons](#cons-2)
   - [Generic Array by Not Being Generic](#generic-array-by-not-being-generic)
     - [Pros](#pros-3)
     - [Cons](#cons-3)
-  - [Generic Array](#generic-array)
+  - [Generic Array with `_Generic`](#generic-array-with-_generic)
+    - [Pros](#pros-4)
+    - [Cons](#cons-4)
+  - [Chosen Implementation](#chosen-implementation)
 
 <!-- markdown-toc end -->
 
 
-## Generic Array with `void*`
+## Generic Types with `void*`
 
 One popular method for achieving a generic type in C is through the use of `void*`. C's standard
 library does this in multiple cases (`realloc`, `memcpy`, `write`, etc.). A potential implementation
-of this `Array` is shown below.
+of generic types with an `Array` is shown below.
 
 ```c
 #include <assert.h>
@@ -85,15 +88,15 @@ int main() {
 
 ### Cons
 
-- All type safety is gone. Arrays can easily be assumed to have elements of one type, but they are
-  of a different type.
-- Users are required to think about the lifetime of the array and the item they are pushing into the
-  array. If the item is a primitive type, it is possible (but **not** preferable) to simply cast to
-  `void*`. However, if the item is a struct, it may need to be allocated somewhere. This can very
-  easily lead to bugs involving dangling pointers.
+- All type safety is gone. Data structures can be assumed to be of one type, but actually be of
+  another type.
+- Users are required to think about the lifetime of the data structure and the objects in it. If
+  the item is a primitive type, it is possible (but **not** preferable) to simply cast to `void*`.
+  However, if the item is a struct, it may need to be allocated somewhere. This can very easily
+  lead to bugs involving dangling pointers.
 - Requires casting function pointers to `void*`. This can cause problems on some architectures.
 
-## Generic Array with `char*`
+## Generic Types with `char*`
 
 An alternate version with its own tradeoffs is a `char*` array. Here, instead of storing pointers,
 the data is copied into the internal C array.
@@ -158,13 +161,13 @@ int main() {
 
 ### Cons
 
-- All type safety is gone. Arrays can easily be assumed to have elements of one type, but they are
-  of a different type.
+- All type safety is gone. Data structures can be assumed to be of one type, but actually be of
+  another type.
 - Usage is slightly clunky, as it requires a pointer, so objects have to be allocated somewhere
   (can be on the stack) before being pushed into the array.
 - Requires casting function pointers to `void*`. This can cause problems on some architectures.
 
-## Generic Array with Macro Magic
+## Generic Types with Macro Magic
 
 Another popular method for achieving generic types is through the use of macros. In this
 implementation, there is no `Array` struct and no functions for pushing / popping. Instead,
@@ -225,7 +228,7 @@ int main() {
 - Will likely increase code size as compiler may not be able to optimize away the repeated code into
   a single function. Not necessarily a major concern, though.
 
-## Generic Array by Not Being Generic
+## Generic Types by Not Being Generic
 
 One way to keep type safety while also being able to achieve the desired interface is to create a
 new `Array` struct and associated functions for each desired type. This, however, defeats the point
@@ -288,14 +291,15 @@ int main() {
 
 - Will increase code size if multiple array types are used. This is not a major concern, however,
   and is the norm for languages with templates.
-- Cannot handle function pointers. This can be fixed by defining a separate `FuncArray` that only
-  works with function pointers. The generation can happen in the same way.
+- Cannot handle function pointers. This can be fixed by using `typedef` to define a function
+  pointer type.
 - Verbose interface. The interface also prevents accepting an array of any type and doing basic
   operations with it (checking if it is empty / obtaining the length).
 
-## Generic Array with `_Generic`
+## Generic Types with `_Generic`
 
-`_Generic` allows for picking between expressions based on the type of the given expression. This can be used in conjunction with a macro to remove some of the verboseness while maintaining type
+`_Generic` allows for picking between expressions based on the type of the given expression. This
+can be used in conjunction with a macro to remove some of the verboseness while maintaining type
 safety.
 
 ```c
@@ -361,12 +365,106 @@ int main() {
   and is the norm for languages with templates.
 - Requires knowing all possible types beforehand so that `arr_push` and `arr_pop` can be correctly
   defined. This is not realistically possible.
-  
+- User is required to implement all arrays themselves.
+
+## Generic Types with Template-esque Headers
+
+One problem with using macros to define a generic data structure implementation is that reading the
+source code becomes difficult as it is in a macro definition. A workaround for this is to use a
+header file to hold the data structure implementation. An example of such a header (and the usage)
+is shown below.
+
+```c
+#include <stddef.h>
+
+#ifndef SOME_HEADER_FILE_H_
+#define FIRST_ARG_(a, b) a
+#define FIRST_ARG(...) FIRST_ARG_(__VA_ARGS__)
+#define SECOND_ARG_(a, b) b
+#define SECOND_ARG(...) SECOND_ARG_(__VA_ARGS__)
+#define PREFIX(prefix, rest) prefix ## rest
+#endif // SOME_HEADER_FILE_H_
+
+#ifndef T
+#error "T must be defined"
+#endif // T
+
+#define Name FIRST_ARG(T)
+#define type SECOND_ARG(T)
+
+typedef struct Name {
+    type *items;
+    size_t length;
+    size_t capacity;
+} Name;
+
+bool PREFIX(Name, _arr_push)(Name *arr, type item) {
+    if (arr == nullptr || arr->length == arr->capacity) { return false; }
+    arr->items[arr->length] = item;
+    arr->length++;
+    return true;
+}
+
+bool PREFIX(Name, _arr_pop)(Name *arr, type item) {
+    if (arr == nullptr || arr->length == 0) { return false; }
+    arr->length--;
+    *item = arr->items[arr->length];
+    return true;
+}
+
+#undef type
+#undef Name
+#undef T
+```
+
+```c
+#include <assert.h>
+
+#define T Ints, int
+#include "some_header_file.h"
+
+int main() {
+    int carr[3];
+    int x;
+    Ints arr = (Ints) { .items = carr, .length = 0, .capacity = 3 };
+    assert(Ints_arr_push(&arr, 1));
+    assert(Ints_arr_push(&arr, 2));
+    assert(Ints_arr_push(&arr, 3));
+    assert(!Ints_arr_push(&arr, 4));
+    assert(Ints_arr_pop(&arr, &x));
+    assert(x == 3);
+    assert(Ints_arr_pop(&arr, &x));
+    assert(x == 2);
+    assert(Ints_arr_pop(&arr, &x));
+    assert(x == 1);
+    assert(!Ints_arr_pop(&arr, &x));
+}
+```
+
+### Pros
+
+- Handles most use cases.
+- Everything is type safe.
+- Does not require user to allocate memory for larger objects.
+- Does not require implementation to be defined within macro.
+
+### Cons
+
+- Will increase code size if multiple array types are used. This is not a major concern, however,
+  and is the norm for languages with templates.
+- Cannot handle function pointers. This can be fixed by using `typedef` to define a function
+  pointer type.
+- Verbose interface. The interface also prevents accepting an array of any type and doing basic
+  operations with it (checking if it is empty / obtaining the length).
+- Requires re-including same file for each implementation, which can get weird.
+- Requires some indirection with macros.
+
 ## Chosen Implementation
 
-The usage of a macro to generate an `Array` of a specific type is the best option because it is 
-robust and does not sacrifice type safety or too much in terms of readability. The problem with
-function pointers can be solved by having a `FuncArray` variant.
+The usage of a template-esque header to generate an generic types is the best option because it is
+robust and does not sacrifice type safety or readability. The problem with function pointers can be
+solved by requiring `typedef`, which realistically is smart because function pointer syntax is not
+easily digestible.
 
 Additionally, if possible, `_Generic` may be used to reduce the verboseness of the interface. This
 will only be added after the core implementation is complete, however.
