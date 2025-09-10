@@ -1,4 +1,6 @@
-#define NSL_TODO_STRIP_PREFIX
-#include "todo.h"
+#define NSL_STRIP_PREFIX
+#include "nonstdlib/common.h"
 
-int main() { TODO("This should exit with failure"); }
+int main() {
+    todo("This should exit with failure");
+}
