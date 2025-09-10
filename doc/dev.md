@@ -31,14 +31,21 @@ name of the module, but may be a shortened name (similar to how `nsl` is the sho
 `NonStdLib`). Some, but not all, prefixes can be removed. If removal of a prefix would cause a
 name collision, it will not be removed.
 
-- **Functions** - All functions follow the `snake_case` naming convention. Any macro that is meant 
-  to be used as a function also follows the same convention.
+- **Functions** - All functions follow the `snake_case` naming convention. Functions that belong to 
+  a specific type will be prefixed with the type name. This means that it will be a mixture of 
+  `PascalCase` and `snake_case`. For example, if the type `Array` has a function `push`, the full 
+  name of the function will be `Array_push`.
 - **Structs** - All structs follow the `PascalCase` naming convention. This includes any macros that
   evaluates to a struct. All struct member variables follow the `snake_case` naming convention.
 - **Enums** - All enums follow the `PascalCase` naming convention. All enum values follow the
   `ALL_CAPS` naming convention.
-- **Macros** - With the exception of the macros defined above, all macros follow the `ALL_CAPS` 
-  naming convention.
+- **Macros** - Naming conventions for macros are mixed. 
+  - If the macro is intended to be used as a function (i.e. it is a wrapper for a function or it 
+    acts as a generic function) it should follow the function naming convention.
+  - If the macro is intended to be used as a type (e.g. it is in alias for a specific type) it 
+    should follow the naming convention of that type.
+  - If the macro does not fit into any of the above categories, it should follow the `ALL_CAPS` 
+    naming convention.
 - **Local Variables** - All local variables follow the `snake_case` naming convention. This is not
   particularly relevant to users, but it is important to be consistent.
 - **Global Variables** - All global variables follow the `snake_case` naming convention and are
@@ -52,11 +59,9 @@ name collision, it will not be removed.
 
 ## Version Convention
 
-[Semantic Versioning](https://semver.org) is used for all version needs. As the library is designed 
-to support copying single files, the library has a whole does not have a version. Instead, each 
-individual module has its own version that will be changed independently of the other modules. All 
-modules have macros (`NSL_<MODULE>_MAJOR`, `NSL_<MODULE>_MINOR`, and `NSL_<MODULE>_PATCH`) 
-specifying the current version of the module.
+[Semantic Versioning](https://semver.org) is used for all version needs. The macros 
+`NSL_VERSION_MAJOR`, `NSL_VERSION_MINOR`, and `NSL_VERSION_PATCH` can be used to query the current
+version of the library.
 
 - Editing comments will not change the version at all.
 - **Patch** will be incremented for bug fixes and refactoring that do not touch the API.
@@ -70,8 +75,7 @@ specifying the current version of the module.
 All modules should follow the organizational layout described below. Some parts of the layout
 are not needed for every module, and so they can be skipped.
 
-- **License** - Most modules are designed to be usable without the rest of the library, so
-  including a copy of the license is necessary.
+- **License** - Include a copy of the license.
 - **Module Documentation** - A high-level overview of the module. This generally follows the format
   below.
   - Explanation of what the module provides. This includes pointing out a few types, functions,
@@ -113,14 +117,6 @@ further exacerbated by the fact that very few systems require avoiding the stand
 That being said, supporting redefining specific library functions is a good idea.
 Specifically, allocating memory, accessing the file system, printing text, and other similar
 functions should support wrappers that the user can redefine.
-
-### Handling Library Inter-Dependencies
-
-As each module is meant to belong to the same, single library, inter-library dependencies will
-naturally occur. For some, larger modules, avoiding those dependencies is incredibly
-difficult or impossible, so they are acceptable. For smaller modules, including the
-dependencies by default, but having a macro flag that can remove the dependency is the
-preferred method.
 
 ### Handling External Dependencies
 

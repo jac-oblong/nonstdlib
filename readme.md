@@ -1,15 +1,14 @@
 # NonStdLib
 
-A non-standard library for C. This contains a collection of types, functions, utilities, etc.
-that are designed to work together. The library utilizes the 
-[stb-style header-only design](https://github.com/nothings/stb). As such, parts of the library can 
-be used simply by copying the header file. Not all files are capable of this, however, as they rely 
-on other parts of the library. Additionally, if desired, source files exist for each part of the 
-library.
+A non-standard library for C. This contains a collection of types, functions, utilities, etc. that 
+are designed to address some of the limitations of C's standard library. It is considered 
+non-standard because it relies on macros and other unusual designs to implement functionality. It
+should be noted that this library is primarily an experiment and a learning opportunity. Its goal is
+to push C beyond the normal use case without going too far into the deep end.
 
 > [!WARNING]
-> This library has only been testing using gcc on Linux. There is no guarantee that it will function
-> correctly with any other compiler / on any other platform.
+> This library uses C23 features and has only been testing using gcc on Linux. There is no 
+> guarantee that it will function correctly with any other compiler / on any other platform.
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
@@ -27,11 +26,9 @@ library.
 
 ## File Structure
 
-- [Header Files](file:inc) - The actual implementation of the library units. Everything of note
-  exists within this folder.
-- [Source Files](file:src) - Optional individual library units. These files simply include and
-  corresponding header file and implementation.
-- [Tests](file:test) - Unit tests for the library.
+- [Header Files](file:nonstdlib) - The actual implementation of the library units. Everything of 
+  note exists within this folder.
+- [Tests](file:test) - All tests for the library.
 - [Documentation](file:doc) - Various pieces of documentation. The documentation / examples for each
   module are in the header files themselves. This folder holds other pieces of documentation that
   do not fit elsewhere.
@@ -49,7 +46,7 @@ library.
 
 ### Data Structures
 
-- **Array** - Auto-Generated Wrapper for C Arrays
+- **Array** - TODO
 - **DynamicArray** - TODO
 - **LinkedList** - TODO
 - **SinglyLinkedList** - TODO
@@ -58,12 +55,16 @@ library.
 - **Map** - TODO
 - **HashMap** - TODO
 - **RedBlackTree** - TODO
+- **Queue** - TODO
+- **Deque** - TODO
+- **RingBuffer** - TODO
 
 ### String Types
 
 - **String** - TODO
 - **StringView** - TODO
 - **StringBuilder** - TODO
+- **ShortString** - TODO
 - **Rope** - TODO
 
 ### Allocators
