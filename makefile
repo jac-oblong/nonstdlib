@@ -13,8 +13,9 @@ TEST_DIR    = test
 INCLUDE_DIR = inc
 TESTS		= $(BUILD_DIR)/todo  \
 			  $(BUILD_DIR)/array
+WARNINGS	= -Wall -Wextra -Werror -Wpedantic -Wconversion -Wwrite-strings -pedantic-errors
 CC			= gcc
-CC_FLAGS	= -std=c23 -Wall -Wextra -Werror -pedantic -pedantic-errors -I$(INCLUDE_DIR) -fsanitize=address $(OPTIMIZATION)
+CC_FLAGS	= -std=c23 $(WARNINGS) -I$(INCLUDE_DIR) -fsanitize=address $(OPTIMIZATION)
 
 
 .PHONY: all
