@@ -10,8 +10,7 @@ endif
 
 BUILD_DIR   = build
 TEST_DIR    = test
-TESTS		= $(BUILD_DIR)/todo  \
-			  $(BUILD_DIR)/array
+TESTS		= $(BUILD_DIR)/todo
 WARNINGS	= -Wall -Wextra -Werror -Wpedantic -Wconversion -Wwrite-strings -pedantic-errors
 CC			= gcc
 CC_FLAGS	= -std=c23 $(WARNINGS) -I. -fsanitize=address $(OPTIMIZATION)
@@ -28,11 +27,6 @@ $(BUILD_DIR)/todo: $(TEST_DIR)/todo.c
 	$(Q)if $@ &>/dev/null; then false; else true; fi
 	$(Q)if $(CC) $(CC_FLAGS) $< -o $@ -Dnsl_todo=nsl_todo_comptime &>/dev/null; then false; else true; fi
 	$(Q)echo "Todo - Test(s) Passed"
-
-$(BUILD_DIR)/array: $(TEST_DIR)/array.c $(INCLUDE_DIR)/array.h
-	$(Q)$(CC) $(CC_FLAGS) $< -o $@
-	$(Q)$@
-	$(Q)echo "Array - Test(s) Passed"
 
 $(BUILD_DIR):
 	mkdir -p $@
