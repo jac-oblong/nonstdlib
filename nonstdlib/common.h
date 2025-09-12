@@ -34,11 +34,16 @@
  * - `NSL_STRIP_PREFIX`: Defining this macro before this file is included will
  *   cause public facing utilities to have the `NSL_`/`nsl_` prefix stripped
  *   from their name.
+ * - `NSL_COMMON_STRIP_PREFIX`: Same as `NSL_STRIP_PREFIX`, but will only strip
+ *   prefixes for things in this module and not in the entire library.
  *
  * # Redefinable Macros
  *
  * - `nsl_eprintf`: Can be defined to redirect error messages.
  * - `nsl_abort`: Can be defined to redirect abort handler.
+ * - `nsl_malloc`: Can be defined to redirect memory allocation.
+ * - `nsl_realloc`: Can be defined to redirect memory re-allocation.
+ * - `nsl_free`: Can be defined to redirect memory freeing.
  */
 
 #ifndef NSL_COMMON_H_
@@ -213,6 +218,80 @@ extern void nsl_abort(void);
 #endif  // defined(nsl_abort)
 nsl_assert_is_of_type(nsl_abort, void (*)(void), "'nsl_abort' is of wrong type");
 
+/*!
+ * `nsl_malloc` can optionally be defined by the user to redirect `malloc` to a
+ * different handler.
+ *
+ * NOTE: The overriding function does not need to be declared prior to any
+ * includes or even in the same translation unit, as the function will be
+ * forward declared using `extern`.
+ *
+ * # Requires
+ * - The macro evaluation has the type `void *(*)(size_t)`.
+ * - The behavior of `nsl_malloc` must match the behavior of libc's `malloc`
+ *   (i.e. if there is an error, `nullptr` is returned).
+ * - Redefining `nsl_malloc` requires redefining `nsl_realloc` and `nsl_free`.
+ */
+#if defined(nsl_malloc)
+extern void *nsl_malloc(void);
+#    if !defined(nsl_free) || !defined(nsl_realloc)
+#        error "Defining `nsl_malloc` requires defining both `nsl_realloc` and `nsl_free`"
+#    endif
+#else
+#    include <stdlib.h>
+#    define nsl_malloc malloc
+#endif  // defined(nsl_malloc)
+nsl_assert_is_of_type(nsl_malloc, void *(*)(size_t), "'nsl_malloc' is of wrong type");
+
+/*!
+ * `nsl_realloc` can optionally be defined by the user to redirect `realloc` to
+ * a different handler.
+ *
+ * NOTE: The overriding function does not need to be declared prior to any
+ * includes or even in the same translation unit, as the function will be
+ * forward declared using `extern`.
+ *
+ * # Requires
+ * - The macro evaluation has the type `void *(*)(void *, size_t)`.
+ * - The behavior of `nsl_realloc` must match the behavior of libc's `realloc`
+ *   (i.e. if there is an error, `nullptr` is returned).
+ * - Redefining `nsl_realloc` requires redefining `nsl_malloc` and `nsl_free`.
+ */
+#if defined(nsl_realloc)
+extern void *nsl_realloc(void);
+#    if !defined(nsl_free) || !defined(nsl_malloc)
+#        error "Defining `nsl_realloc` requires defining both `nsl_malloc` and `nsl_free`"
+#    endif
+#else
+#    include <stdlib.h>
+#    define nsl_realloc realloc
+#endif  // defined(nsl_realloc)
+nsl_assert_is_of_type(nsl_realloc, void *(*)(void *, size_t), "'nsl_realloc' is of wrong type");
+
+/*!
+ * `nsl_free` can optionally be defined by the user to redirect `free` to a
+ * different handler.
+ *
+ * NOTE: The overriding function does not need to be declared prior to any
+ * includes or even in the same translation unit, as the function will be
+ * forward declared using `extern`.
+ *
+ * # Requires
+ * - The macro evaluation has the type `void (*)(void *)`.
+ * - The behavior of `nsl_free` must match the behavior of libc's `free`.
+ * - Redefining `nsl_free` requires redefining `nsl_malloc` and `nsl_realloc`.
+ */
+#if defined(nsl_free)
+extern void *nsl_free(void);
+#    if !defined(nsl_malloc) || !defined(nsl_realloc)
+#        error "Defining `nsl_free` requires defining both `nsl_malloc` and `nsl_realloc`"
+#    endif
+#else
+#    include <stdlib.h>
+#    define nsl_free free
+#endif  // defined(nsl_free)
+nsl_assert_is_of_type(nsl_free, void (*)(void *), "'nsl_free' is of wrong type");
+
 /******************************************************************************/
 /*                                                                            */
 /*              MACROS FOR GENERATING ERRORS ON UNFINISHED CODE               */
@@ -290,12 +369,12 @@ void nsl__todo_runtime(const char *message, const char *file, int line) {
 /*                                                                            */
 /******************************************************************************/
 
-#if defined(NSL_STRIP_PREFIX)
+#if defined(NSL_STRIP_PREFIX) || defined(NSL_COMMON_STRIP_PREFIX)
 #    define is_of_type        nsl_is_of_type
 #    define assert_is_of_type nsl_assert_is_of_type
 #    define todo              nsl_todo
 #    define todo_runtime      nsl_todo_runtime
 #    define todo_comptime     nsl_todo_comptime
-#endif  // defined(NSL_STRIP_PREFIX)
+#endif  // defined(NSL_STRIP_PREFIX) || defined(NSL_COMMON_STRIP_PREFIX)
 
 #endif  // NSL_COMMON_H_
