@@ -85,9 +85,9 @@
 
 /*!
  * Concatenates the two provided arguments into one. For example,
- * `NSL_CONCAT(foo, bar)` would be expanded by the preprocessor to `foobar`.
+ * `NSL_CAT(foo, bar)` would be expanded by the preprocessor to `foobar`.
  *
- * `NSL_CONCAT` requires two levels of indirection. This is because the
+ * `NSL_CAT` requires two levels of indirection. This is because the
  * preprocessor does not recursively expand macros if `#` or `##` are present.
  * For example, `A ## __LINE__` would result in `A__LINE__` instead of `A15` (or
  * whatever line number it is). By introducing a second layer of indirection,
@@ -101,7 +101,7 @@
  * # Returns
  * The concatenated full name.
  */
-#define NSL__CONCAT(a, b) a##b
-#define NSL_CONCAT(a, b)  NSL__CONCAT(a, b)
+#define NSL__CAT(a, b) a##b
+#define NSL_CAT(a, b)  NSL__CAT(a, b)
 
 #endif  // NSL_MAGIC_H_
