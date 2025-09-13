@@ -61,26 +61,6 @@
 
 /******************************************************************************/
 /*                                                                            */
-/*                                META MACROS                                 */
-/*                                                                            */
-/******************************************************************************/
-
-/*!
- * Concatenates the two provided arguments into one. For example,
- * `NSL_CONCAT(foo, bar)` would be expanded by the preprocessor to `foobar`.
- *
- * # Parameters
- * - `a`: The first part of the full name.
- * - `b`: The second part of the full name.
- *
- * # Returns
- * The concatenated full name.
- */
-#define NSL_CONCAT_(a, b) a##b
-#define NSL_CONCAT(a, b)  NSL_CONCAT_(a, b)
-
-/******************************************************************************/
-/*                                                                            */
 /*                            TYPE CHECKING MACROS                            */
 /*                                                                            */
 /******************************************************************************/
