@@ -39,6 +39,16 @@
  * Returns the number of arguments provided. For example, `NSL_NARGS(a, b, c)`
  * would evaluate to `3` because there are 3 arguments.
  *
+ * `NSL_NARGS` first redirects to `NSL__NARGS`. Without this redirection,
+ * `NSL__REVERSE_SEQUENCE_N` will not be expanded and instead treated as one
+ * token. `NSL__NARGS` is a straight redirection to `NSL__ARG_N` which just
+ * chooses the Nth argument. As more arguments are provided to `NSL_NARGS`, the
+ * location of the Nth is pushed towards the front of `NSL__REVERSE_SEQUENCE_N`,
+ * which correlates with a higher value. In short, `NSL__ARG_N` acts as a
+ * sliding window over `NSL__REVERSE_SEQUENCE_N`. `NSL__NARGS` ensures that all
+ * necessary layers of indirection are present to fully expand the macros. And
+ * finally, `NSL_NARGS` provides the extra arguments to push the sliding window.
+ *
  * # Requirements
  * - The number of arguments is less than 128. If 128 or more arguments are
  *   provided, the macro will evaluate to the 128th argument.
@@ -60,13 +70,15 @@
                    _119, _120, _121, _122, _123, _124, _125, _126, _127,        \
                    N, ...) N
 #define NSL__REVERSE_SEQUENCE_N                                                 \
-    127, 126, 125, 124, 123, 122, 121, 120, 119, 118, 117, 116, 115, 114, 113,  \
-    112, 111, 110, 109, 108, 107, 106, 105, 104, 103, 102, 101, 100, 99, 98, 97,\
-    96, 95, 94, 93, 92, 91, 90, 89, 88, 87, 86, 85, 84, 83, 82, 81, 80, 79, 78, \
-    77, 76, 75, 74, 73, 72, 71, 70, 69, 68, 67, 66, 65, 64, 63, 62, 61, 60, 59, \
-    58, 57, 56, 55, 54, 53, 52, 51, 50, 49, 48, 47, 46, 45, 44, 43, 42, 41, 40, \
-    39, 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, \
-    20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0
+                                       127, 126, 125, 124, 123, 122, 121, 120,  \
+    119, 118, 117, 116, 115, 114, 113, 112, 111, 110, 109, 108, 107, 106, 105,  \
+    104, 103, 102, 101, 100,  99,  98,  97,  96,  95,  94,  93,  92,  91,  90,  \
+     89,  88,  87,  86,  85,  84,  83,  82,  81,  80,  79,  78,  77,  76,  75,  \
+     74,  73,  72,  71,  70,  69,  68,  67,  66,  65,  64,  63,  62,  61,  60,  \
+     59,  58,  57,  56,  55,  54,  53,  52,  51,  50,  49,  48,  47,  46,  45,  \
+     44,  43,  42,  41,  40,  39,  38,  37,  36,  35,  34,  33,  32,  31,  30,  \
+     29,  28,  27,  26,  25,  24,  23,  22,  21,  20,  19,  18,  17,  16,  15,  \
+     14,  13,  12,  11,  10,   9,   8,   7,   6,   5,   4,   3,   2,   1,   0
 // clang-format on
 #define NSL__NARGS(...) NSL__ARG_N(__VA_ARGS__)
 #define NSL_NARGS(...)  NSL__NARGS(__VA_ARGS__ __VA_OPT__(, ) NSL__REVERSE_SEQUENCE_N)
@@ -74,6 +86,13 @@
 /*!
  * Concatenates the two provided arguments into one. For example,
  * `NSL_CONCAT(foo, bar)` would be expanded by the preprocessor to `foobar`.
+ *
+ * `NSL_CONCAT` requires two levels of indirection. This is because the
+ * preprocessor does not recursively expand macros if `#` or `##` are present.
+ * For example, `A ## __LINE__` would result in `A__LINE__` instead of `A15` (or
+ * whatever line number it is). By introducing a second layer of indirection,
+ * the `__LINE__` is forced to be expanded to `15`, at which point `A ## 15`
+ * will provide the correct result.
  *
  * # Parameters
  * - `a`: The first part of the full name.
