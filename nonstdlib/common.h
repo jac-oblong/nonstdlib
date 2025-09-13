@@ -343,7 +343,7 @@ nsl_assert_is_of_type(nsl_free, void (*)(void *), "'nsl_free' is of wrong type")
 
 [[noreturn]]
 void nsl__todo_runtime(const char *message, const char *file, int line) {
-    nsl_eprintf("[TODO] %s:%d - %d\n", file, line, message);
+    nsl_eprintf("[TODO] %s:%d - %s\n", file, line, message);
     nsl_abort();
 }
 
