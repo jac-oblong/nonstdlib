@@ -104,4 +104,31 @@
 #define NSL__CAT(a, b) a##b
 #define NSL_CAT(a, b)  NSL__CAT(a, b)
 
+/*!
+ * Evaluates to the head of the variadic arguments (i.e. the first argument).
+ *
+ * `NSL_VA_HEAD` requires two levels of indirection. This is to ensure that
+ * passing a macro that expands to the variadic arguments works correctly and is
+ * expanded.
+ *
+ * # Returns
+ * The first argument in the variadic list of arguments, if any exists.
+ */
+#define NSL__VA_HEAD(head, ...) head
+#define NSL_VA_HEAD(...)        NSL__VA_HEAD(__VA_ARGS__)
+
+/*!
+ * Evaluates to the rest of the variadic arguments (i.e. all arguments except
+ * for the first).
+ *
+ * `NSL_VA_REST` requires two levels of indirection. This is to ensure that
+ * passing a macro that expands to the variadic arguments works correctly and is
+ * expanded.
+ *
+ * # Returns
+ * The rest of the arguments in the variadic list of arguments, if any exists.
+ */
+#define NSL__VA_REST(head, ...) __VA_ARGS__
+#define NSL_VA_REST(...)        NSL__VA_REST(__VA_ARGS__)
+
 #endif  // NSL_MAGIC_H_
