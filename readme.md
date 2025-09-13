@@ -1,13 +1,13 @@
 # NonStdLib
 
-A non-standard library for C. This contains a collection of types, functions, utilities, etc. that 
-are designed to address some of the limitations of C's standard library. It is considered 
+A non-standard library for C. This contains a collection of types, functions, utilities, etc. that
+are designed to address some of the limitations of C's standard library. It is considered
 non-standard because it relies on macros and other unusual designs to implement functionality. It
 should be noted that this library is primarily an experiment and a learning opportunity. Its goal is
 to push C beyond the normal use case without going too far into the deep end.
 
 > [!WARNING]
-> This library uses C23 features and has only been testing using gcc on Linux. There is no 
+> This library uses C23 features and has only been testing using gcc on Linux. There is no
 > guarantee that it will function correctly with any other compiler / on any other platform.
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
@@ -15,14 +15,31 @@ to push C beyond the normal use case without going too far into the deep end.
 
 - [NonStdLib](#nonstdlib)
   - [File Structure](#file-structure)
-  - [Features](#features)
-    - [Miscellaneous](#miscellaneous)
-    - [Data Structures](#data-structures)
-    - [String Types](#string-types)
-    - [Allocators](#allocators)
-    - [Larger Tools](#larger-tools)
+  - [Road Map](#road-map)
 
 <!-- markdown-toc end -->
+
+## Macro Flags
+
+**NonStdLib** uses macro flags to control certain features. Some of these flags can be defined
+globally during compilation, but others are more restricted. A list of all the most prevalent flags
+is given below.
+
+- `NSL_IMPLEMENTATION` - Defining this flag before including a module will also include the
+  implementation of that module, if any exists. This can be made more selective by adding the name
+  of the module in the pattern `NSL_..._IMPLEMENTATION`. For example, defining
+  `NSL_ALLOCATOR_ARENA_IMPLEMENTATION` will include the implementation for
+  `nonstdlib/allocator/arena.h`, but would not include the implementation for
+  `nonstdlib/allocator/generic.h` or `nonstdlib/common.h`. Likewise, defining
+  `NSL_ALLOCATOR_IMPLEMENTATION` would include the implementation for `nonstdlib/allocator/arena.h`
+  and `nonstdlib/allocator/generic.h` because they are both in the `ALLOCATOR` module, but not
+  `nonstdlib/common.h`.
+- `NSL_STRIP_PREFIX` - Defining this flag before including a module will cause the `NSL_`/`nsl_`
+  prefix to be stripped from all public facing types, functions, macros, etc. For example,
+  `NSL_ArenaAllocator` would become `ArenaAllocator`. The original definitions will still exist in
+  addition to the stripped prefix definitions. This can be made more selective by adding the name of
+  the module in the pattern `NSL_..._STRIP_PREFIX`. This works in the same way as for
+  `NSL_IMPLEMENTATION`.
 
 ## File Structure
 
@@ -33,51 +50,38 @@ to push C beyond the normal use case without going too far into the deep end.
   module are in the header files themselves. This folder holds other pieces of documentation that
   do not fit elsewhere.
 
-## Features
+## Road Map
 
-### Miscellaneous
-
-- **Todo** - Provides a macro for marking things that need to be done.
-- **Logging** - TODO
-- **Pretty Printer** - TODO
-- **Sequencer** - TODO
-- **Command Line Arguments Parser** - TODO
-- **JSON Serializer / De-Serializer** - TODO
-
-### Data Structures
-
-- **Array** - TODO
-- **DynamicArray** - TODO
-- **LinkedList** - TODO
-- **SinglyLinkedList** - TODO
-- **BinaryTree** - TODO
-- **Tree** - TODO
-- **Map** - TODO
-- **HashMap** - TODO
-- **RedBlackTree** - TODO
-- **Queue** - TODO
-- **Deque** - TODO
-- **RingBuffer** - TODO
-
-### String Types
-
-- **String** - TODO
-- **StringView** - TODO
-- **StringBuilder** - TODO
-- **ShortString** - TODO
-- **Rope** - TODO
-
-### Allocators
-
+Not necessarily in order.
 [Reference](http://www.gingerbill.org/series/memory-allocation-strategies/)
 
-- **Pool** - TODO
-- **Stack** - TODO
-- **Arena** - TODO
-- **FreeList** - TODO
-- **Buddy** - TODO
-
-### Larger Tools
-
-- **Unit Test** - TODO
-- **Build Tool** - TODO
+- **ArenaAllocator**
+- **DefaultAllocator**
+- **StackAllocator**
+- **PoolAllocator**
+- **FreeListAllocator**
+- **BuddyAllocator**
+- **Array**
+- **DynamicArray**
+- **LinkedList**
+- **SinglyLinkedList**
+- **BinaryTree**
+- **Tree**
+- **Map**
+- **HashMap**
+- **RedBlackTree**
+- **Queue**
+- **Deque**
+- **RingBuffer**
+- **String**
+- **StringView**
+- **StringBuilder**
+- **ShortString**
+- **Rope**
+- **Pretty Printer**
+- **Logging**
+- **Command Line Arguments Parser**
+- **JSON Serializer / De-Serializer**
+- **Sequencer**
+- **Unit Test**
+- **Build Tool**
