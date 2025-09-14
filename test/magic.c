@@ -44,61 +44,61 @@ void test_nargs(void) {
     // clang-format on
 }
 
-void test_va_head(void) {
-    assert(NSL_VA_HEAD(1) == 1);
-    assert(NSL_VA_HEAD(1, 2, 3, 4) == 1);
-    assert(NSL_VA_HEAD(NSL__REVERSE_SEQUENCE_N) == 127);
+void test_arg_head(void) {
+    assert(NSL_ARG_HEAD(1) == 1);
+    assert(NSL_ARG_HEAD(1, 2, 3, 4) == 1);
+    assert(NSL_ARG_HEAD(NSL__REVERSE_SEQUENCE_N) == 127);
 }
 
-void test_va_rest(void) {
+void test_arg_rest(void) {
     // should evaluate to nothing
-    NSL_VA_REST(1)
+    NSL_ARG_REST(1)
 
     int expected[] = {2, 3, 4};
-    int result[]   = {NSL_VA_REST(1, 2, 3, 4)};
+    int result[]   = {NSL_ARG_REST(1, 2, 3, 4)};
     for (unsigned long i = 0; i < sizeof(result) / sizeof(*result); i++) {
         assert(expected[i] == result[i]);
     }
 
-    unsigned long rev_seq[] = {NSL_VA_REST(NSL__REVERSE_SEQUENCE_N)};
+    unsigned long rev_seq[] = {NSL_ARG_REST(NSL__REVERSE_SEQUENCE_N)};
     for (unsigned long i = 0; i < sizeof(rev_seq) / sizeof(*rev_seq); i++) {
         assert(rev_seq[i] == (126 - i));
     }
 }
 
-void test_va_tail(void) {
-    assert(NSL_VA_TAIL(1) == 1);
-    assert(NSL_VA_TAIL(1, 2, 3, 4) == 4);
-    assert(NSL_VA_TAIL(NSL_VA_REST(NSL__REVERSE_SEQUENCE_N)) == 0);
+void test_arg_tail(void) {
+    assert(NSL_ARG_TAIL(1) == 1);
+    assert(NSL_ARG_TAIL(1, 2, 3, 4) == 4);
+    assert(NSL_ARG_TAIL(NSL_ARG_REST(NSL__REVERSE_SEQUENCE_N)) == 0);
 }
 
-void test_va_init(void) {
+void test_arg_init(void) {
     // should evaluate to nothing
-    NSL_VA_INIT(1)
+    NSL_ARG_INIT(1)
 
     int expected[] = {1, 2, 3};
-    int result[]   = {NSL_VA_INIT(1, 2, 3, 4)};
+    int result[]   = {NSL_ARG_INIT(1, 2, 3, 4)};
     for (unsigned long i = 0; i < sizeof(result) / sizeof(*result); i++) {
         assert(expected[i] == result[i]);
     }
 
-    unsigned long rev_seq[] = {NSL_VA_INIT(NSL_VA_REST(NSL__REVERSE_SEQUENCE_N))};
+    unsigned long rev_seq[] = {NSL_ARG_INIT(NSL_ARG_REST(NSL__REVERSE_SEQUENCE_N))};
     for (unsigned long i = 0; i < sizeof(rev_seq) / sizeof(*rev_seq); i++) {
         assert(rev_seq[i] == (126 - i));
     }
 }
 
-void test_va_reverse(void) {
+void test_arg_reverse(void) {
     // should evaluate to nothing
-    NSL_VA_REVERSE()
+    NSL_ARG_REVERSE()
 
     int expected[] = {4, 3, 2, 1};
-    int result[]   = {NSL_VA_REVERSE(1, 2, 3, 4)};
+    int result[]   = {NSL_ARG_REVERSE(1, 2, 3, 4)};
     for (unsigned long i = 0; i < sizeof(result) / sizeof(*result); i++) {
         assert(expected[i] == result[i]);
     }
 
-    unsigned long rev_seq[] = {NSL_VA_REVERSE(NSL_VA_REST(NSL__REVERSE_SEQUENCE_N))};
+    unsigned long rev_seq[] = {NSL_ARG_REVERSE(NSL_ARG_REST(NSL__REVERSE_SEQUENCE_N))};
     for (unsigned long i = 0; i < sizeof(rev_seq) / sizeof(*rev_seq); i++) {
         assert(rev_seq[i] == i);
     }
@@ -115,7 +115,7 @@ void test_foreach(void) {
         assert(expected[i] == result[i]);
     }
 
-    unsigned long rev_seq[] = {NSL_FOREACH(TIMES_10, NSL_VA_REST(NSL__REVERSE_SEQUENCE_N))};
+    unsigned long rev_seq[] = {NSL_FOREACH(TIMES_10, NSL_ARG_REST(NSL__REVERSE_SEQUENCE_N))};
     for (unsigned long i = 0; i < sizeof(rev_seq) / sizeof(*rev_seq); i++) {
         assert(rev_seq[i] == ((126 - i) * 10));
     }
@@ -148,11 +148,11 @@ int main() {
     test_cat();
     test_ncat();
     test_nargs();
-    test_va_head();
-    test_va_rest();
-    test_va_tail();
-    test_va_init();
-    test_va_reverse();
+    test_arg_head();
+    test_arg_rest();
+    test_arg_tail();
+    test_arg_init();
+    test_arg_reverse();
     test_foreach();
     test_forall_rest();
     test_forall_init();
