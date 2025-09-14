@@ -256,36 +256,36 @@
 /*!
  * Evaluates to the head of the variadic arguments (i.e. the first argument).
  *
- * `NSL_VA_HEAD` requires two levels of indirection. This is to ensure that
+ * `NSL_ARG_HEAD` requires two levels of indirection. This is to ensure that
  * passing a macro that expands to the variadic arguments works correctly and is
  * expanded.
  *
  * # Returns
  * The first argument in the variadic list of arguments, if any exists.
  */
-#define NSL_VA_HEAD(...)        NSL__VA_HEAD(__VA_ARGS__)
-#define NSL__VA_HEAD(head, ...) head
+#define NSL_ARG_HEAD(...)        NSL__ARG_HEAD(__VA_ARGS__)
+#define NSL__ARG_HEAD(head, ...) head
 
 /*!
  * Evaluates to the rest of the variadic arguments (i.e. all arguments except
  * for the first).
  *
- * `NSL_VA_REST` requires two levels of indirection. This is to ensure that
+ * `NSL_ARG_REST` requires two levels of indirection. This is to ensure that
  * passing a macro that expands to the variadic arguments works correctly and is
  * expanded.
  *
  * # Returns
  * The rest of the arguments in the variadic list of arguments, if any exists.
  */
-#define NSL_VA_REST(...)        NSL__VA_REST(__VA_ARGS__)
-#define NSL__VA_REST(head, ...) __VA_ARGS__
+#define NSL_ARG_REST(...)        NSL__ARG_REST(__VA_ARGS__)
+#define NSL__ARG_REST(head, ...) __VA_ARGS__
 
 /*!
  * Evaluates to the tail of the variadic arguments (i.e. the last argument).
  *
- * `NSL_VA_TAIL` requires two levels of indirection. This is to ensure that
+ * `NSL_ARG_TAIL` requires two levels of indirection. This is to ensure that
  * passing a macro that expands to the variadic arguments works correctly and is
- * expanded. `NSL__VA_TAIl` concatentates `NSL__VA_TAIL` with the number of
+ * expanded. `NSL__ARG_TAIl` concatentates `NSL__ARG_TAIL` with the number of
  * arguments provided (using `NSL_NARGS`, which is restricted to [0-127]). The
  * corresponding macro is called and it pops off elements in the list until only
  * the last is left which returned.
@@ -298,144 +298,144 @@
  * # Returns
  * The last argument in the variadic list of arguments, if any exists.
  */
-#define NSL_VA_TAIL(...)  NSL__VA_TAIL(__VA_ARGS__)
-#define NSL__VA_TAIL(...) NSL_CAT(NSL__VA_TAIL, NSL_NARGS(__VA_ARGS__))(__VA_ARGS__)
-#define NSL__VA_TAIL0()
-#define NSL__VA_TAIL1(x)        x
-#define NSL__VA_TAIL2(x, ...)   NSL__VA_TAIL1(__VA_ARGS__)
-#define NSL__VA_TAIL3(x, ...)   NSL__VA_TAIL2(__VA_ARGS__)
-#define NSL__VA_TAIL4(x, ...)   NSL__VA_TAIL3(__VA_ARGS__)
-#define NSL__VA_TAIL5(x, ...)   NSL__VA_TAIL4(__VA_ARGS__)
-#define NSL__VA_TAIL6(x, ...)   NSL__VA_TAIL5(__VA_ARGS__)
-#define NSL__VA_TAIL7(x, ...)   NSL__VA_TAIL6(__VA_ARGS__)
-#define NSL__VA_TAIL8(x, ...)   NSL__VA_TAIL7(__VA_ARGS__)
-#define NSL__VA_TAIL9(x, ...)   NSL__VA_TAIL8(__VA_ARGS__)
-#define NSL__VA_TAIL10(x, ...)  NSL__VA_TAIL9(__VA_ARGS__)
-#define NSL__VA_TAIL11(x, ...)  NSL__VA_TAIL10(__VA_ARGS__)
-#define NSL__VA_TAIL12(x, ...)  NSL__VA_TAIL11(__VA_ARGS__)
-#define NSL__VA_TAIL13(x, ...)  NSL__VA_TAIL12(__VA_ARGS__)
-#define NSL__VA_TAIL14(x, ...)  NSL__VA_TAIL13(__VA_ARGS__)
-#define NSL__VA_TAIL15(x, ...)  NSL__VA_TAIL14(__VA_ARGS__)
-#define NSL__VA_TAIL16(x, ...)  NSL__VA_TAIL15(__VA_ARGS__)
-#define NSL__VA_TAIL17(x, ...)  NSL__VA_TAIL16(__VA_ARGS__)
-#define NSL__VA_TAIL18(x, ...)  NSL__VA_TAIL17(__VA_ARGS__)
-#define NSL__VA_TAIL19(x, ...)  NSL__VA_TAIL18(__VA_ARGS__)
-#define NSL__VA_TAIL20(x, ...)  NSL__VA_TAIL19(__VA_ARGS__)
-#define NSL__VA_TAIL21(x, ...)  NSL__VA_TAIL20(__VA_ARGS__)
-#define NSL__VA_TAIL22(x, ...)  NSL__VA_TAIL21(__VA_ARGS__)
-#define NSL__VA_TAIL23(x, ...)  NSL__VA_TAIL22(__VA_ARGS__)
-#define NSL__VA_TAIL24(x, ...)  NSL__VA_TAIL23(__VA_ARGS__)
-#define NSL__VA_TAIL25(x, ...)  NSL__VA_TAIL24(__VA_ARGS__)
-#define NSL__VA_TAIL26(x, ...)  NSL__VA_TAIL25(__VA_ARGS__)
-#define NSL__VA_TAIL27(x, ...)  NSL__VA_TAIL26(__VA_ARGS__)
-#define NSL__VA_TAIL28(x, ...)  NSL__VA_TAIL27(__VA_ARGS__)
-#define NSL__VA_TAIL29(x, ...)  NSL__VA_TAIL28(__VA_ARGS__)
-#define NSL__VA_TAIL30(x, ...)  NSL__VA_TAIL29(__VA_ARGS__)
-#define NSL__VA_TAIL31(x, ...)  NSL__VA_TAIL30(__VA_ARGS__)
-#define NSL__VA_TAIL32(x, ...)  NSL__VA_TAIL31(__VA_ARGS__)
-#define NSL__VA_TAIL33(x, ...)  NSL__VA_TAIL32(__VA_ARGS__)
-#define NSL__VA_TAIL34(x, ...)  NSL__VA_TAIL33(__VA_ARGS__)
-#define NSL__VA_TAIL35(x, ...)  NSL__VA_TAIL34(__VA_ARGS__)
-#define NSL__VA_TAIL36(x, ...)  NSL__VA_TAIL35(__VA_ARGS__)
-#define NSL__VA_TAIL37(x, ...)  NSL__VA_TAIL36(__VA_ARGS__)
-#define NSL__VA_TAIL38(x, ...)  NSL__VA_TAIL37(__VA_ARGS__)
-#define NSL__VA_TAIL39(x, ...)  NSL__VA_TAIL38(__VA_ARGS__)
-#define NSL__VA_TAIL40(x, ...)  NSL__VA_TAIL39(__VA_ARGS__)
-#define NSL__VA_TAIL41(x, ...)  NSL__VA_TAIL40(__VA_ARGS__)
-#define NSL__VA_TAIL42(x, ...)  NSL__VA_TAIL41(__VA_ARGS__)
-#define NSL__VA_TAIL43(x, ...)  NSL__VA_TAIL42(__VA_ARGS__)
-#define NSL__VA_TAIL44(x, ...)  NSL__VA_TAIL43(__VA_ARGS__)
-#define NSL__VA_TAIL45(x, ...)  NSL__VA_TAIL44(__VA_ARGS__)
-#define NSL__VA_TAIL46(x, ...)  NSL__VA_TAIL45(__VA_ARGS__)
-#define NSL__VA_TAIL47(x, ...)  NSL__VA_TAIL46(__VA_ARGS__)
-#define NSL__VA_TAIL48(x, ...)  NSL__VA_TAIL47(__VA_ARGS__)
-#define NSL__VA_TAIL49(x, ...)  NSL__VA_TAIL48(__VA_ARGS__)
-#define NSL__VA_TAIL50(x, ...)  NSL__VA_TAIL49(__VA_ARGS__)
-#define NSL__VA_TAIL51(x, ...)  NSL__VA_TAIL50(__VA_ARGS__)
-#define NSL__VA_TAIL52(x, ...)  NSL__VA_TAIL51(__VA_ARGS__)
-#define NSL__VA_TAIL53(x, ...)  NSL__VA_TAIL52(__VA_ARGS__)
-#define NSL__VA_TAIL54(x, ...)  NSL__VA_TAIL53(__VA_ARGS__)
-#define NSL__VA_TAIL55(x, ...)  NSL__VA_TAIL54(__VA_ARGS__)
-#define NSL__VA_TAIL56(x, ...)  NSL__VA_TAIL55(__VA_ARGS__)
-#define NSL__VA_TAIL57(x, ...)  NSL__VA_TAIL56(__VA_ARGS__)
-#define NSL__VA_TAIL58(x, ...)  NSL__VA_TAIL57(__VA_ARGS__)
-#define NSL__VA_TAIL59(x, ...)  NSL__VA_TAIL58(__VA_ARGS__)
-#define NSL__VA_TAIL60(x, ...)  NSL__VA_TAIL59(__VA_ARGS__)
-#define NSL__VA_TAIL61(x, ...)  NSL__VA_TAIL60(__VA_ARGS__)
-#define NSL__VA_TAIL62(x, ...)  NSL__VA_TAIL61(__VA_ARGS__)
-#define NSL__VA_TAIL63(x, ...)  NSL__VA_TAIL62(__VA_ARGS__)
-#define NSL__VA_TAIL64(x, ...)  NSL__VA_TAIL63(__VA_ARGS__)
-#define NSL__VA_TAIL65(x, ...)  NSL__VA_TAIL64(__VA_ARGS__)
-#define NSL__VA_TAIL66(x, ...)  NSL__VA_TAIL65(__VA_ARGS__)
-#define NSL__VA_TAIL67(x, ...)  NSL__VA_TAIL66(__VA_ARGS__)
-#define NSL__VA_TAIL68(x, ...)  NSL__VA_TAIL67(__VA_ARGS__)
-#define NSL__VA_TAIL69(x, ...)  NSL__VA_TAIL68(__VA_ARGS__)
-#define NSL__VA_TAIL70(x, ...)  NSL__VA_TAIL69(__VA_ARGS__)
-#define NSL__VA_TAIL71(x, ...)  NSL__VA_TAIL70(__VA_ARGS__)
-#define NSL__VA_TAIL72(x, ...)  NSL__VA_TAIL71(__VA_ARGS__)
-#define NSL__VA_TAIL73(x, ...)  NSL__VA_TAIL72(__VA_ARGS__)
-#define NSL__VA_TAIL74(x, ...)  NSL__VA_TAIL73(__VA_ARGS__)
-#define NSL__VA_TAIL75(x, ...)  NSL__VA_TAIL74(__VA_ARGS__)
-#define NSL__VA_TAIL76(x, ...)  NSL__VA_TAIL75(__VA_ARGS__)
-#define NSL__VA_TAIL77(x, ...)  NSL__VA_TAIL76(__VA_ARGS__)
-#define NSL__VA_TAIL78(x, ...)  NSL__VA_TAIL77(__VA_ARGS__)
-#define NSL__VA_TAIL79(x, ...)  NSL__VA_TAIL78(__VA_ARGS__)
-#define NSL__VA_TAIL80(x, ...)  NSL__VA_TAIL79(__VA_ARGS__)
-#define NSL__VA_TAIL81(x, ...)  NSL__VA_TAIL80(__VA_ARGS__)
-#define NSL__VA_TAIL82(x, ...)  NSL__VA_TAIL81(__VA_ARGS__)
-#define NSL__VA_TAIL83(x, ...)  NSL__VA_TAIL82(__VA_ARGS__)
-#define NSL__VA_TAIL84(x, ...)  NSL__VA_TAIL83(__VA_ARGS__)
-#define NSL__VA_TAIL85(x, ...)  NSL__VA_TAIL84(__VA_ARGS__)
-#define NSL__VA_TAIL86(x, ...)  NSL__VA_TAIL85(__VA_ARGS__)
-#define NSL__VA_TAIL87(x, ...)  NSL__VA_TAIL86(__VA_ARGS__)
-#define NSL__VA_TAIL88(x, ...)  NSL__VA_TAIL87(__VA_ARGS__)
-#define NSL__VA_TAIL89(x, ...)  NSL__VA_TAIL88(__VA_ARGS__)
-#define NSL__VA_TAIL90(x, ...)  NSL__VA_TAIL89(__VA_ARGS__)
-#define NSL__VA_TAIL91(x, ...)  NSL__VA_TAIL90(__VA_ARGS__)
-#define NSL__VA_TAIL92(x, ...)  NSL__VA_TAIL91(__VA_ARGS__)
-#define NSL__VA_TAIL93(x, ...)  NSL__VA_TAIL92(__VA_ARGS__)
-#define NSL__VA_TAIL94(x, ...)  NSL__VA_TAIL93(__VA_ARGS__)
-#define NSL__VA_TAIL95(x, ...)  NSL__VA_TAIL94(__VA_ARGS__)
-#define NSL__VA_TAIL96(x, ...)  NSL__VA_TAIL95(__VA_ARGS__)
-#define NSL__VA_TAIL97(x, ...)  NSL__VA_TAIL96(__VA_ARGS__)
-#define NSL__VA_TAIL98(x, ...)  NSL__VA_TAIL97(__VA_ARGS__)
-#define NSL__VA_TAIL99(x, ...)  NSL__VA_TAIL98(__VA_ARGS__)
-#define NSL__VA_TAIL100(x, ...) NSL__VA_TAIL99(__VA_ARGS__)
-#define NSL__VA_TAIL101(x, ...) NSL__VA_TAIL100(__VA_ARGS__)
-#define NSL__VA_TAIL102(x, ...) NSL__VA_TAIL101(__VA_ARGS__)
-#define NSL__VA_TAIL103(x, ...) NSL__VA_TAIL102(__VA_ARGS__)
-#define NSL__VA_TAIL104(x, ...) NSL__VA_TAIL103(__VA_ARGS__)
-#define NSL__VA_TAIL105(x, ...) NSL__VA_TAIL104(__VA_ARGS__)
-#define NSL__VA_TAIL106(x, ...) NSL__VA_TAIL105(__VA_ARGS__)
-#define NSL__VA_TAIL107(x, ...) NSL__VA_TAIL106(__VA_ARGS__)
-#define NSL__VA_TAIL108(x, ...) NSL__VA_TAIL107(__VA_ARGS__)
-#define NSL__VA_TAIL109(x, ...) NSL__VA_TAIL108(__VA_ARGS__)
-#define NSL__VA_TAIL110(x, ...) NSL__VA_TAIL109(__VA_ARGS__)
-#define NSL__VA_TAIL111(x, ...) NSL__VA_TAIL110(__VA_ARGS__)
-#define NSL__VA_TAIL112(x, ...) NSL__VA_TAIL111(__VA_ARGS__)
-#define NSL__VA_TAIL113(x, ...) NSL__VA_TAIL112(__VA_ARGS__)
-#define NSL__VA_TAIL114(x, ...) NSL__VA_TAIL113(__VA_ARGS__)
-#define NSL__VA_TAIL115(x, ...) NSL__VA_TAIL114(__VA_ARGS__)
-#define NSL__VA_TAIL116(x, ...) NSL__VA_TAIL115(__VA_ARGS__)
-#define NSL__VA_TAIL117(x, ...) NSL__VA_TAIL116(__VA_ARGS__)
-#define NSL__VA_TAIL118(x, ...) NSL__VA_TAIL117(__VA_ARGS__)
-#define NSL__VA_TAIL119(x, ...) NSL__VA_TAIL118(__VA_ARGS__)
-#define NSL__VA_TAIL120(x, ...) NSL__VA_TAIL119(__VA_ARGS__)
-#define NSL__VA_TAIL121(x, ...) NSL__VA_TAIL120(__VA_ARGS__)
-#define NSL__VA_TAIL122(x, ...) NSL__VA_TAIL121(__VA_ARGS__)
-#define NSL__VA_TAIL123(x, ...) NSL__VA_TAIL122(__VA_ARGS__)
-#define NSL__VA_TAIL124(x, ...) NSL__VA_TAIL123(__VA_ARGS__)
-#define NSL__VA_TAIL125(x, ...) NSL__VA_TAIL124(__VA_ARGS__)
-#define NSL__VA_TAIL126(x, ...) NSL__VA_TAIL125(__VA_ARGS__)
-#define NSL__VA_TAIL127(x, ...) NSL__VA_TAIL126(__VA_ARGS__)
+#define NSL_ARG_TAIL(...)  NSL__ARG_TAIL(__VA_ARGS__)
+#define NSL__ARG_TAIL(...) NSL_CAT(NSL__ARG_TAIL, NSL_NARGS(__VA_ARGS__))(__VA_ARGS__)
+#define NSL__ARG_TAIL0()
+#define NSL__ARG_TAIL1(x)        x
+#define NSL__ARG_TAIL2(x, ...)   NSL__ARG_TAIL1(__VA_ARGS__)
+#define NSL__ARG_TAIL3(x, ...)   NSL__ARG_TAIL2(__VA_ARGS__)
+#define NSL__ARG_TAIL4(x, ...)   NSL__ARG_TAIL3(__VA_ARGS__)
+#define NSL__ARG_TAIL5(x, ...)   NSL__ARG_TAIL4(__VA_ARGS__)
+#define NSL__ARG_TAIL6(x, ...)   NSL__ARG_TAIL5(__VA_ARGS__)
+#define NSL__ARG_TAIL7(x, ...)   NSL__ARG_TAIL6(__VA_ARGS__)
+#define NSL__ARG_TAIL8(x, ...)   NSL__ARG_TAIL7(__VA_ARGS__)
+#define NSL__ARG_TAIL9(x, ...)   NSL__ARG_TAIL8(__VA_ARGS__)
+#define NSL__ARG_TAIL10(x, ...)  NSL__ARG_TAIL9(__VA_ARGS__)
+#define NSL__ARG_TAIL11(x, ...)  NSL__ARG_TAIL10(__VA_ARGS__)
+#define NSL__ARG_TAIL12(x, ...)  NSL__ARG_TAIL11(__VA_ARGS__)
+#define NSL__ARG_TAIL13(x, ...)  NSL__ARG_TAIL12(__VA_ARGS__)
+#define NSL__ARG_TAIL14(x, ...)  NSL__ARG_TAIL13(__VA_ARGS__)
+#define NSL__ARG_TAIL15(x, ...)  NSL__ARG_TAIL14(__VA_ARGS__)
+#define NSL__ARG_TAIL16(x, ...)  NSL__ARG_TAIL15(__VA_ARGS__)
+#define NSL__ARG_TAIL17(x, ...)  NSL__ARG_TAIL16(__VA_ARGS__)
+#define NSL__ARG_TAIL18(x, ...)  NSL__ARG_TAIL17(__VA_ARGS__)
+#define NSL__ARG_TAIL19(x, ...)  NSL__ARG_TAIL18(__VA_ARGS__)
+#define NSL__ARG_TAIL20(x, ...)  NSL__ARG_TAIL19(__VA_ARGS__)
+#define NSL__ARG_TAIL21(x, ...)  NSL__ARG_TAIL20(__VA_ARGS__)
+#define NSL__ARG_TAIL22(x, ...)  NSL__ARG_TAIL21(__VA_ARGS__)
+#define NSL__ARG_TAIL23(x, ...)  NSL__ARG_TAIL22(__VA_ARGS__)
+#define NSL__ARG_TAIL24(x, ...)  NSL__ARG_TAIL23(__VA_ARGS__)
+#define NSL__ARG_TAIL25(x, ...)  NSL__ARG_TAIL24(__VA_ARGS__)
+#define NSL__ARG_TAIL26(x, ...)  NSL__ARG_TAIL25(__VA_ARGS__)
+#define NSL__ARG_TAIL27(x, ...)  NSL__ARG_TAIL26(__VA_ARGS__)
+#define NSL__ARG_TAIL28(x, ...)  NSL__ARG_TAIL27(__VA_ARGS__)
+#define NSL__ARG_TAIL29(x, ...)  NSL__ARG_TAIL28(__VA_ARGS__)
+#define NSL__ARG_TAIL30(x, ...)  NSL__ARG_TAIL29(__VA_ARGS__)
+#define NSL__ARG_TAIL31(x, ...)  NSL__ARG_TAIL30(__VA_ARGS__)
+#define NSL__ARG_TAIL32(x, ...)  NSL__ARG_TAIL31(__VA_ARGS__)
+#define NSL__ARG_TAIL33(x, ...)  NSL__ARG_TAIL32(__VA_ARGS__)
+#define NSL__ARG_TAIL34(x, ...)  NSL__ARG_TAIL33(__VA_ARGS__)
+#define NSL__ARG_TAIL35(x, ...)  NSL__ARG_TAIL34(__VA_ARGS__)
+#define NSL__ARG_TAIL36(x, ...)  NSL__ARG_TAIL35(__VA_ARGS__)
+#define NSL__ARG_TAIL37(x, ...)  NSL__ARG_TAIL36(__VA_ARGS__)
+#define NSL__ARG_TAIL38(x, ...)  NSL__ARG_TAIL37(__VA_ARGS__)
+#define NSL__ARG_TAIL39(x, ...)  NSL__ARG_TAIL38(__VA_ARGS__)
+#define NSL__ARG_TAIL40(x, ...)  NSL__ARG_TAIL39(__VA_ARGS__)
+#define NSL__ARG_TAIL41(x, ...)  NSL__ARG_TAIL40(__VA_ARGS__)
+#define NSL__ARG_TAIL42(x, ...)  NSL__ARG_TAIL41(__VA_ARGS__)
+#define NSL__ARG_TAIL43(x, ...)  NSL__ARG_TAIL42(__VA_ARGS__)
+#define NSL__ARG_TAIL44(x, ...)  NSL__ARG_TAIL43(__VA_ARGS__)
+#define NSL__ARG_TAIL45(x, ...)  NSL__ARG_TAIL44(__VA_ARGS__)
+#define NSL__ARG_TAIL46(x, ...)  NSL__ARG_TAIL45(__VA_ARGS__)
+#define NSL__ARG_TAIL47(x, ...)  NSL__ARG_TAIL46(__VA_ARGS__)
+#define NSL__ARG_TAIL48(x, ...)  NSL__ARG_TAIL47(__VA_ARGS__)
+#define NSL__ARG_TAIL49(x, ...)  NSL__ARG_TAIL48(__VA_ARGS__)
+#define NSL__ARG_TAIL50(x, ...)  NSL__ARG_TAIL49(__VA_ARGS__)
+#define NSL__ARG_TAIL51(x, ...)  NSL__ARG_TAIL50(__VA_ARGS__)
+#define NSL__ARG_TAIL52(x, ...)  NSL__ARG_TAIL51(__VA_ARGS__)
+#define NSL__ARG_TAIL53(x, ...)  NSL__ARG_TAIL52(__VA_ARGS__)
+#define NSL__ARG_TAIL54(x, ...)  NSL__ARG_TAIL53(__VA_ARGS__)
+#define NSL__ARG_TAIL55(x, ...)  NSL__ARG_TAIL54(__VA_ARGS__)
+#define NSL__ARG_TAIL56(x, ...)  NSL__ARG_TAIL55(__VA_ARGS__)
+#define NSL__ARG_TAIL57(x, ...)  NSL__ARG_TAIL56(__VA_ARGS__)
+#define NSL__ARG_TAIL58(x, ...)  NSL__ARG_TAIL57(__VA_ARGS__)
+#define NSL__ARG_TAIL59(x, ...)  NSL__ARG_TAIL58(__VA_ARGS__)
+#define NSL__ARG_TAIL60(x, ...)  NSL__ARG_TAIL59(__VA_ARGS__)
+#define NSL__ARG_TAIL61(x, ...)  NSL__ARG_TAIL60(__VA_ARGS__)
+#define NSL__ARG_TAIL62(x, ...)  NSL__ARG_TAIL61(__VA_ARGS__)
+#define NSL__ARG_TAIL63(x, ...)  NSL__ARG_TAIL62(__VA_ARGS__)
+#define NSL__ARG_TAIL64(x, ...)  NSL__ARG_TAIL63(__VA_ARGS__)
+#define NSL__ARG_TAIL65(x, ...)  NSL__ARG_TAIL64(__VA_ARGS__)
+#define NSL__ARG_TAIL66(x, ...)  NSL__ARG_TAIL65(__VA_ARGS__)
+#define NSL__ARG_TAIL67(x, ...)  NSL__ARG_TAIL66(__VA_ARGS__)
+#define NSL__ARG_TAIL68(x, ...)  NSL__ARG_TAIL67(__VA_ARGS__)
+#define NSL__ARG_TAIL69(x, ...)  NSL__ARG_TAIL68(__VA_ARGS__)
+#define NSL__ARG_TAIL70(x, ...)  NSL__ARG_TAIL69(__VA_ARGS__)
+#define NSL__ARG_TAIL71(x, ...)  NSL__ARG_TAIL70(__VA_ARGS__)
+#define NSL__ARG_TAIL72(x, ...)  NSL__ARG_TAIL71(__VA_ARGS__)
+#define NSL__ARG_TAIL73(x, ...)  NSL__ARG_TAIL72(__VA_ARGS__)
+#define NSL__ARG_TAIL74(x, ...)  NSL__ARG_TAIL73(__VA_ARGS__)
+#define NSL__ARG_TAIL75(x, ...)  NSL__ARG_TAIL74(__VA_ARGS__)
+#define NSL__ARG_TAIL76(x, ...)  NSL__ARG_TAIL75(__VA_ARGS__)
+#define NSL__ARG_TAIL77(x, ...)  NSL__ARG_TAIL76(__VA_ARGS__)
+#define NSL__ARG_TAIL78(x, ...)  NSL__ARG_TAIL77(__VA_ARGS__)
+#define NSL__ARG_TAIL79(x, ...)  NSL__ARG_TAIL78(__VA_ARGS__)
+#define NSL__ARG_TAIL80(x, ...)  NSL__ARG_TAIL79(__VA_ARGS__)
+#define NSL__ARG_TAIL81(x, ...)  NSL__ARG_TAIL80(__VA_ARGS__)
+#define NSL__ARG_TAIL82(x, ...)  NSL__ARG_TAIL81(__VA_ARGS__)
+#define NSL__ARG_TAIL83(x, ...)  NSL__ARG_TAIL82(__VA_ARGS__)
+#define NSL__ARG_TAIL84(x, ...)  NSL__ARG_TAIL83(__VA_ARGS__)
+#define NSL__ARG_TAIL85(x, ...)  NSL__ARG_TAIL84(__VA_ARGS__)
+#define NSL__ARG_TAIL86(x, ...)  NSL__ARG_TAIL85(__VA_ARGS__)
+#define NSL__ARG_TAIL87(x, ...)  NSL__ARG_TAIL86(__VA_ARGS__)
+#define NSL__ARG_TAIL88(x, ...)  NSL__ARG_TAIL87(__VA_ARGS__)
+#define NSL__ARG_TAIL89(x, ...)  NSL__ARG_TAIL88(__VA_ARGS__)
+#define NSL__ARG_TAIL90(x, ...)  NSL__ARG_TAIL89(__VA_ARGS__)
+#define NSL__ARG_TAIL91(x, ...)  NSL__ARG_TAIL90(__VA_ARGS__)
+#define NSL__ARG_TAIL92(x, ...)  NSL__ARG_TAIL91(__VA_ARGS__)
+#define NSL__ARG_TAIL93(x, ...)  NSL__ARG_TAIL92(__VA_ARGS__)
+#define NSL__ARG_TAIL94(x, ...)  NSL__ARG_TAIL93(__VA_ARGS__)
+#define NSL__ARG_TAIL95(x, ...)  NSL__ARG_TAIL94(__VA_ARGS__)
+#define NSL__ARG_TAIL96(x, ...)  NSL__ARG_TAIL95(__VA_ARGS__)
+#define NSL__ARG_TAIL97(x, ...)  NSL__ARG_TAIL96(__VA_ARGS__)
+#define NSL__ARG_TAIL98(x, ...)  NSL__ARG_TAIL97(__VA_ARGS__)
+#define NSL__ARG_TAIL99(x, ...)  NSL__ARG_TAIL98(__VA_ARGS__)
+#define NSL__ARG_TAIL100(x, ...) NSL__ARG_TAIL99(__VA_ARGS__)
+#define NSL__ARG_TAIL101(x, ...) NSL__ARG_TAIL100(__VA_ARGS__)
+#define NSL__ARG_TAIL102(x, ...) NSL__ARG_TAIL101(__VA_ARGS__)
+#define NSL__ARG_TAIL103(x, ...) NSL__ARG_TAIL102(__VA_ARGS__)
+#define NSL__ARG_TAIL104(x, ...) NSL__ARG_TAIL103(__VA_ARGS__)
+#define NSL__ARG_TAIL105(x, ...) NSL__ARG_TAIL104(__VA_ARGS__)
+#define NSL__ARG_TAIL106(x, ...) NSL__ARG_TAIL105(__VA_ARGS__)
+#define NSL__ARG_TAIL107(x, ...) NSL__ARG_TAIL106(__VA_ARGS__)
+#define NSL__ARG_TAIL108(x, ...) NSL__ARG_TAIL107(__VA_ARGS__)
+#define NSL__ARG_TAIL109(x, ...) NSL__ARG_TAIL108(__VA_ARGS__)
+#define NSL__ARG_TAIL110(x, ...) NSL__ARG_TAIL109(__VA_ARGS__)
+#define NSL__ARG_TAIL111(x, ...) NSL__ARG_TAIL110(__VA_ARGS__)
+#define NSL__ARG_TAIL112(x, ...) NSL__ARG_TAIL111(__VA_ARGS__)
+#define NSL__ARG_TAIL113(x, ...) NSL__ARG_TAIL112(__VA_ARGS__)
+#define NSL__ARG_TAIL114(x, ...) NSL__ARG_TAIL113(__VA_ARGS__)
+#define NSL__ARG_TAIL115(x, ...) NSL__ARG_TAIL114(__VA_ARGS__)
+#define NSL__ARG_TAIL116(x, ...) NSL__ARG_TAIL115(__VA_ARGS__)
+#define NSL__ARG_TAIL117(x, ...) NSL__ARG_TAIL116(__VA_ARGS__)
+#define NSL__ARG_TAIL118(x, ...) NSL__ARG_TAIL117(__VA_ARGS__)
+#define NSL__ARG_TAIL119(x, ...) NSL__ARG_TAIL118(__VA_ARGS__)
+#define NSL__ARG_TAIL120(x, ...) NSL__ARG_TAIL119(__VA_ARGS__)
+#define NSL__ARG_TAIL121(x, ...) NSL__ARG_TAIL120(__VA_ARGS__)
+#define NSL__ARG_TAIL122(x, ...) NSL__ARG_TAIL121(__VA_ARGS__)
+#define NSL__ARG_TAIL123(x, ...) NSL__ARG_TAIL122(__VA_ARGS__)
+#define NSL__ARG_TAIL124(x, ...) NSL__ARG_TAIL123(__VA_ARGS__)
+#define NSL__ARG_TAIL125(x, ...) NSL__ARG_TAIL124(__VA_ARGS__)
+#define NSL__ARG_TAIL126(x, ...) NSL__ARG_TAIL125(__VA_ARGS__)
+#define NSL__ARG_TAIL127(x, ...) NSL__ARG_TAIL126(__VA_ARGS__)
 
 /*!
  * Evaluates to the initial list of variadic arguments (i.e. all arguments
  * except for the last).
  *
- * `NSL_VA_INIT` requires two levels of indirection. This is to ensure that
+ * `NSL_ARG_INIT` requires two levels of indirection. This is to ensure that
  * passing a macro that expands to the variadic arguments works correctly and is
- * expanded. `NSL__VA_INIT` concatentates `NSL__VA_INIT` with the number
+ * expanded. `NSL__ARG_INIT` concatentates `NSL__ARG_INIT` with the number
  * of arguments provided (using `NSL_NARGS`, which is restricted to [0-127]).
  * The corresponding macro is called and it pops off and replaces elements in
  * the list until only the last is left which is popped off without replacement.
@@ -448,144 +448,144 @@
  * # Returns
  * The initial argument in the variadic list of arguments, if any exists.
  */
-#define NSL_VA_INIT(...)  NSL__VA_INIT(__VA_ARGS__)
-#define NSL__VA_INIT(...) NSL_CAT(NSL__VA_INIT, NSL_NARGS(__VA_ARGS__))(__VA_ARGS__)
-#define NSL__VA_INIT0()
-#define NSL__VA_INIT1(x)
-#define NSL__VA_INIT2(x, ...)   x
-#define NSL__VA_INIT3(x, ...)   x, NSL__VA_INIT2(__VA_ARGS__)
-#define NSL__VA_INIT4(x, ...)   x, NSL__VA_INIT3(__VA_ARGS__)
-#define NSL__VA_INIT5(x, ...)   x, NSL__VA_INIT4(__VA_ARGS__)
-#define NSL__VA_INIT6(x, ...)   x, NSL__VA_INIT5(__VA_ARGS__)
-#define NSL__VA_INIT7(x, ...)   x, NSL__VA_INIT6(__VA_ARGS__)
-#define NSL__VA_INIT8(x, ...)   x, NSL__VA_INIT7(__VA_ARGS__)
-#define NSL__VA_INIT9(x, ...)   x, NSL__VA_INIT8(__VA_ARGS__)
-#define NSL__VA_INIT10(x, ...)  x, NSL__VA_INIT9(__VA_ARGS__)
-#define NSL__VA_INIT11(x, ...)  x, NSL__VA_INIT10(__VA_ARGS__)
-#define NSL__VA_INIT12(x, ...)  x, NSL__VA_INIT11(__VA_ARGS__)
-#define NSL__VA_INIT13(x, ...)  x, NSL__VA_INIT12(__VA_ARGS__)
-#define NSL__VA_INIT14(x, ...)  x, NSL__VA_INIT13(__VA_ARGS__)
-#define NSL__VA_INIT15(x, ...)  x, NSL__VA_INIT14(__VA_ARGS__)
-#define NSL__VA_INIT16(x, ...)  x, NSL__VA_INIT15(__VA_ARGS__)
-#define NSL__VA_INIT17(x, ...)  x, NSL__VA_INIT16(__VA_ARGS__)
-#define NSL__VA_INIT18(x, ...)  x, NSL__VA_INIT17(__VA_ARGS__)
-#define NSL__VA_INIT19(x, ...)  x, NSL__VA_INIT18(__VA_ARGS__)
-#define NSL__VA_INIT20(x, ...)  x, NSL__VA_INIT19(__VA_ARGS__)
-#define NSL__VA_INIT21(x, ...)  x, NSL__VA_INIT20(__VA_ARGS__)
-#define NSL__VA_INIT22(x, ...)  x, NSL__VA_INIT21(__VA_ARGS__)
-#define NSL__VA_INIT23(x, ...)  x, NSL__VA_INIT22(__VA_ARGS__)
-#define NSL__VA_INIT24(x, ...)  x, NSL__VA_INIT23(__VA_ARGS__)
-#define NSL__VA_INIT25(x, ...)  x, NSL__VA_INIT24(__VA_ARGS__)
-#define NSL__VA_INIT26(x, ...)  x, NSL__VA_INIT25(__VA_ARGS__)
-#define NSL__VA_INIT27(x, ...)  x, NSL__VA_INIT26(__VA_ARGS__)
-#define NSL__VA_INIT28(x, ...)  x, NSL__VA_INIT27(__VA_ARGS__)
-#define NSL__VA_INIT29(x, ...)  x, NSL__VA_INIT28(__VA_ARGS__)
-#define NSL__VA_INIT30(x, ...)  x, NSL__VA_INIT29(__VA_ARGS__)
-#define NSL__VA_INIT31(x, ...)  x, NSL__VA_INIT30(__VA_ARGS__)
-#define NSL__VA_INIT32(x, ...)  x, NSL__VA_INIT31(__VA_ARGS__)
-#define NSL__VA_INIT33(x, ...)  x, NSL__VA_INIT32(__VA_ARGS__)
-#define NSL__VA_INIT34(x, ...)  x, NSL__VA_INIT33(__VA_ARGS__)
-#define NSL__VA_INIT35(x, ...)  x, NSL__VA_INIT34(__VA_ARGS__)
-#define NSL__VA_INIT36(x, ...)  x, NSL__VA_INIT35(__VA_ARGS__)
-#define NSL__VA_INIT37(x, ...)  x, NSL__VA_INIT36(__VA_ARGS__)
-#define NSL__VA_INIT38(x, ...)  x, NSL__VA_INIT37(__VA_ARGS__)
-#define NSL__VA_INIT39(x, ...)  x, NSL__VA_INIT38(__VA_ARGS__)
-#define NSL__VA_INIT40(x, ...)  x, NSL__VA_INIT39(__VA_ARGS__)
-#define NSL__VA_INIT41(x, ...)  x, NSL__VA_INIT40(__VA_ARGS__)
-#define NSL__VA_INIT42(x, ...)  x, NSL__VA_INIT41(__VA_ARGS__)
-#define NSL__VA_INIT43(x, ...)  x, NSL__VA_INIT42(__VA_ARGS__)
-#define NSL__VA_INIT44(x, ...)  x, NSL__VA_INIT43(__VA_ARGS__)
-#define NSL__VA_INIT45(x, ...)  x, NSL__VA_INIT44(__VA_ARGS__)
-#define NSL__VA_INIT46(x, ...)  x, NSL__VA_INIT45(__VA_ARGS__)
-#define NSL__VA_INIT47(x, ...)  x, NSL__VA_INIT46(__VA_ARGS__)
-#define NSL__VA_INIT48(x, ...)  x, NSL__VA_INIT47(__VA_ARGS__)
-#define NSL__VA_INIT49(x, ...)  x, NSL__VA_INIT48(__VA_ARGS__)
-#define NSL__VA_INIT50(x, ...)  x, NSL__VA_INIT49(__VA_ARGS__)
-#define NSL__VA_INIT51(x, ...)  x, NSL__VA_INIT50(__VA_ARGS__)
-#define NSL__VA_INIT52(x, ...)  x, NSL__VA_INIT51(__VA_ARGS__)
-#define NSL__VA_INIT53(x, ...)  x, NSL__VA_INIT52(__VA_ARGS__)
-#define NSL__VA_INIT54(x, ...)  x, NSL__VA_INIT53(__VA_ARGS__)
-#define NSL__VA_INIT55(x, ...)  x, NSL__VA_INIT54(__VA_ARGS__)
-#define NSL__VA_INIT56(x, ...)  x, NSL__VA_INIT55(__VA_ARGS__)
-#define NSL__VA_INIT57(x, ...)  x, NSL__VA_INIT56(__VA_ARGS__)
-#define NSL__VA_INIT58(x, ...)  x, NSL__VA_INIT57(__VA_ARGS__)
-#define NSL__VA_INIT59(x, ...)  x, NSL__VA_INIT58(__VA_ARGS__)
-#define NSL__VA_INIT60(x, ...)  x, NSL__VA_INIT59(__VA_ARGS__)
-#define NSL__VA_INIT61(x, ...)  x, NSL__VA_INIT60(__VA_ARGS__)
-#define NSL__VA_INIT62(x, ...)  x, NSL__VA_INIT61(__VA_ARGS__)
-#define NSL__VA_INIT63(x, ...)  x, NSL__VA_INIT62(__VA_ARGS__)
-#define NSL__VA_INIT64(x, ...)  x, NSL__VA_INIT63(__VA_ARGS__)
-#define NSL__VA_INIT65(x, ...)  x, NSL__VA_INIT64(__VA_ARGS__)
-#define NSL__VA_INIT66(x, ...)  x, NSL__VA_INIT65(__VA_ARGS__)
-#define NSL__VA_INIT67(x, ...)  x, NSL__VA_INIT66(__VA_ARGS__)
-#define NSL__VA_INIT68(x, ...)  x, NSL__VA_INIT67(__VA_ARGS__)
-#define NSL__VA_INIT69(x, ...)  x, NSL__VA_INIT68(__VA_ARGS__)
-#define NSL__VA_INIT70(x, ...)  x, NSL__VA_INIT69(__VA_ARGS__)
-#define NSL__VA_INIT71(x, ...)  x, NSL__VA_INIT70(__VA_ARGS__)
-#define NSL__VA_INIT72(x, ...)  x, NSL__VA_INIT71(__VA_ARGS__)
-#define NSL__VA_INIT73(x, ...)  x, NSL__VA_INIT72(__VA_ARGS__)
-#define NSL__VA_INIT74(x, ...)  x, NSL__VA_INIT73(__VA_ARGS__)
-#define NSL__VA_INIT75(x, ...)  x, NSL__VA_INIT74(__VA_ARGS__)
-#define NSL__VA_INIT76(x, ...)  x, NSL__VA_INIT75(__VA_ARGS__)
-#define NSL__VA_INIT77(x, ...)  x, NSL__VA_INIT76(__VA_ARGS__)
-#define NSL__VA_INIT78(x, ...)  x, NSL__VA_INIT77(__VA_ARGS__)
-#define NSL__VA_INIT79(x, ...)  x, NSL__VA_INIT78(__VA_ARGS__)
-#define NSL__VA_INIT80(x, ...)  x, NSL__VA_INIT79(__VA_ARGS__)
-#define NSL__VA_INIT81(x, ...)  x, NSL__VA_INIT80(__VA_ARGS__)
-#define NSL__VA_INIT82(x, ...)  x, NSL__VA_INIT81(__VA_ARGS__)
-#define NSL__VA_INIT83(x, ...)  x, NSL__VA_INIT82(__VA_ARGS__)
-#define NSL__VA_INIT84(x, ...)  x, NSL__VA_INIT83(__VA_ARGS__)
-#define NSL__VA_INIT85(x, ...)  x, NSL__VA_INIT84(__VA_ARGS__)
-#define NSL__VA_INIT86(x, ...)  x, NSL__VA_INIT85(__VA_ARGS__)
-#define NSL__VA_INIT87(x, ...)  x, NSL__VA_INIT86(__VA_ARGS__)
-#define NSL__VA_INIT88(x, ...)  x, NSL__VA_INIT87(__VA_ARGS__)
-#define NSL__VA_INIT89(x, ...)  x, NSL__VA_INIT88(__VA_ARGS__)
-#define NSL__VA_INIT90(x, ...)  x, NSL__VA_INIT89(__VA_ARGS__)
-#define NSL__VA_INIT91(x, ...)  x, NSL__VA_INIT90(__VA_ARGS__)
-#define NSL__VA_INIT92(x, ...)  x, NSL__VA_INIT91(__VA_ARGS__)
-#define NSL__VA_INIT93(x, ...)  x, NSL__VA_INIT92(__VA_ARGS__)
-#define NSL__VA_INIT94(x, ...)  x, NSL__VA_INIT93(__VA_ARGS__)
-#define NSL__VA_INIT95(x, ...)  x, NSL__VA_INIT94(__VA_ARGS__)
-#define NSL__VA_INIT96(x, ...)  x, NSL__VA_INIT95(__VA_ARGS__)
-#define NSL__VA_INIT97(x, ...)  x, NSL__VA_INIT96(__VA_ARGS__)
-#define NSL__VA_INIT98(x, ...)  x, NSL__VA_INIT97(__VA_ARGS__)
-#define NSL__VA_INIT99(x, ...)  x, NSL__VA_INIT98(__VA_ARGS__)
-#define NSL__VA_INIT100(x, ...) x, NSL__VA_INIT99(__VA_ARGS__)
-#define NSL__VA_INIT101(x, ...) x, NSL__VA_INIT100(__VA_ARGS__)
-#define NSL__VA_INIT102(x, ...) x, NSL__VA_INIT101(__VA_ARGS__)
-#define NSL__VA_INIT103(x, ...) x, NSL__VA_INIT102(__VA_ARGS__)
-#define NSL__VA_INIT104(x, ...) x, NSL__VA_INIT103(__VA_ARGS__)
-#define NSL__VA_INIT105(x, ...) x, NSL__VA_INIT104(__VA_ARGS__)
-#define NSL__VA_INIT106(x, ...) x, NSL__VA_INIT105(__VA_ARGS__)
-#define NSL__VA_INIT107(x, ...) x, NSL__VA_INIT106(__VA_ARGS__)
-#define NSL__VA_INIT108(x, ...) x, NSL__VA_INIT107(__VA_ARGS__)
-#define NSL__VA_INIT109(x, ...) x, NSL__VA_INIT108(__VA_ARGS__)
-#define NSL__VA_INIT110(x, ...) x, NSL__VA_INIT109(__VA_ARGS__)
-#define NSL__VA_INIT111(x, ...) x, NSL__VA_INIT110(__VA_ARGS__)
-#define NSL__VA_INIT112(x, ...) x, NSL__VA_INIT111(__VA_ARGS__)
-#define NSL__VA_INIT113(x, ...) x, NSL__VA_INIT112(__VA_ARGS__)
-#define NSL__VA_INIT114(x, ...) x, NSL__VA_INIT113(__VA_ARGS__)
-#define NSL__VA_INIT115(x, ...) x, NSL__VA_INIT114(__VA_ARGS__)
-#define NSL__VA_INIT116(x, ...) x, NSL__VA_INIT115(__VA_ARGS__)
-#define NSL__VA_INIT117(x, ...) x, NSL__VA_INIT116(__VA_ARGS__)
-#define NSL__VA_INIT118(x, ...) x, NSL__VA_INIT117(__VA_ARGS__)
-#define NSL__VA_INIT119(x, ...) x, NSL__VA_INIT118(__VA_ARGS__)
-#define NSL__VA_INIT120(x, ...) x, NSL__VA_INIT119(__VA_ARGS__)
-#define NSL__VA_INIT121(x, ...) x, NSL__VA_INIT120(__VA_ARGS__)
-#define NSL__VA_INIT122(x, ...) x, NSL__VA_INIT121(__VA_ARGS__)
-#define NSL__VA_INIT123(x, ...) x, NSL__VA_INIT122(__VA_ARGS__)
-#define NSL__VA_INIT124(x, ...) x, NSL__VA_INIT123(__VA_ARGS__)
-#define NSL__VA_INIT125(x, ...) x, NSL__VA_INIT124(__VA_ARGS__)
-#define NSL__VA_INIT126(x, ...) x, NSL__VA_INIT125(__VA_ARGS__)
-#define NSL__VA_INIT127(x, ...) x, NSL__VA_INIT126(__VA_ARGS__)
+#define NSL_ARG_INIT(...)  NSL__ARG_INIT(__VA_ARGS__)
+#define NSL__ARG_INIT(...) NSL_CAT(NSL__ARG_INIT, NSL_NARGS(__VA_ARGS__))(__VA_ARGS__)
+#define NSL__ARG_INIT0()
+#define NSL__ARG_INIT1(x)
+#define NSL__ARG_INIT2(x, ...)   x
+#define NSL__ARG_INIT3(x, ...)   x, NSL__ARG_INIT2(__VA_ARGS__)
+#define NSL__ARG_INIT4(x, ...)   x, NSL__ARG_INIT3(__VA_ARGS__)
+#define NSL__ARG_INIT5(x, ...)   x, NSL__ARG_INIT4(__VA_ARGS__)
+#define NSL__ARG_INIT6(x, ...)   x, NSL__ARG_INIT5(__VA_ARGS__)
+#define NSL__ARG_INIT7(x, ...)   x, NSL__ARG_INIT6(__VA_ARGS__)
+#define NSL__ARG_INIT8(x, ...)   x, NSL__ARG_INIT7(__VA_ARGS__)
+#define NSL__ARG_INIT9(x, ...)   x, NSL__ARG_INIT8(__VA_ARGS__)
+#define NSL__ARG_INIT10(x, ...)  x, NSL__ARG_INIT9(__VA_ARGS__)
+#define NSL__ARG_INIT11(x, ...)  x, NSL__ARG_INIT10(__VA_ARGS__)
+#define NSL__ARG_INIT12(x, ...)  x, NSL__ARG_INIT11(__VA_ARGS__)
+#define NSL__ARG_INIT13(x, ...)  x, NSL__ARG_INIT12(__VA_ARGS__)
+#define NSL__ARG_INIT14(x, ...)  x, NSL__ARG_INIT13(__VA_ARGS__)
+#define NSL__ARG_INIT15(x, ...)  x, NSL__ARG_INIT14(__VA_ARGS__)
+#define NSL__ARG_INIT16(x, ...)  x, NSL__ARG_INIT15(__VA_ARGS__)
+#define NSL__ARG_INIT17(x, ...)  x, NSL__ARG_INIT16(__VA_ARGS__)
+#define NSL__ARG_INIT18(x, ...)  x, NSL__ARG_INIT17(__VA_ARGS__)
+#define NSL__ARG_INIT19(x, ...)  x, NSL__ARG_INIT18(__VA_ARGS__)
+#define NSL__ARG_INIT20(x, ...)  x, NSL__ARG_INIT19(__VA_ARGS__)
+#define NSL__ARG_INIT21(x, ...)  x, NSL__ARG_INIT20(__VA_ARGS__)
+#define NSL__ARG_INIT22(x, ...)  x, NSL__ARG_INIT21(__VA_ARGS__)
+#define NSL__ARG_INIT23(x, ...)  x, NSL__ARG_INIT22(__VA_ARGS__)
+#define NSL__ARG_INIT24(x, ...)  x, NSL__ARG_INIT23(__VA_ARGS__)
+#define NSL__ARG_INIT25(x, ...)  x, NSL__ARG_INIT24(__VA_ARGS__)
+#define NSL__ARG_INIT26(x, ...)  x, NSL__ARG_INIT25(__VA_ARGS__)
+#define NSL__ARG_INIT27(x, ...)  x, NSL__ARG_INIT26(__VA_ARGS__)
+#define NSL__ARG_INIT28(x, ...)  x, NSL__ARG_INIT27(__VA_ARGS__)
+#define NSL__ARG_INIT29(x, ...)  x, NSL__ARG_INIT28(__VA_ARGS__)
+#define NSL__ARG_INIT30(x, ...)  x, NSL__ARG_INIT29(__VA_ARGS__)
+#define NSL__ARG_INIT31(x, ...)  x, NSL__ARG_INIT30(__VA_ARGS__)
+#define NSL__ARG_INIT32(x, ...)  x, NSL__ARG_INIT31(__VA_ARGS__)
+#define NSL__ARG_INIT33(x, ...)  x, NSL__ARG_INIT32(__VA_ARGS__)
+#define NSL__ARG_INIT34(x, ...)  x, NSL__ARG_INIT33(__VA_ARGS__)
+#define NSL__ARG_INIT35(x, ...)  x, NSL__ARG_INIT34(__VA_ARGS__)
+#define NSL__ARG_INIT36(x, ...)  x, NSL__ARG_INIT35(__VA_ARGS__)
+#define NSL__ARG_INIT37(x, ...)  x, NSL__ARG_INIT36(__VA_ARGS__)
+#define NSL__ARG_INIT38(x, ...)  x, NSL__ARG_INIT37(__VA_ARGS__)
+#define NSL__ARG_INIT39(x, ...)  x, NSL__ARG_INIT38(__VA_ARGS__)
+#define NSL__ARG_INIT40(x, ...)  x, NSL__ARG_INIT39(__VA_ARGS__)
+#define NSL__ARG_INIT41(x, ...)  x, NSL__ARG_INIT40(__VA_ARGS__)
+#define NSL__ARG_INIT42(x, ...)  x, NSL__ARG_INIT41(__VA_ARGS__)
+#define NSL__ARG_INIT43(x, ...)  x, NSL__ARG_INIT42(__VA_ARGS__)
+#define NSL__ARG_INIT44(x, ...)  x, NSL__ARG_INIT43(__VA_ARGS__)
+#define NSL__ARG_INIT45(x, ...)  x, NSL__ARG_INIT44(__VA_ARGS__)
+#define NSL__ARG_INIT46(x, ...)  x, NSL__ARG_INIT45(__VA_ARGS__)
+#define NSL__ARG_INIT47(x, ...)  x, NSL__ARG_INIT46(__VA_ARGS__)
+#define NSL__ARG_INIT48(x, ...)  x, NSL__ARG_INIT47(__VA_ARGS__)
+#define NSL__ARG_INIT49(x, ...)  x, NSL__ARG_INIT48(__VA_ARGS__)
+#define NSL__ARG_INIT50(x, ...)  x, NSL__ARG_INIT49(__VA_ARGS__)
+#define NSL__ARG_INIT51(x, ...)  x, NSL__ARG_INIT50(__VA_ARGS__)
+#define NSL__ARG_INIT52(x, ...)  x, NSL__ARG_INIT51(__VA_ARGS__)
+#define NSL__ARG_INIT53(x, ...)  x, NSL__ARG_INIT52(__VA_ARGS__)
+#define NSL__ARG_INIT54(x, ...)  x, NSL__ARG_INIT53(__VA_ARGS__)
+#define NSL__ARG_INIT55(x, ...)  x, NSL__ARG_INIT54(__VA_ARGS__)
+#define NSL__ARG_INIT56(x, ...)  x, NSL__ARG_INIT55(__VA_ARGS__)
+#define NSL__ARG_INIT57(x, ...)  x, NSL__ARG_INIT56(__VA_ARGS__)
+#define NSL__ARG_INIT58(x, ...)  x, NSL__ARG_INIT57(__VA_ARGS__)
+#define NSL__ARG_INIT59(x, ...)  x, NSL__ARG_INIT58(__VA_ARGS__)
+#define NSL__ARG_INIT60(x, ...)  x, NSL__ARG_INIT59(__VA_ARGS__)
+#define NSL__ARG_INIT61(x, ...)  x, NSL__ARG_INIT60(__VA_ARGS__)
+#define NSL__ARG_INIT62(x, ...)  x, NSL__ARG_INIT61(__VA_ARGS__)
+#define NSL__ARG_INIT63(x, ...)  x, NSL__ARG_INIT62(__VA_ARGS__)
+#define NSL__ARG_INIT64(x, ...)  x, NSL__ARG_INIT63(__VA_ARGS__)
+#define NSL__ARG_INIT65(x, ...)  x, NSL__ARG_INIT64(__VA_ARGS__)
+#define NSL__ARG_INIT66(x, ...)  x, NSL__ARG_INIT65(__VA_ARGS__)
+#define NSL__ARG_INIT67(x, ...)  x, NSL__ARG_INIT66(__VA_ARGS__)
+#define NSL__ARG_INIT68(x, ...)  x, NSL__ARG_INIT67(__VA_ARGS__)
+#define NSL__ARG_INIT69(x, ...)  x, NSL__ARG_INIT68(__VA_ARGS__)
+#define NSL__ARG_INIT70(x, ...)  x, NSL__ARG_INIT69(__VA_ARGS__)
+#define NSL__ARG_INIT71(x, ...)  x, NSL__ARG_INIT70(__VA_ARGS__)
+#define NSL__ARG_INIT72(x, ...)  x, NSL__ARG_INIT71(__VA_ARGS__)
+#define NSL__ARG_INIT73(x, ...)  x, NSL__ARG_INIT72(__VA_ARGS__)
+#define NSL__ARG_INIT74(x, ...)  x, NSL__ARG_INIT73(__VA_ARGS__)
+#define NSL__ARG_INIT75(x, ...)  x, NSL__ARG_INIT74(__VA_ARGS__)
+#define NSL__ARG_INIT76(x, ...)  x, NSL__ARG_INIT75(__VA_ARGS__)
+#define NSL__ARG_INIT77(x, ...)  x, NSL__ARG_INIT76(__VA_ARGS__)
+#define NSL__ARG_INIT78(x, ...)  x, NSL__ARG_INIT77(__VA_ARGS__)
+#define NSL__ARG_INIT79(x, ...)  x, NSL__ARG_INIT78(__VA_ARGS__)
+#define NSL__ARG_INIT80(x, ...)  x, NSL__ARG_INIT79(__VA_ARGS__)
+#define NSL__ARG_INIT81(x, ...)  x, NSL__ARG_INIT80(__VA_ARGS__)
+#define NSL__ARG_INIT82(x, ...)  x, NSL__ARG_INIT81(__VA_ARGS__)
+#define NSL__ARG_INIT83(x, ...)  x, NSL__ARG_INIT82(__VA_ARGS__)
+#define NSL__ARG_INIT84(x, ...)  x, NSL__ARG_INIT83(__VA_ARGS__)
+#define NSL__ARG_INIT85(x, ...)  x, NSL__ARG_INIT84(__VA_ARGS__)
+#define NSL__ARG_INIT86(x, ...)  x, NSL__ARG_INIT85(__VA_ARGS__)
+#define NSL__ARG_INIT87(x, ...)  x, NSL__ARG_INIT86(__VA_ARGS__)
+#define NSL__ARG_INIT88(x, ...)  x, NSL__ARG_INIT87(__VA_ARGS__)
+#define NSL__ARG_INIT89(x, ...)  x, NSL__ARG_INIT88(__VA_ARGS__)
+#define NSL__ARG_INIT90(x, ...)  x, NSL__ARG_INIT89(__VA_ARGS__)
+#define NSL__ARG_INIT91(x, ...)  x, NSL__ARG_INIT90(__VA_ARGS__)
+#define NSL__ARG_INIT92(x, ...)  x, NSL__ARG_INIT91(__VA_ARGS__)
+#define NSL__ARG_INIT93(x, ...)  x, NSL__ARG_INIT92(__VA_ARGS__)
+#define NSL__ARG_INIT94(x, ...)  x, NSL__ARG_INIT93(__VA_ARGS__)
+#define NSL__ARG_INIT95(x, ...)  x, NSL__ARG_INIT94(__VA_ARGS__)
+#define NSL__ARG_INIT96(x, ...)  x, NSL__ARG_INIT95(__VA_ARGS__)
+#define NSL__ARG_INIT97(x, ...)  x, NSL__ARG_INIT96(__VA_ARGS__)
+#define NSL__ARG_INIT98(x, ...)  x, NSL__ARG_INIT97(__VA_ARGS__)
+#define NSL__ARG_INIT99(x, ...)  x, NSL__ARG_INIT98(__VA_ARGS__)
+#define NSL__ARG_INIT100(x, ...) x, NSL__ARG_INIT99(__VA_ARGS__)
+#define NSL__ARG_INIT101(x, ...) x, NSL__ARG_INIT100(__VA_ARGS__)
+#define NSL__ARG_INIT102(x, ...) x, NSL__ARG_INIT101(__VA_ARGS__)
+#define NSL__ARG_INIT103(x, ...) x, NSL__ARG_INIT102(__VA_ARGS__)
+#define NSL__ARG_INIT104(x, ...) x, NSL__ARG_INIT103(__VA_ARGS__)
+#define NSL__ARG_INIT105(x, ...) x, NSL__ARG_INIT104(__VA_ARGS__)
+#define NSL__ARG_INIT106(x, ...) x, NSL__ARG_INIT105(__VA_ARGS__)
+#define NSL__ARG_INIT107(x, ...) x, NSL__ARG_INIT106(__VA_ARGS__)
+#define NSL__ARG_INIT108(x, ...) x, NSL__ARG_INIT107(__VA_ARGS__)
+#define NSL__ARG_INIT109(x, ...) x, NSL__ARG_INIT108(__VA_ARGS__)
+#define NSL__ARG_INIT110(x, ...) x, NSL__ARG_INIT109(__VA_ARGS__)
+#define NSL__ARG_INIT111(x, ...) x, NSL__ARG_INIT110(__VA_ARGS__)
+#define NSL__ARG_INIT112(x, ...) x, NSL__ARG_INIT111(__VA_ARGS__)
+#define NSL__ARG_INIT113(x, ...) x, NSL__ARG_INIT112(__VA_ARGS__)
+#define NSL__ARG_INIT114(x, ...) x, NSL__ARG_INIT113(__VA_ARGS__)
+#define NSL__ARG_INIT115(x, ...) x, NSL__ARG_INIT114(__VA_ARGS__)
+#define NSL__ARG_INIT116(x, ...) x, NSL__ARG_INIT115(__VA_ARGS__)
+#define NSL__ARG_INIT117(x, ...) x, NSL__ARG_INIT116(__VA_ARGS__)
+#define NSL__ARG_INIT118(x, ...) x, NSL__ARG_INIT117(__VA_ARGS__)
+#define NSL__ARG_INIT119(x, ...) x, NSL__ARG_INIT118(__VA_ARGS__)
+#define NSL__ARG_INIT120(x, ...) x, NSL__ARG_INIT119(__VA_ARGS__)
+#define NSL__ARG_INIT121(x, ...) x, NSL__ARG_INIT120(__VA_ARGS__)
+#define NSL__ARG_INIT122(x, ...) x, NSL__ARG_INIT121(__VA_ARGS__)
+#define NSL__ARG_INIT123(x, ...) x, NSL__ARG_INIT122(__VA_ARGS__)
+#define NSL__ARG_INIT124(x, ...) x, NSL__ARG_INIT123(__VA_ARGS__)
+#define NSL__ARG_INIT125(x, ...) x, NSL__ARG_INIT124(__VA_ARGS__)
+#define NSL__ARG_INIT126(x, ...) x, NSL__ARG_INIT125(__VA_ARGS__)
+#define NSL__ARG_INIT127(x, ...) x, NSL__ARG_INIT126(__VA_ARGS__)
 
 /*!
  * Reverses the arguments provided. For example, `NSL_REVERSE(1, 2, 3, 4)` would
  * evaluate to `4, 3, 2, 1`.
  *
- * `NSL_VA_REVERSE` requires two levels of indirection. This is to ensure that
+ * `NSL_ARG_REVERSE` requires two levels of indirection. This is to ensure that
  * passing a macro that expands to the variadic arguments works correctly and is
- * expanded. `NSL__VA_REVERSE` concatentates `NSL__VA_REVERSE` with the number
+ * expanded. `NSL__ARG_REVERSE` concatentates `NSL__ARG_REVERSE` with the number
  * of arguments provided (using `NSL_NARGS`, which is restricted to [0-127]).
  * The corresponding macro is called and it pops off the current head, calls the
  * next macro in the chain, and then puts the head at the back.
@@ -598,136 +598,136 @@
  * # Returns
  * The reversed variadic list of arguments, if any exists.
  */
-#define NSL_VA_REVERSE(...)  NSL__VA_REVERSE(__VA_ARGS__)
-#define NSL__VA_REVERSE(...) NSL_CAT(NSL__VA_REVERSE, NSL_NARGS(__VA_ARGS__))(__VA_ARGS__)
-#define NSL__VA_REVERSE0()
-#define NSL__VA_REVERSE1(x)        x
-#define NSL__VA_REVERSE2(x, ...)   NSL__VA_REVERSE1(__VA_ARGS__), x
-#define NSL__VA_REVERSE3(x, ...)   NSL__VA_REVERSE2(__VA_ARGS__), x
-#define NSL__VA_REVERSE4(x, ...)   NSL__VA_REVERSE3(__VA_ARGS__), x
-#define NSL__VA_REVERSE5(x, ...)   NSL__VA_REVERSE4(__VA_ARGS__), x
-#define NSL__VA_REVERSE6(x, ...)   NSL__VA_REVERSE5(__VA_ARGS__), x
-#define NSL__VA_REVERSE7(x, ...)   NSL__VA_REVERSE6(__VA_ARGS__), x
-#define NSL__VA_REVERSE8(x, ...)   NSL__VA_REVERSE7(__VA_ARGS__), x
-#define NSL__VA_REVERSE9(x, ...)   NSL__VA_REVERSE8(__VA_ARGS__), x
-#define NSL__VA_REVERSE10(x, ...)  NSL__VA_REVERSE9(__VA_ARGS__), x
-#define NSL__VA_REVERSE11(x, ...)  NSL__VA_REVERSE10(__VA_ARGS__), x
-#define NSL__VA_REVERSE12(x, ...)  NSL__VA_REVERSE11(__VA_ARGS__), x
-#define NSL__VA_REVERSE13(x, ...)  NSL__VA_REVERSE12(__VA_ARGS__), x
-#define NSL__VA_REVERSE14(x, ...)  NSL__VA_REVERSE13(__VA_ARGS__), x
-#define NSL__VA_REVERSE15(x, ...)  NSL__VA_REVERSE14(__VA_ARGS__), x
-#define NSL__VA_REVERSE16(x, ...)  NSL__VA_REVERSE15(__VA_ARGS__), x
-#define NSL__VA_REVERSE17(x, ...)  NSL__VA_REVERSE16(__VA_ARGS__), x
-#define NSL__VA_REVERSE18(x, ...)  NSL__VA_REVERSE17(__VA_ARGS__), x
-#define NSL__VA_REVERSE19(x, ...)  NSL__VA_REVERSE18(__VA_ARGS__), x
-#define NSL__VA_REVERSE20(x, ...)  NSL__VA_REVERSE19(__VA_ARGS__), x
-#define NSL__VA_REVERSE21(x, ...)  NSL__VA_REVERSE20(__VA_ARGS__), x
-#define NSL__VA_REVERSE22(x, ...)  NSL__VA_REVERSE21(__VA_ARGS__), x
-#define NSL__VA_REVERSE23(x, ...)  NSL__VA_REVERSE22(__VA_ARGS__), x
-#define NSL__VA_REVERSE24(x, ...)  NSL__VA_REVERSE23(__VA_ARGS__), x
-#define NSL__VA_REVERSE25(x, ...)  NSL__VA_REVERSE24(__VA_ARGS__), x
-#define NSL__VA_REVERSE26(x, ...)  NSL__VA_REVERSE25(__VA_ARGS__), x
-#define NSL__VA_REVERSE27(x, ...)  NSL__VA_REVERSE26(__VA_ARGS__), x
-#define NSL__VA_REVERSE28(x, ...)  NSL__VA_REVERSE27(__VA_ARGS__), x
-#define NSL__VA_REVERSE29(x, ...)  NSL__VA_REVERSE28(__VA_ARGS__), x
-#define NSL__VA_REVERSE30(x, ...)  NSL__VA_REVERSE29(__VA_ARGS__), x
-#define NSL__VA_REVERSE31(x, ...)  NSL__VA_REVERSE30(__VA_ARGS__), x
-#define NSL__VA_REVERSE32(x, ...)  NSL__VA_REVERSE31(__VA_ARGS__), x
-#define NSL__VA_REVERSE33(x, ...)  NSL__VA_REVERSE32(__VA_ARGS__), x
-#define NSL__VA_REVERSE34(x, ...)  NSL__VA_REVERSE33(__VA_ARGS__), x
-#define NSL__VA_REVERSE35(x, ...)  NSL__VA_REVERSE34(__VA_ARGS__), x
-#define NSL__VA_REVERSE36(x, ...)  NSL__VA_REVERSE35(__VA_ARGS__), x
-#define NSL__VA_REVERSE37(x, ...)  NSL__VA_REVERSE36(__VA_ARGS__), x
-#define NSL__VA_REVERSE38(x, ...)  NSL__VA_REVERSE37(__VA_ARGS__), x
-#define NSL__VA_REVERSE39(x, ...)  NSL__VA_REVERSE38(__VA_ARGS__), x
-#define NSL__VA_REVERSE40(x, ...)  NSL__VA_REVERSE39(__VA_ARGS__), x
-#define NSL__VA_REVERSE41(x, ...)  NSL__VA_REVERSE40(__VA_ARGS__), x
-#define NSL__VA_REVERSE42(x, ...)  NSL__VA_REVERSE41(__VA_ARGS__), x
-#define NSL__VA_REVERSE43(x, ...)  NSL__VA_REVERSE42(__VA_ARGS__), x
-#define NSL__VA_REVERSE44(x, ...)  NSL__VA_REVERSE43(__VA_ARGS__), x
-#define NSL__VA_REVERSE45(x, ...)  NSL__VA_REVERSE44(__VA_ARGS__), x
-#define NSL__VA_REVERSE46(x, ...)  NSL__VA_REVERSE45(__VA_ARGS__), x
-#define NSL__VA_REVERSE47(x, ...)  NSL__VA_REVERSE46(__VA_ARGS__), x
-#define NSL__VA_REVERSE48(x, ...)  NSL__VA_REVERSE47(__VA_ARGS__), x
-#define NSL__VA_REVERSE49(x, ...)  NSL__VA_REVERSE48(__VA_ARGS__), x
-#define NSL__VA_REVERSE50(x, ...)  NSL__VA_REVERSE49(__VA_ARGS__), x
-#define NSL__VA_REVERSE51(x, ...)  NSL__VA_REVERSE50(__VA_ARGS__), x
-#define NSL__VA_REVERSE52(x, ...)  NSL__VA_REVERSE51(__VA_ARGS__), x
-#define NSL__VA_REVERSE53(x, ...)  NSL__VA_REVERSE52(__VA_ARGS__), x
-#define NSL__VA_REVERSE54(x, ...)  NSL__VA_REVERSE53(__VA_ARGS__), x
-#define NSL__VA_REVERSE55(x, ...)  NSL__VA_REVERSE54(__VA_ARGS__), x
-#define NSL__VA_REVERSE56(x, ...)  NSL__VA_REVERSE55(__VA_ARGS__), x
-#define NSL__VA_REVERSE57(x, ...)  NSL__VA_REVERSE56(__VA_ARGS__), x
-#define NSL__VA_REVERSE58(x, ...)  NSL__VA_REVERSE57(__VA_ARGS__), x
-#define NSL__VA_REVERSE59(x, ...)  NSL__VA_REVERSE58(__VA_ARGS__), x
-#define NSL__VA_REVERSE60(x, ...)  NSL__VA_REVERSE59(__VA_ARGS__), x
-#define NSL__VA_REVERSE61(x, ...)  NSL__VA_REVERSE60(__VA_ARGS__), x
-#define NSL__VA_REVERSE62(x, ...)  NSL__VA_REVERSE61(__VA_ARGS__), x
-#define NSL__VA_REVERSE63(x, ...)  NSL__VA_REVERSE62(__VA_ARGS__), x
-#define NSL__VA_REVERSE64(x, ...)  NSL__VA_REVERSE63(__VA_ARGS__), x
-#define NSL__VA_REVERSE65(x, ...)  NSL__VA_REVERSE64(__VA_ARGS__), x
-#define NSL__VA_REVERSE66(x, ...)  NSL__VA_REVERSE65(__VA_ARGS__), x
-#define NSL__VA_REVERSE67(x, ...)  NSL__VA_REVERSE66(__VA_ARGS__), x
-#define NSL__VA_REVERSE68(x, ...)  NSL__VA_REVERSE67(__VA_ARGS__), x
-#define NSL__VA_REVERSE69(x, ...)  NSL__VA_REVERSE68(__VA_ARGS__), x
-#define NSL__VA_REVERSE70(x, ...)  NSL__VA_REVERSE69(__VA_ARGS__), x
-#define NSL__VA_REVERSE71(x, ...)  NSL__VA_REVERSE70(__VA_ARGS__), x
-#define NSL__VA_REVERSE72(x, ...)  NSL__VA_REVERSE71(__VA_ARGS__), x
-#define NSL__VA_REVERSE73(x, ...)  NSL__VA_REVERSE72(__VA_ARGS__), x
-#define NSL__VA_REVERSE74(x, ...)  NSL__VA_REVERSE73(__VA_ARGS__), x
-#define NSL__VA_REVERSE75(x, ...)  NSL__VA_REVERSE74(__VA_ARGS__), x
-#define NSL__VA_REVERSE76(x, ...)  NSL__VA_REVERSE75(__VA_ARGS__), x
-#define NSL__VA_REVERSE77(x, ...)  NSL__VA_REVERSE76(__VA_ARGS__), x
-#define NSL__VA_REVERSE78(x, ...)  NSL__VA_REVERSE77(__VA_ARGS__), x
-#define NSL__VA_REVERSE79(x, ...)  NSL__VA_REVERSE78(__VA_ARGS__), x
-#define NSL__VA_REVERSE80(x, ...)  NSL__VA_REVERSE79(__VA_ARGS__), x
-#define NSL__VA_REVERSE81(x, ...)  NSL__VA_REVERSE80(__VA_ARGS__), x
-#define NSL__VA_REVERSE82(x, ...)  NSL__VA_REVERSE81(__VA_ARGS__), x
-#define NSL__VA_REVERSE83(x, ...)  NSL__VA_REVERSE82(__VA_ARGS__), x
-#define NSL__VA_REVERSE84(x, ...)  NSL__VA_REVERSE83(__VA_ARGS__), x
-#define NSL__VA_REVERSE85(x, ...)  NSL__VA_REVERSE84(__VA_ARGS__), x
-#define NSL__VA_REVERSE86(x, ...)  NSL__VA_REVERSE85(__VA_ARGS__), x
-#define NSL__VA_REVERSE87(x, ...)  NSL__VA_REVERSE86(__VA_ARGS__), x
-#define NSL__VA_REVERSE88(x, ...)  NSL__VA_REVERSE87(__VA_ARGS__), x
-#define NSL__VA_REVERSE89(x, ...)  NSL__VA_REVERSE88(__VA_ARGS__), x
-#define NSL__VA_REVERSE90(x, ...)  NSL__VA_REVERSE89(__VA_ARGS__), x
-#define NSL__VA_REVERSE91(x, ...)  NSL__VA_REVERSE90(__VA_ARGS__), x
-#define NSL__VA_REVERSE92(x, ...)  NSL__VA_REVERSE91(__VA_ARGS__), x
-#define NSL__VA_REVERSE93(x, ...)  NSL__VA_REVERSE92(__VA_ARGS__), x
-#define NSL__VA_REVERSE94(x, ...)  NSL__VA_REVERSE93(__VA_ARGS__), x
-#define NSL__VA_REVERSE95(x, ...)  NSL__VA_REVERSE94(__VA_ARGS__), x
-#define NSL__VA_REVERSE96(x, ...)  NSL__VA_REVERSE95(__VA_ARGS__), x
-#define NSL__VA_REVERSE97(x, ...)  NSL__VA_REVERSE96(__VA_ARGS__), x
-#define NSL__VA_REVERSE98(x, ...)  NSL__VA_REVERSE97(__VA_ARGS__), x
-#define NSL__VA_REVERSE99(x, ...)  NSL__VA_REVERSE98(__VA_ARGS__), x
-#define NSL__VA_REVERSE100(x, ...) NSL__VA_REVERSE99(__VA_ARGS__), x
-#define NSL__VA_REVERSE101(x, ...) NSL__VA_REVERSE100(__VA_ARGS__), x
-#define NSL__VA_REVERSE102(x, ...) NSL__VA_REVERSE101(__VA_ARGS__), x
-#define NSL__VA_REVERSE103(x, ...) NSL__VA_REVERSE102(__VA_ARGS__), x
-#define NSL__VA_REVERSE104(x, ...) NSL__VA_REVERSE103(__VA_ARGS__), x
-#define NSL__VA_REVERSE105(x, ...) NSL__VA_REVERSE104(__VA_ARGS__), x
-#define NSL__VA_REVERSE106(x, ...) NSL__VA_REVERSE105(__VA_ARGS__), x
-#define NSL__VA_REVERSE107(x, ...) NSL__VA_REVERSE106(__VA_ARGS__), x
-#define NSL__VA_REVERSE108(x, ...) NSL__VA_REVERSE107(__VA_ARGS__), x
-#define NSL__VA_REVERSE109(x, ...) NSL__VA_REVERSE108(__VA_ARGS__), x
-#define NSL__VA_REVERSE110(x, ...) NSL__VA_REVERSE109(__VA_ARGS__), x
-#define NSL__VA_REVERSE111(x, ...) NSL__VA_REVERSE110(__VA_ARGS__), x
-#define NSL__VA_REVERSE112(x, ...) NSL__VA_REVERSE111(__VA_ARGS__), x
-#define NSL__VA_REVERSE113(x, ...) NSL__VA_REVERSE112(__VA_ARGS__), x
-#define NSL__VA_REVERSE114(x, ...) NSL__VA_REVERSE113(__VA_ARGS__), x
-#define NSL__VA_REVERSE115(x, ...) NSL__VA_REVERSE114(__VA_ARGS__), x
-#define NSL__VA_REVERSE116(x, ...) NSL__VA_REVERSE115(__VA_ARGS__), x
-#define NSL__VA_REVERSE117(x, ...) NSL__VA_REVERSE116(__VA_ARGS__), x
-#define NSL__VA_REVERSE118(x, ...) NSL__VA_REVERSE117(__VA_ARGS__), x
-#define NSL__VA_REVERSE119(x, ...) NSL__VA_REVERSE118(__VA_ARGS__), x
-#define NSL__VA_REVERSE120(x, ...) NSL__VA_REVERSE119(__VA_ARGS__), x
-#define NSL__VA_REVERSE121(x, ...) NSL__VA_REVERSE120(__VA_ARGS__), x
-#define NSL__VA_REVERSE122(x, ...) NSL__VA_REVERSE121(__VA_ARGS__), x
-#define NSL__VA_REVERSE123(x, ...) NSL__VA_REVERSE122(__VA_ARGS__), x
-#define NSL__VA_REVERSE124(x, ...) NSL__VA_REVERSE123(__VA_ARGS__), x
-#define NSL__VA_REVERSE125(x, ...) NSL__VA_REVERSE124(__VA_ARGS__), x
-#define NSL__VA_REVERSE126(x, ...) NSL__VA_REVERSE125(__VA_ARGS__), x
-#define NSL__VA_REVERSE127(x, ...) NSL__VA_REVERSE126(__VA_ARGS__), x
+#define NSL_ARG_REVERSE(...)  NSL__ARG_REVERSE(__VA_ARGS__)
+#define NSL__ARG_REVERSE(...) NSL_CAT(NSL__ARG_REVERSE, NSL_NARGS(__VA_ARGS__))(__VA_ARGS__)
+#define NSL__ARG_REVERSE0()
+#define NSL__ARG_REVERSE1(x)        x
+#define NSL__ARG_REVERSE2(x, ...)   NSL__ARG_REVERSE1(__VA_ARGS__), x
+#define NSL__ARG_REVERSE3(x, ...)   NSL__ARG_REVERSE2(__VA_ARGS__), x
+#define NSL__ARG_REVERSE4(x, ...)   NSL__ARG_REVERSE3(__VA_ARGS__), x
+#define NSL__ARG_REVERSE5(x, ...)   NSL__ARG_REVERSE4(__VA_ARGS__), x
+#define NSL__ARG_REVERSE6(x, ...)   NSL__ARG_REVERSE5(__VA_ARGS__), x
+#define NSL__ARG_REVERSE7(x, ...)   NSL__ARG_REVERSE6(__VA_ARGS__), x
+#define NSL__ARG_REVERSE8(x, ...)   NSL__ARG_REVERSE7(__VA_ARGS__), x
+#define NSL__ARG_REVERSE9(x, ...)   NSL__ARG_REVERSE8(__VA_ARGS__), x
+#define NSL__ARG_REVERSE10(x, ...)  NSL__ARG_REVERSE9(__VA_ARGS__), x
+#define NSL__ARG_REVERSE11(x, ...)  NSL__ARG_REVERSE10(__VA_ARGS__), x
+#define NSL__ARG_REVERSE12(x, ...)  NSL__ARG_REVERSE11(__VA_ARGS__), x
+#define NSL__ARG_REVERSE13(x, ...)  NSL__ARG_REVERSE12(__VA_ARGS__), x
+#define NSL__ARG_REVERSE14(x, ...)  NSL__ARG_REVERSE13(__VA_ARGS__), x
+#define NSL__ARG_REVERSE15(x, ...)  NSL__ARG_REVERSE14(__VA_ARGS__), x
+#define NSL__ARG_REVERSE16(x, ...)  NSL__ARG_REVERSE15(__VA_ARGS__), x
+#define NSL__ARG_REVERSE17(x, ...)  NSL__ARG_REVERSE16(__VA_ARGS__), x
+#define NSL__ARG_REVERSE18(x, ...)  NSL__ARG_REVERSE17(__VA_ARGS__), x
+#define NSL__ARG_REVERSE19(x, ...)  NSL__ARG_REVERSE18(__VA_ARGS__), x
+#define NSL__ARG_REVERSE20(x, ...)  NSL__ARG_REVERSE19(__VA_ARGS__), x
+#define NSL__ARG_REVERSE21(x, ...)  NSL__ARG_REVERSE20(__VA_ARGS__), x
+#define NSL__ARG_REVERSE22(x, ...)  NSL__ARG_REVERSE21(__VA_ARGS__), x
+#define NSL__ARG_REVERSE23(x, ...)  NSL__ARG_REVERSE22(__VA_ARGS__), x
+#define NSL__ARG_REVERSE24(x, ...)  NSL__ARG_REVERSE23(__VA_ARGS__), x
+#define NSL__ARG_REVERSE25(x, ...)  NSL__ARG_REVERSE24(__VA_ARGS__), x
+#define NSL__ARG_REVERSE26(x, ...)  NSL__ARG_REVERSE25(__VA_ARGS__), x
+#define NSL__ARG_REVERSE27(x, ...)  NSL__ARG_REVERSE26(__VA_ARGS__), x
+#define NSL__ARG_REVERSE28(x, ...)  NSL__ARG_REVERSE27(__VA_ARGS__), x
+#define NSL__ARG_REVERSE29(x, ...)  NSL__ARG_REVERSE28(__VA_ARGS__), x
+#define NSL__ARG_REVERSE30(x, ...)  NSL__ARG_REVERSE29(__VA_ARGS__), x
+#define NSL__ARG_REVERSE31(x, ...)  NSL__ARG_REVERSE30(__VA_ARGS__), x
+#define NSL__ARG_REVERSE32(x, ...)  NSL__ARG_REVERSE31(__VA_ARGS__), x
+#define NSL__ARG_REVERSE33(x, ...)  NSL__ARG_REVERSE32(__VA_ARGS__), x
+#define NSL__ARG_REVERSE34(x, ...)  NSL__ARG_REVERSE33(__VA_ARGS__), x
+#define NSL__ARG_REVERSE35(x, ...)  NSL__ARG_REVERSE34(__VA_ARGS__), x
+#define NSL__ARG_REVERSE36(x, ...)  NSL__ARG_REVERSE35(__VA_ARGS__), x
+#define NSL__ARG_REVERSE37(x, ...)  NSL__ARG_REVERSE36(__VA_ARGS__), x
+#define NSL__ARG_REVERSE38(x, ...)  NSL__ARG_REVERSE37(__VA_ARGS__), x
+#define NSL__ARG_REVERSE39(x, ...)  NSL__ARG_REVERSE38(__VA_ARGS__), x
+#define NSL__ARG_REVERSE40(x, ...)  NSL__ARG_REVERSE39(__VA_ARGS__), x
+#define NSL__ARG_REVERSE41(x, ...)  NSL__ARG_REVERSE40(__VA_ARGS__), x
+#define NSL__ARG_REVERSE42(x, ...)  NSL__ARG_REVERSE41(__VA_ARGS__), x
+#define NSL__ARG_REVERSE43(x, ...)  NSL__ARG_REVERSE42(__VA_ARGS__), x
+#define NSL__ARG_REVERSE44(x, ...)  NSL__ARG_REVERSE43(__VA_ARGS__), x
+#define NSL__ARG_REVERSE45(x, ...)  NSL__ARG_REVERSE44(__VA_ARGS__), x
+#define NSL__ARG_REVERSE46(x, ...)  NSL__ARG_REVERSE45(__VA_ARGS__), x
+#define NSL__ARG_REVERSE47(x, ...)  NSL__ARG_REVERSE46(__VA_ARGS__), x
+#define NSL__ARG_REVERSE48(x, ...)  NSL__ARG_REVERSE47(__VA_ARGS__), x
+#define NSL__ARG_REVERSE49(x, ...)  NSL__ARG_REVERSE48(__VA_ARGS__), x
+#define NSL__ARG_REVERSE50(x, ...)  NSL__ARG_REVERSE49(__VA_ARGS__), x
+#define NSL__ARG_REVERSE51(x, ...)  NSL__ARG_REVERSE50(__VA_ARGS__), x
+#define NSL__ARG_REVERSE52(x, ...)  NSL__ARG_REVERSE51(__VA_ARGS__), x
+#define NSL__ARG_REVERSE53(x, ...)  NSL__ARG_REVERSE52(__VA_ARGS__), x
+#define NSL__ARG_REVERSE54(x, ...)  NSL__ARG_REVERSE53(__VA_ARGS__), x
+#define NSL__ARG_REVERSE55(x, ...)  NSL__ARG_REVERSE54(__VA_ARGS__), x
+#define NSL__ARG_REVERSE56(x, ...)  NSL__ARG_REVERSE55(__VA_ARGS__), x
+#define NSL__ARG_REVERSE57(x, ...)  NSL__ARG_REVERSE56(__VA_ARGS__), x
+#define NSL__ARG_REVERSE58(x, ...)  NSL__ARG_REVERSE57(__VA_ARGS__), x
+#define NSL__ARG_REVERSE59(x, ...)  NSL__ARG_REVERSE58(__VA_ARGS__), x
+#define NSL__ARG_REVERSE60(x, ...)  NSL__ARG_REVERSE59(__VA_ARGS__), x
+#define NSL__ARG_REVERSE61(x, ...)  NSL__ARG_REVERSE60(__VA_ARGS__), x
+#define NSL__ARG_REVERSE62(x, ...)  NSL__ARG_REVERSE61(__VA_ARGS__), x
+#define NSL__ARG_REVERSE63(x, ...)  NSL__ARG_REVERSE62(__VA_ARGS__), x
+#define NSL__ARG_REVERSE64(x, ...)  NSL__ARG_REVERSE63(__VA_ARGS__), x
+#define NSL__ARG_REVERSE65(x, ...)  NSL__ARG_REVERSE64(__VA_ARGS__), x
+#define NSL__ARG_REVERSE66(x, ...)  NSL__ARG_REVERSE65(__VA_ARGS__), x
+#define NSL__ARG_REVERSE67(x, ...)  NSL__ARG_REVERSE66(__VA_ARGS__), x
+#define NSL__ARG_REVERSE68(x, ...)  NSL__ARG_REVERSE67(__VA_ARGS__), x
+#define NSL__ARG_REVERSE69(x, ...)  NSL__ARG_REVERSE68(__VA_ARGS__), x
+#define NSL__ARG_REVERSE70(x, ...)  NSL__ARG_REVERSE69(__VA_ARGS__), x
+#define NSL__ARG_REVERSE71(x, ...)  NSL__ARG_REVERSE70(__VA_ARGS__), x
+#define NSL__ARG_REVERSE72(x, ...)  NSL__ARG_REVERSE71(__VA_ARGS__), x
+#define NSL__ARG_REVERSE73(x, ...)  NSL__ARG_REVERSE72(__VA_ARGS__), x
+#define NSL__ARG_REVERSE74(x, ...)  NSL__ARG_REVERSE73(__VA_ARGS__), x
+#define NSL__ARG_REVERSE75(x, ...)  NSL__ARG_REVERSE74(__VA_ARGS__), x
+#define NSL__ARG_REVERSE76(x, ...)  NSL__ARG_REVERSE75(__VA_ARGS__), x
+#define NSL__ARG_REVERSE77(x, ...)  NSL__ARG_REVERSE76(__VA_ARGS__), x
+#define NSL__ARG_REVERSE78(x, ...)  NSL__ARG_REVERSE77(__VA_ARGS__), x
+#define NSL__ARG_REVERSE79(x, ...)  NSL__ARG_REVERSE78(__VA_ARGS__), x
+#define NSL__ARG_REVERSE80(x, ...)  NSL__ARG_REVERSE79(__VA_ARGS__), x
+#define NSL__ARG_REVERSE81(x, ...)  NSL__ARG_REVERSE80(__VA_ARGS__), x
+#define NSL__ARG_REVERSE82(x, ...)  NSL__ARG_REVERSE81(__VA_ARGS__), x
+#define NSL__ARG_REVERSE83(x, ...)  NSL__ARG_REVERSE82(__VA_ARGS__), x
+#define NSL__ARG_REVERSE84(x, ...)  NSL__ARG_REVERSE83(__VA_ARGS__), x
+#define NSL__ARG_REVERSE85(x, ...)  NSL__ARG_REVERSE84(__VA_ARGS__), x
+#define NSL__ARG_REVERSE86(x, ...)  NSL__ARG_REVERSE85(__VA_ARGS__), x
+#define NSL__ARG_REVERSE87(x, ...)  NSL__ARG_REVERSE86(__VA_ARGS__), x
+#define NSL__ARG_REVERSE88(x, ...)  NSL__ARG_REVERSE87(__VA_ARGS__), x
+#define NSL__ARG_REVERSE89(x, ...)  NSL__ARG_REVERSE88(__VA_ARGS__), x
+#define NSL__ARG_REVERSE90(x, ...)  NSL__ARG_REVERSE89(__VA_ARGS__), x
+#define NSL__ARG_REVERSE91(x, ...)  NSL__ARG_REVERSE90(__VA_ARGS__), x
+#define NSL__ARG_REVERSE92(x, ...)  NSL__ARG_REVERSE91(__VA_ARGS__), x
+#define NSL__ARG_REVERSE93(x, ...)  NSL__ARG_REVERSE92(__VA_ARGS__), x
+#define NSL__ARG_REVERSE94(x, ...)  NSL__ARG_REVERSE93(__VA_ARGS__), x
+#define NSL__ARG_REVERSE95(x, ...)  NSL__ARG_REVERSE94(__VA_ARGS__), x
+#define NSL__ARG_REVERSE96(x, ...)  NSL__ARG_REVERSE95(__VA_ARGS__), x
+#define NSL__ARG_REVERSE97(x, ...)  NSL__ARG_REVERSE96(__VA_ARGS__), x
+#define NSL__ARG_REVERSE98(x, ...)  NSL__ARG_REVERSE97(__VA_ARGS__), x
+#define NSL__ARG_REVERSE99(x, ...)  NSL__ARG_REVERSE98(__VA_ARGS__), x
+#define NSL__ARG_REVERSE100(x, ...) NSL__ARG_REVERSE99(__VA_ARGS__), x
+#define NSL__ARG_REVERSE101(x, ...) NSL__ARG_REVERSE100(__VA_ARGS__), x
+#define NSL__ARG_REVERSE102(x, ...) NSL__ARG_REVERSE101(__VA_ARGS__), x
+#define NSL__ARG_REVERSE103(x, ...) NSL__ARG_REVERSE102(__VA_ARGS__), x
+#define NSL__ARG_REVERSE104(x, ...) NSL__ARG_REVERSE103(__VA_ARGS__), x
+#define NSL__ARG_REVERSE105(x, ...) NSL__ARG_REVERSE104(__VA_ARGS__), x
+#define NSL__ARG_REVERSE106(x, ...) NSL__ARG_REVERSE105(__VA_ARGS__), x
+#define NSL__ARG_REVERSE107(x, ...) NSL__ARG_REVERSE106(__VA_ARGS__), x
+#define NSL__ARG_REVERSE108(x, ...) NSL__ARG_REVERSE107(__VA_ARGS__), x
+#define NSL__ARG_REVERSE109(x, ...) NSL__ARG_REVERSE108(__VA_ARGS__), x
+#define NSL__ARG_REVERSE110(x, ...) NSL__ARG_REVERSE109(__VA_ARGS__), x
+#define NSL__ARG_REVERSE111(x, ...) NSL__ARG_REVERSE110(__VA_ARGS__), x
+#define NSL__ARG_REVERSE112(x, ...) NSL__ARG_REVERSE111(__VA_ARGS__), x
+#define NSL__ARG_REVERSE113(x, ...) NSL__ARG_REVERSE112(__VA_ARGS__), x
+#define NSL__ARG_REVERSE114(x, ...) NSL__ARG_REVERSE113(__VA_ARGS__), x
+#define NSL__ARG_REVERSE115(x, ...) NSL__ARG_REVERSE114(__VA_ARGS__), x
+#define NSL__ARG_REVERSE116(x, ...) NSL__ARG_REVERSE115(__VA_ARGS__), x
+#define NSL__ARG_REVERSE117(x, ...) NSL__ARG_REVERSE116(__VA_ARGS__), x
+#define NSL__ARG_REVERSE118(x, ...) NSL__ARG_REVERSE117(__VA_ARGS__), x
+#define NSL__ARG_REVERSE119(x, ...) NSL__ARG_REVERSE118(__VA_ARGS__), x
+#define NSL__ARG_REVERSE120(x, ...) NSL__ARG_REVERSE119(__VA_ARGS__), x
+#define NSL__ARG_REVERSE121(x, ...) NSL__ARG_REVERSE120(__VA_ARGS__), x
+#define NSL__ARG_REVERSE122(x, ...) NSL__ARG_REVERSE121(__VA_ARGS__), x
+#define NSL__ARG_REVERSE123(x, ...) NSL__ARG_REVERSE122(__VA_ARGS__), x
+#define NSL__ARG_REVERSE124(x, ...) NSL__ARG_REVERSE123(__VA_ARGS__), x
+#define NSL__ARG_REVERSE125(x, ...) NSL__ARG_REVERSE124(__VA_ARGS__), x
+#define NSL__ARG_REVERSE126(x, ...) NSL__ARG_REVERSE125(__VA_ARGS__), x
+#define NSL__ARG_REVERSE127(x, ...) NSL__ARG_REVERSE126(__VA_ARGS__), x
 
 /*!
  * Applies the function `f` to all arguments provided. For example,
@@ -1074,131 +1074,158 @@
     NSL_CAT(NSL__FORALL_INIT, NSL_NARGS(__VA_ARGS__))(f __VA_OPT__(, ) __VA_ARGS__)
 #define NSL__FORALL_INIT0(f)
 #define NSL__FORALL_INIT1(f, x)     f(x)
-#define NSL__FORALL_INIT2(f, ...)   f(__VA_ARGS__), NSL__FORALL_INIT1(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT3(f, ...)   f(__VA_ARGS__), NSL__FORALL_INIT2(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT4(f, ...)   f(__VA_ARGS__), NSL__FORALL_INIT3(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT5(f, ...)   f(__VA_ARGS__), NSL__FORALL_INIT4(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT6(f, ...)   f(__VA_ARGS__), NSL__FORALL_INIT5(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT7(f, ...)   f(__VA_ARGS__), NSL__FORALL_INIT6(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT8(f, ...)   f(__VA_ARGS__), NSL__FORALL_INIT7(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT9(f, ...)   f(__VA_ARGS__), NSL__FORALL_INIT8(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT10(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT9(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT11(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT10(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT12(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT11(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT13(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT12(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT14(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT13(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT15(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT14(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT16(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT15(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT17(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT16(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT18(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT17(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT19(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT18(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT20(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT19(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT21(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT20(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT22(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT21(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT23(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT22(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT24(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT23(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT25(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT24(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT26(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT25(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT27(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT26(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT28(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT27(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT29(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT28(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT30(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT29(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT31(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT30(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT32(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT31(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT33(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT32(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT34(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT33(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT35(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT34(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT36(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT35(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT37(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT36(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT38(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT37(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT39(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT38(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT40(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT39(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT41(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT40(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT42(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT41(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT43(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT42(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT44(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT43(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT45(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT44(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT46(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT45(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT47(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT46(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT48(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT47(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT49(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT48(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT50(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT49(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT51(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT50(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT52(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT51(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT53(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT52(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT54(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT53(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT55(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT54(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT56(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT55(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT57(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT56(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT58(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT57(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT59(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT58(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT60(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT59(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT61(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT60(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT62(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT61(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT63(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT62(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT64(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT63(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT65(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT64(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT66(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT65(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT67(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT66(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT68(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT67(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT69(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT68(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT70(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT69(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT71(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT70(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT72(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT71(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT73(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT72(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT74(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT73(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT75(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT74(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT76(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT75(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT77(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT76(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT78(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT77(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT79(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT78(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT80(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT79(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT81(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT80(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT82(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT81(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT83(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT82(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT84(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT83(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT85(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT84(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT86(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT85(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT87(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT86(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT88(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT87(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT89(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT88(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT90(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT89(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT91(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT90(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT92(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT91(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT93(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT92(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT94(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT93(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT95(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT94(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT96(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT95(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT97(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT96(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT98(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT97(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT99(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT98(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT100(f, ...) f(__VA_ARGS__), NSL__FORALL_INIT99(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT101(f, ...) f(__VA_ARGS__), NSL__FORALL_INIT100(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT102(f, ...) f(__VA_ARGS__), NSL__FORALL_INIT101(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT103(f, ...) f(__VA_ARGS__), NSL__FORALL_INIT102(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT104(f, ...) f(__VA_ARGS__), NSL__FORALL_INIT103(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT105(f, ...) f(__VA_ARGS__), NSL__FORALL_INIT104(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT106(f, ...) f(__VA_ARGS__), NSL__FORALL_INIT105(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT107(f, ...) f(__VA_ARGS__), NSL__FORALL_INIT106(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT108(f, ...) f(__VA_ARGS__), NSL__FORALL_INIT107(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT109(f, ...) f(__VA_ARGS__), NSL__FORALL_INIT108(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT110(f, ...) f(__VA_ARGS__), NSL__FORALL_INIT109(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT111(f, ...) f(__VA_ARGS__), NSL__FORALL_INIT110(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT112(f, ...) f(__VA_ARGS__), NSL__FORALL_INIT111(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT113(f, ...) f(__VA_ARGS__), NSL__FORALL_INIT112(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT114(f, ...) f(__VA_ARGS__), NSL__FORALL_INIT113(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT115(f, ...) f(__VA_ARGS__), NSL__FORALL_INIT114(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT116(f, ...) f(__VA_ARGS__), NSL__FORALL_INIT115(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT117(f, ...) f(__VA_ARGS__), NSL__FORALL_INIT116(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT118(f, ...) f(__VA_ARGS__), NSL__FORALL_INIT117(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT119(f, ...) f(__VA_ARGS__), NSL__FORALL_INIT118(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT120(f, ...) f(__VA_ARGS__), NSL__FORALL_INIT119(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT121(f, ...) f(__VA_ARGS__), NSL__FORALL_INIT120(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT122(f, ...) f(__VA_ARGS__), NSL__FORALL_INIT121(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT123(f, ...) f(__VA_ARGS__), NSL__FORALL_INIT122(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT124(f, ...) f(__VA_ARGS__), NSL__FORALL_INIT123(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT125(f, ...) f(__VA_ARGS__), NSL__FORALL_INIT124(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT126(f, ...) f(__VA_ARGS__), NSL__FORALL_INIT125(f, NSL_VA_INIT(__VA_ARGS__))
-#define NSL__FORALL_INIT127(f, ...) f(__VA_ARGS__), NSL__FORALL_INIT126(f, NSL_VA_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT2(f, ...)   f(__VA_ARGS__), NSL__FORALL_INIT1(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT3(f, ...)   f(__VA_ARGS__), NSL__FORALL_INIT2(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT4(f, ...)   f(__VA_ARGS__), NSL__FORALL_INIT3(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT5(f, ...)   f(__VA_ARGS__), NSL__FORALL_INIT4(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT6(f, ...)   f(__VA_ARGS__), NSL__FORALL_INIT5(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT7(f, ...)   f(__VA_ARGS__), NSL__FORALL_INIT6(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT8(f, ...)   f(__VA_ARGS__), NSL__FORALL_INIT7(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT9(f, ...)   f(__VA_ARGS__), NSL__FORALL_INIT8(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT10(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT9(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT11(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT10(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT12(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT11(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT13(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT12(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT14(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT13(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT15(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT14(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT16(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT15(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT17(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT16(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT18(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT17(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT19(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT18(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT20(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT19(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT21(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT20(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT22(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT21(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT23(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT22(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT24(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT23(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT25(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT24(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT26(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT25(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT27(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT26(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT28(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT27(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT29(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT28(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT30(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT29(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT31(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT30(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT32(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT31(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT33(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT32(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT34(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT33(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT35(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT34(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT36(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT35(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT37(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT36(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT38(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT37(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT39(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT38(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT40(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT39(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT41(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT40(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT42(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT41(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT43(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT42(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT44(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT43(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT45(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT44(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT46(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT45(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT47(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT46(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT48(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT47(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT49(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT48(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT50(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT49(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT51(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT50(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT52(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT51(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT53(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT52(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT54(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT53(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT55(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT54(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT56(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT55(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT57(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT56(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT58(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT57(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT59(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT58(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT60(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT59(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT61(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT60(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT62(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT61(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT63(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT62(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT64(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT63(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT65(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT64(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT66(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT65(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT67(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT66(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT68(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT67(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT69(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT68(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT70(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT69(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT71(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT70(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT72(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT71(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT73(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT72(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT74(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT73(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT75(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT74(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT76(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT75(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT77(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT76(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT78(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT77(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT79(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT78(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT80(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT79(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT81(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT80(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT82(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT81(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT83(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT82(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT84(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT83(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT85(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT84(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT86(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT85(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT87(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT86(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT88(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT87(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT89(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT88(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT90(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT89(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT91(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT90(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT92(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT91(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT93(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT92(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT94(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT93(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT95(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT94(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT96(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT95(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT97(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT96(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT98(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT97(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT99(f, ...)  f(__VA_ARGS__), NSL__FORALL_INIT98(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT100(f, ...) f(__VA_ARGS__), NSL__FORALL_INIT99(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT101(f, ...)                                                                \
+    f(__VA_ARGS__), NSL__FORALL_INIT100(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT102(f, ...)                                                                \
+    f(__VA_ARGS__), NSL__FORALL_INIT101(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT103(f, ...)                                                                \
+    f(__VA_ARGS__), NSL__FORALL_INIT102(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT104(f, ...)                                                                \
+    f(__VA_ARGS__), NSL__FORALL_INIT103(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT105(f, ...)                                                                \
+    f(__VA_ARGS__), NSL__FORALL_INIT104(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT106(f, ...)                                                                \
+    f(__VA_ARGS__), NSL__FORALL_INIT105(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT107(f, ...)                                                                \
+    f(__VA_ARGS__), NSL__FORALL_INIT106(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT108(f, ...)                                                                \
+    f(__VA_ARGS__), NSL__FORALL_INIT107(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT109(f, ...)                                                                \
+    f(__VA_ARGS__), NSL__FORALL_INIT108(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT110(f, ...)                                                                \
+    f(__VA_ARGS__), NSL__FORALL_INIT109(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT111(f, ...)                                                                \
+    f(__VA_ARGS__), NSL__FORALL_INIT110(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT112(f, ...)                                                                \
+    f(__VA_ARGS__), NSL__FORALL_INIT111(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT113(f, ...)                                                                \
+    f(__VA_ARGS__), NSL__FORALL_INIT112(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT114(f, ...)                                                                \
+    f(__VA_ARGS__), NSL__FORALL_INIT113(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT115(f, ...)                                                                \
+    f(__VA_ARGS__), NSL__FORALL_INIT114(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT116(f, ...)                                                                \
+    f(__VA_ARGS__), NSL__FORALL_INIT115(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT117(f, ...)                                                                \
+    f(__VA_ARGS__), NSL__FORALL_INIT116(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT118(f, ...)                                                                \
+    f(__VA_ARGS__), NSL__FORALL_INIT117(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT119(f, ...)                                                                \
+    f(__VA_ARGS__), NSL__FORALL_INIT118(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT120(f, ...)                                                                \
+    f(__VA_ARGS__), NSL__FORALL_INIT119(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT121(f, ...)                                                                \
+    f(__VA_ARGS__), NSL__FORALL_INIT120(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT122(f, ...)                                                                \
+    f(__VA_ARGS__), NSL__FORALL_INIT121(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT123(f, ...)                                                                \
+    f(__VA_ARGS__), NSL__FORALL_INIT122(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT124(f, ...)                                                                \
+    f(__VA_ARGS__), NSL__FORALL_INIT123(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT125(f, ...)                                                                \
+    f(__VA_ARGS__), NSL__FORALL_INIT124(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT126(f, ...)                                                                \
+    f(__VA_ARGS__), NSL__FORALL_INIT125(f, NSL_ARG_INIT(__VA_ARGS__))
+#define NSL__FORALL_INIT127(f, ...)                                                                \
+    f(__VA_ARGS__), NSL__FORALL_INIT126(f, NSL_ARG_INIT(__VA_ARGS__))
 
 #endif  // NSL_MAGIC_H_
