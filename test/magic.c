@@ -104,6 +104,24 @@ void test_va_reverse(void) {
     }
 }
 
+void test_foreach(void) {
+    // should evaluate to nothing
+    NSL_FOREACH(f)
+
+#define TIMES_10(x) (x * 10)
+    int expected[] = {10, 20, 30, 40};
+    int result[]   = {NSL_FOREACH(TIMES_10, 1, 2, 3, 4)};
+    for (unsigned long i = 0; i < sizeof(result) / sizeof(*result); i++) {
+        assert(expected[i] == result[i]);
+    }
+
+    unsigned long rev_seq[] = {NSL_FOREACH(TIMES_10, NSL_VA_REST(NSL__REVERSE_SEQUENCE_N))};
+    for (unsigned long i = 0; i < sizeof(rev_seq) / sizeof(*rev_seq); i++) {
+        assert(rev_seq[i] == ((126 - i) * 10));
+    }
+#undef TIMES_10
+}
+
 int main() {
     test_cat();
     test_ncat();
@@ -113,4 +131,5 @@ int main() {
     test_va_tail();
     test_va_initial();
     test_va_reverse();
+    test_foreach();
 }
