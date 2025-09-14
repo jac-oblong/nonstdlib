@@ -72,17 +72,17 @@ void test_va_tail(void) {
     assert(NSL_VA_TAIL(NSL_VA_REST(NSL__REVERSE_SEQUENCE_N)) == 0);
 }
 
-void test_va_initial(void) {
+void test_va_init(void) {
     // should evaluate to nothing
-    NSL_VA_INITIAL(1)
+    NSL_VA_INIT(1)
 
     int expected[] = {1, 2, 3};
-    int result[]   = {NSL_VA_INITIAL(1, 2, 3, 4)};
+    int result[]   = {NSL_VA_INIT(1, 2, 3, 4)};
     for (unsigned long i = 0; i < sizeof(result) / sizeof(*result); i++) {
         assert(expected[i] == result[i]);
     }
 
-    unsigned long rev_seq[] = {NSL_VA_INITIAL(NSL_VA_REST(NSL__REVERSE_SEQUENCE_N))};
+    unsigned long rev_seq[] = {NSL_VA_INIT(NSL_VA_REST(NSL__REVERSE_SEQUENCE_N))};
     for (unsigned long i = 0; i < sizeof(rev_seq) / sizeof(*rev_seq); i++) {
         assert(rev_seq[i] == (126 - i));
     }
@@ -122,6 +122,28 @@ void test_foreach(void) {
 #undef TIMES_10
 }
 
+void test_forall_rest(void) {
+    // should evaluate to nothing
+    NSL_FORALL_REST(f)
+
+    int expected[] = {1234, 234, 34, 4};
+    int result[]   = {NSL_FORALL_REST(NSL_NCAT, 1, 2, 3, 4)};
+    for (unsigned long i = 0; i < sizeof(result) / sizeof(*result); i++) {
+        assert(expected[i] == result[i]);
+    }
+}
+
+void test_forall_init(void) {
+    // should evaluate to nothing
+    NSL_FORALL_INIT(f)
+
+    int expected[] = {1234, 123, 12, 1};
+    int result[]   = {NSL_FORALL_INIT(NSL_NCAT, 1, 2, 3, 4)};
+    for (unsigned long i = 0; i < sizeof(result) / sizeof(*result); i++) {
+        assert(expected[i] == result[i]);
+    }
+}
+
 int main() {
     test_cat();
     test_ncat();
@@ -129,7 +151,9 @@ int main() {
     test_va_head();
     test_va_rest();
     test_va_tail();
-    test_va_initial();
+    test_va_init();
     test_va_reverse();
     test_foreach();
+    test_forall_rest();
+    test_forall_init();
 }
