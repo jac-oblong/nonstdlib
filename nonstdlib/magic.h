@@ -579,4 +579,154 @@
 #define NSL__VA_INITIAL126(x, ...) x, NSL__VA_INITIAL125(__VA_ARGS__)
 #define NSL__VA_INITIAL127(x, ...) x, NSL__VA_INITIAL126(__VA_ARGS__)
 
+/*!
+ * Reverses the arguments provided. For example, `NSL_REVERSE(1, 2, 3, 4)` would
+ * evaluate to `4, 3, 2, 1`.
+ *
+ * `NSL_VA_REVERSE` requires two levels of indirection. This is to ensure that
+ * passing a macro that expands to the variadic arguments works correctly and is
+ * expanded. `NSL__VA_REVERSE` concatentates `NSL__VA_REVERSE` with the number
+ * of arguments provided (using `NSL_NARGS`, which is restricted to [0-127]).
+ * The corresponding macro is called and it pops off the current head, calls the
+ * next macro in the chain, and then puts the head at the back.
+ *
+ * # Requires
+ * - The number of arguments, N, is less than 128. If 128 or more arguments are
+ *   provided, a compile time error is likely to be generated. There is no
+ *   guarantee of this, however.
+ *
+ * # Returns
+ * The reversed variadic list of arguments, if any exists.
+ */
+#define NSL_VA_REVERSE(...)  NSL__VA_REVERSE(__VA_ARGS__)
+#define NSL__VA_REVERSE(...) NSL_CAT(NSL__VA_REVERSE, NSL_NARGS(__VA_ARGS__))(__VA_ARGS__)
+#define NSL__VA_REVERSE0()
+#define NSL__VA_REVERSE1(x)        x
+#define NSL__VA_REVERSE2(x, ...)   NSL__VA_REVERSE1(__VA_ARGS__), x
+#define NSL__VA_REVERSE3(x, ...)   NSL__VA_REVERSE2(__VA_ARGS__), x
+#define NSL__VA_REVERSE4(x, ...)   NSL__VA_REVERSE3(__VA_ARGS__), x
+#define NSL__VA_REVERSE5(x, ...)   NSL__VA_REVERSE4(__VA_ARGS__), x
+#define NSL__VA_REVERSE6(x, ...)   NSL__VA_REVERSE5(__VA_ARGS__), x
+#define NSL__VA_REVERSE7(x, ...)   NSL__VA_REVERSE6(__VA_ARGS__), x
+#define NSL__VA_REVERSE8(x, ...)   NSL__VA_REVERSE7(__VA_ARGS__), x
+#define NSL__VA_REVERSE9(x, ...)   NSL__VA_REVERSE8(__VA_ARGS__), x
+#define NSL__VA_REVERSE10(x, ...)  NSL__VA_REVERSE9(__VA_ARGS__), x
+#define NSL__VA_REVERSE11(x, ...)  NSL__VA_REVERSE10(__VA_ARGS__), x
+#define NSL__VA_REVERSE12(x, ...)  NSL__VA_REVERSE11(__VA_ARGS__), x
+#define NSL__VA_REVERSE13(x, ...)  NSL__VA_REVERSE12(__VA_ARGS__), x
+#define NSL__VA_REVERSE14(x, ...)  NSL__VA_REVERSE13(__VA_ARGS__), x
+#define NSL__VA_REVERSE15(x, ...)  NSL__VA_REVERSE14(__VA_ARGS__), x
+#define NSL__VA_REVERSE16(x, ...)  NSL__VA_REVERSE15(__VA_ARGS__), x
+#define NSL__VA_REVERSE17(x, ...)  NSL__VA_REVERSE16(__VA_ARGS__), x
+#define NSL__VA_REVERSE18(x, ...)  NSL__VA_REVERSE17(__VA_ARGS__), x
+#define NSL__VA_REVERSE19(x, ...)  NSL__VA_REVERSE18(__VA_ARGS__), x
+#define NSL__VA_REVERSE20(x, ...)  NSL__VA_REVERSE19(__VA_ARGS__), x
+#define NSL__VA_REVERSE21(x, ...)  NSL__VA_REVERSE20(__VA_ARGS__), x
+#define NSL__VA_REVERSE22(x, ...)  NSL__VA_REVERSE21(__VA_ARGS__), x
+#define NSL__VA_REVERSE23(x, ...)  NSL__VA_REVERSE22(__VA_ARGS__), x
+#define NSL__VA_REVERSE24(x, ...)  NSL__VA_REVERSE23(__VA_ARGS__), x
+#define NSL__VA_REVERSE25(x, ...)  NSL__VA_REVERSE24(__VA_ARGS__), x
+#define NSL__VA_REVERSE26(x, ...)  NSL__VA_REVERSE25(__VA_ARGS__), x
+#define NSL__VA_REVERSE27(x, ...)  NSL__VA_REVERSE26(__VA_ARGS__), x
+#define NSL__VA_REVERSE28(x, ...)  NSL__VA_REVERSE27(__VA_ARGS__), x
+#define NSL__VA_REVERSE29(x, ...)  NSL__VA_REVERSE28(__VA_ARGS__), x
+#define NSL__VA_REVERSE30(x, ...)  NSL__VA_REVERSE29(__VA_ARGS__), x
+#define NSL__VA_REVERSE31(x, ...)  NSL__VA_REVERSE30(__VA_ARGS__), x
+#define NSL__VA_REVERSE32(x, ...)  NSL__VA_REVERSE31(__VA_ARGS__), x
+#define NSL__VA_REVERSE33(x, ...)  NSL__VA_REVERSE32(__VA_ARGS__), x
+#define NSL__VA_REVERSE34(x, ...)  NSL__VA_REVERSE33(__VA_ARGS__), x
+#define NSL__VA_REVERSE35(x, ...)  NSL__VA_REVERSE34(__VA_ARGS__), x
+#define NSL__VA_REVERSE36(x, ...)  NSL__VA_REVERSE35(__VA_ARGS__), x
+#define NSL__VA_REVERSE37(x, ...)  NSL__VA_REVERSE36(__VA_ARGS__), x
+#define NSL__VA_REVERSE38(x, ...)  NSL__VA_REVERSE37(__VA_ARGS__), x
+#define NSL__VA_REVERSE39(x, ...)  NSL__VA_REVERSE38(__VA_ARGS__), x
+#define NSL__VA_REVERSE40(x, ...)  NSL__VA_REVERSE39(__VA_ARGS__), x
+#define NSL__VA_REVERSE41(x, ...)  NSL__VA_REVERSE40(__VA_ARGS__), x
+#define NSL__VA_REVERSE42(x, ...)  NSL__VA_REVERSE41(__VA_ARGS__), x
+#define NSL__VA_REVERSE43(x, ...)  NSL__VA_REVERSE42(__VA_ARGS__), x
+#define NSL__VA_REVERSE44(x, ...)  NSL__VA_REVERSE43(__VA_ARGS__), x
+#define NSL__VA_REVERSE45(x, ...)  NSL__VA_REVERSE44(__VA_ARGS__), x
+#define NSL__VA_REVERSE46(x, ...)  NSL__VA_REVERSE45(__VA_ARGS__), x
+#define NSL__VA_REVERSE47(x, ...)  NSL__VA_REVERSE46(__VA_ARGS__), x
+#define NSL__VA_REVERSE48(x, ...)  NSL__VA_REVERSE47(__VA_ARGS__), x
+#define NSL__VA_REVERSE49(x, ...)  NSL__VA_REVERSE48(__VA_ARGS__), x
+#define NSL__VA_REVERSE50(x, ...)  NSL__VA_REVERSE49(__VA_ARGS__), x
+#define NSL__VA_REVERSE51(x, ...)  NSL__VA_REVERSE50(__VA_ARGS__), x
+#define NSL__VA_REVERSE52(x, ...)  NSL__VA_REVERSE51(__VA_ARGS__), x
+#define NSL__VA_REVERSE53(x, ...)  NSL__VA_REVERSE52(__VA_ARGS__), x
+#define NSL__VA_REVERSE54(x, ...)  NSL__VA_REVERSE53(__VA_ARGS__), x
+#define NSL__VA_REVERSE55(x, ...)  NSL__VA_REVERSE54(__VA_ARGS__), x
+#define NSL__VA_REVERSE56(x, ...)  NSL__VA_REVERSE55(__VA_ARGS__), x
+#define NSL__VA_REVERSE57(x, ...)  NSL__VA_REVERSE56(__VA_ARGS__), x
+#define NSL__VA_REVERSE58(x, ...)  NSL__VA_REVERSE57(__VA_ARGS__), x
+#define NSL__VA_REVERSE59(x, ...)  NSL__VA_REVERSE58(__VA_ARGS__), x
+#define NSL__VA_REVERSE60(x, ...)  NSL__VA_REVERSE59(__VA_ARGS__), x
+#define NSL__VA_REVERSE61(x, ...)  NSL__VA_REVERSE60(__VA_ARGS__), x
+#define NSL__VA_REVERSE62(x, ...)  NSL__VA_REVERSE61(__VA_ARGS__), x
+#define NSL__VA_REVERSE63(x, ...)  NSL__VA_REVERSE62(__VA_ARGS__), x
+#define NSL__VA_REVERSE64(x, ...)  NSL__VA_REVERSE63(__VA_ARGS__), x
+#define NSL__VA_REVERSE65(x, ...)  NSL__VA_REVERSE64(__VA_ARGS__), x
+#define NSL__VA_REVERSE66(x, ...)  NSL__VA_REVERSE65(__VA_ARGS__), x
+#define NSL__VA_REVERSE67(x, ...)  NSL__VA_REVERSE66(__VA_ARGS__), x
+#define NSL__VA_REVERSE68(x, ...)  NSL__VA_REVERSE67(__VA_ARGS__), x
+#define NSL__VA_REVERSE69(x, ...)  NSL__VA_REVERSE68(__VA_ARGS__), x
+#define NSL__VA_REVERSE70(x, ...)  NSL__VA_REVERSE69(__VA_ARGS__), x
+#define NSL__VA_REVERSE71(x, ...)  NSL__VA_REVERSE70(__VA_ARGS__), x
+#define NSL__VA_REVERSE72(x, ...)  NSL__VA_REVERSE71(__VA_ARGS__), x
+#define NSL__VA_REVERSE73(x, ...)  NSL__VA_REVERSE72(__VA_ARGS__), x
+#define NSL__VA_REVERSE74(x, ...)  NSL__VA_REVERSE73(__VA_ARGS__), x
+#define NSL__VA_REVERSE75(x, ...)  NSL__VA_REVERSE74(__VA_ARGS__), x
+#define NSL__VA_REVERSE76(x, ...)  NSL__VA_REVERSE75(__VA_ARGS__), x
+#define NSL__VA_REVERSE77(x, ...)  NSL__VA_REVERSE76(__VA_ARGS__), x
+#define NSL__VA_REVERSE78(x, ...)  NSL__VA_REVERSE77(__VA_ARGS__), x
+#define NSL__VA_REVERSE79(x, ...)  NSL__VA_REVERSE78(__VA_ARGS__), x
+#define NSL__VA_REVERSE80(x, ...)  NSL__VA_REVERSE79(__VA_ARGS__), x
+#define NSL__VA_REVERSE81(x, ...)  NSL__VA_REVERSE80(__VA_ARGS__), x
+#define NSL__VA_REVERSE82(x, ...)  NSL__VA_REVERSE81(__VA_ARGS__), x
+#define NSL__VA_REVERSE83(x, ...)  NSL__VA_REVERSE82(__VA_ARGS__), x
+#define NSL__VA_REVERSE84(x, ...)  NSL__VA_REVERSE83(__VA_ARGS__), x
+#define NSL__VA_REVERSE85(x, ...)  NSL__VA_REVERSE84(__VA_ARGS__), x
+#define NSL__VA_REVERSE86(x, ...)  NSL__VA_REVERSE85(__VA_ARGS__), x
+#define NSL__VA_REVERSE87(x, ...)  NSL__VA_REVERSE86(__VA_ARGS__), x
+#define NSL__VA_REVERSE88(x, ...)  NSL__VA_REVERSE87(__VA_ARGS__), x
+#define NSL__VA_REVERSE89(x, ...)  NSL__VA_REVERSE88(__VA_ARGS__), x
+#define NSL__VA_REVERSE90(x, ...)  NSL__VA_REVERSE89(__VA_ARGS__), x
+#define NSL__VA_REVERSE91(x, ...)  NSL__VA_REVERSE90(__VA_ARGS__), x
+#define NSL__VA_REVERSE92(x, ...)  NSL__VA_REVERSE91(__VA_ARGS__), x
+#define NSL__VA_REVERSE93(x, ...)  NSL__VA_REVERSE92(__VA_ARGS__), x
+#define NSL__VA_REVERSE94(x, ...)  NSL__VA_REVERSE93(__VA_ARGS__), x
+#define NSL__VA_REVERSE95(x, ...)  NSL__VA_REVERSE94(__VA_ARGS__), x
+#define NSL__VA_REVERSE96(x, ...)  NSL__VA_REVERSE95(__VA_ARGS__), x
+#define NSL__VA_REVERSE97(x, ...)  NSL__VA_REVERSE96(__VA_ARGS__), x
+#define NSL__VA_REVERSE98(x, ...)  NSL__VA_REVERSE97(__VA_ARGS__), x
+#define NSL__VA_REVERSE99(x, ...)  NSL__VA_REVERSE98(__VA_ARGS__), x
+#define NSL__VA_REVERSE100(x, ...) NSL__VA_REVERSE99(__VA_ARGS__), x
+#define NSL__VA_REVERSE101(x, ...) NSL__VA_REVERSE100(__VA_ARGS__), x
+#define NSL__VA_REVERSE102(x, ...) NSL__VA_REVERSE101(__VA_ARGS__), x
+#define NSL__VA_REVERSE103(x, ...) NSL__VA_REVERSE102(__VA_ARGS__), x
+#define NSL__VA_REVERSE104(x, ...) NSL__VA_REVERSE103(__VA_ARGS__), x
+#define NSL__VA_REVERSE105(x, ...) NSL__VA_REVERSE104(__VA_ARGS__), x
+#define NSL__VA_REVERSE106(x, ...) NSL__VA_REVERSE105(__VA_ARGS__), x
+#define NSL__VA_REVERSE107(x, ...) NSL__VA_REVERSE106(__VA_ARGS__), x
+#define NSL__VA_REVERSE108(x, ...) NSL__VA_REVERSE107(__VA_ARGS__), x
+#define NSL__VA_REVERSE109(x, ...) NSL__VA_REVERSE108(__VA_ARGS__), x
+#define NSL__VA_REVERSE110(x, ...) NSL__VA_REVERSE109(__VA_ARGS__), x
+#define NSL__VA_REVERSE111(x, ...) NSL__VA_REVERSE110(__VA_ARGS__), x
+#define NSL__VA_REVERSE112(x, ...) NSL__VA_REVERSE111(__VA_ARGS__), x
+#define NSL__VA_REVERSE113(x, ...) NSL__VA_REVERSE112(__VA_ARGS__), x
+#define NSL__VA_REVERSE114(x, ...) NSL__VA_REVERSE113(__VA_ARGS__), x
+#define NSL__VA_REVERSE115(x, ...) NSL__VA_REVERSE114(__VA_ARGS__), x
+#define NSL__VA_REVERSE116(x, ...) NSL__VA_REVERSE115(__VA_ARGS__), x
+#define NSL__VA_REVERSE117(x, ...) NSL__VA_REVERSE116(__VA_ARGS__), x
+#define NSL__VA_REVERSE118(x, ...) NSL__VA_REVERSE117(__VA_ARGS__), x
+#define NSL__VA_REVERSE119(x, ...) NSL__VA_REVERSE118(__VA_ARGS__), x
+#define NSL__VA_REVERSE120(x, ...) NSL__VA_REVERSE119(__VA_ARGS__), x
+#define NSL__VA_REVERSE121(x, ...) NSL__VA_REVERSE120(__VA_ARGS__), x
+#define NSL__VA_REVERSE122(x, ...) NSL__VA_REVERSE121(__VA_ARGS__), x
+#define NSL__VA_REVERSE123(x, ...) NSL__VA_REVERSE122(__VA_ARGS__), x
+#define NSL__VA_REVERSE124(x, ...) NSL__VA_REVERSE123(__VA_ARGS__), x
+#define NSL__VA_REVERSE125(x, ...) NSL__VA_REVERSE124(__VA_ARGS__), x
+#define NSL__VA_REVERSE126(x, ...) NSL__VA_REVERSE125(__VA_ARGS__), x
+#define NSL__VA_REVERSE127(x, ...) NSL__VA_REVERSE126(__VA_ARGS__), x
+
 #endif  // NSL_MAGIC_H_

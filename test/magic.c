@@ -88,6 +88,22 @@ void test_va_initial(void) {
     }
 }
 
+void test_va_reverse(void) {
+    // should evaluate to nothing
+    NSL_VA_REVERSE()
+
+    int expected[] = {4, 3, 2, 1};
+    int result[]   = {NSL_VA_REVERSE(1, 2, 3, 4)};
+    for (unsigned long i = 0; i < sizeof(result) / sizeof(*result); i++) {
+        assert(expected[i] == result[i]);
+    }
+
+    unsigned long rev_seq[] = {NSL_VA_REVERSE(NSL_VA_REST(NSL__REVERSE_SEQUENCE_N))};
+    for (unsigned long i = 0; i < sizeof(rev_seq) / sizeof(*rev_seq); i++) {
+        assert(rev_seq[i] == i);
+    }
+}
+
 int main() {
     test_cat();
     test_ncat();
@@ -96,4 +112,5 @@ int main() {
     test_va_rest();
     test_va_tail();
     test_va_initial();
+    test_va_reverse();
 }
