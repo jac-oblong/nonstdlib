@@ -122,10 +122,10 @@
  * # Returns
  * The concatenated full name.
  */
-#define NSL_NCAT(...)        NSL__NCAT(__VA_ARGS__)
-#define NSL__NCAT(...)       NSL_CAT(NSL__NCAT, NSL_NARGS(__VA_ARGS__))(__VA_ARGS__)
-#define NSL__NCAT0(x, ...)   x
-#define NSL__NCAT1(x, ...)   NSL_CAT(x, NSL__NCAT0(__VA_ARGS__))
+#define NSL_NCAT(...)  NSL__NCAT(__VA_ARGS__)
+#define NSL__NCAT(...) NSL_CAT(NSL__NCAT, NSL_NARGS(__VA_ARGS__))(__VA_ARGS__)
+#define NSL__NCAT0()
+#define NSL__NCAT1(x)        x
 #define NSL__NCAT2(x, ...)   NSL_CAT(x, NSL__NCAT1(__VA_ARGS__))
 #define NSL__NCAT3(x, ...)   NSL_CAT(x, NSL__NCAT2(__VA_ARGS__))
 #define NSL__NCAT4(x, ...)   NSL_CAT(x, NSL__NCAT3(__VA_ARGS__))
@@ -300,8 +300,8 @@
  */
 #define NSL_VA_TAIL(...)  NSL__VA_TAIL(__VA_ARGS__)
 #define NSL__VA_TAIL(...) NSL_CAT(NSL__VA_TAIL, NSL_NARGS(__VA_ARGS__))(__VA_ARGS__)
-#define NSL__VA_TAIL0(...)
-#define NSL__VA_TAIL1(tail)     tail
+#define NSL__VA_TAIL0()
+#define NSL__VA_TAIL1(x)        x
 #define NSL__VA_TAIL2(x, ...)   NSL__VA_TAIL1(__VA_ARGS__)
 #define NSL__VA_TAIL3(x, ...)   NSL__VA_TAIL2(__VA_ARGS__)
 #define NSL__VA_TAIL4(x, ...)   NSL__VA_TAIL3(__VA_ARGS__)
@@ -450,8 +450,8 @@
  */
 #define NSL_VA_INITIAL(...)  NSL__VA_INITIAL(__VA_ARGS__)
 #define NSL__VA_INITIAL(...) NSL_CAT(NSL__VA_INITIAL, NSL_NARGS(__VA_ARGS__))(__VA_ARGS__)
-#define NSL__VA_INITIAL0(...)
-#define NSL__VA_INITIAL1(...)
+#define NSL__VA_INITIAL0()
+#define NSL__VA_INITIAL1(x)
 #define NSL__VA_INITIAL2(x, ...)   x
 #define NSL__VA_INITIAL3(x, ...)   x, NSL__VA_INITIAL2(__VA_ARGS__)
 #define NSL__VA_INITIAL4(x, ...)   x, NSL__VA_INITIAL3(__VA_ARGS__)
