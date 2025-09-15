@@ -7,6 +7,11 @@ void test_cat(void) {
     assert(NSL_CAT(4, 7) == 47);
 }
 
+void test_cat_sep(void) {
+    assert(NSL_CAT_SEP(0, 1, 9) == 109);
+    assert(NSL_CAT_SEP(1, 4, 7) == 417);
+}
+
 void test_ncat(void) {
     // should evaluate to nothing
     NSL_NCAT()
@@ -19,6 +24,16 @@ void test_ncat(void) {
     assert(NSL_NCAT(1, 2, 3, 4, 5, 6, 7) == 1234567);
     assert(NSL_NCAT(1, 2, 3, 4, 5, 6, 7, 8) == 12345678);
     assert(NSL_NCAT(1, 2, 3, 4, 5, 6, 7, 8, 9) == 123456789);
+}
+
+void test_ncat_sep(void) {
+    // should evaluate to nothing
+    NSL_NCAT_SEP(_)
+    assert(NSL_NCAT_SEP(0, 1) == 1);
+    assert(NSL_NCAT_SEP(0, 1, 2) == 102);
+    assert(NSL_NCAT_SEP(0, 1, 2, 3) == 10203);
+    assert(NSL_NCAT_SEP(0, 1, 2, 3, 4) == 1020304);
+    assert(NSL_NCAT_SEP(0, 1, 2, 3, 4, 5) == 102030405);
 }
 
 void test_nargs(void) {
@@ -146,7 +161,9 @@ void test_forall_init(void) {
 
 int main() {
     test_cat();
+    test_cat_sep();
     test_ncat();
+    test_ncat_sep();
     test_nargs();
     test_arg_head();
     test_arg_rest();
