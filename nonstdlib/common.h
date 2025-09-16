@@ -51,6 +51,14 @@
 
 /******************************************************************************/
 /*                                                                            */
+/*                                  INCLUDES                                  */
+/*                                                                            */
+/******************************************************************************/
+
+#include "nonstdlib/magic.h"
+
+/******************************************************************************/
+/*                                                                            */
 /*                           LIBRARY VERSION MACROS                           */
 /*                                                                            */
 /******************************************************************************/
@@ -345,11 +353,70 @@ void nsl__todo_runtime(const char *message, const char *file, int line) {
 
 /******************************************************************************/
 /*                                                                            */
+/*                          MACROS FOR COMMON GUARDS                          */
+/*                                                                            */
+/******************************************************************************/
+
+/*!
+ * Evaluates whether or not the prefix should be stripped for the current
+ * module. The module name is passed as arguments and it is checked if the
+ * corresponding macros are defined.
+ *
+ * For example, `NSL_SHOULD_STRIP_PREFIX(A, B, C)` would evaluate to true (1) if
+ * the module `nonstdlib/A/B/C` should strip its prefix, otherwise false (0).
+ *
+ * NOTE on the implementation of this macro: The macro cannot use `defined()` to
+ * determine if the relevant macros are defined, as that is undefined behavior.
+ * Instead, `NSL_NARGS` is used. If the macro is defined, it should expand to
+ * nothing, thus `NSL_NARGS` would evaluate to 0. Otherwise, it will not be
+ * expanded, and `NSL_NARGS` would evaluate to 1.
+ *
+ * # Parameters
+ * - The path names that make up the module names.
+ *
+ * # Returns
+ * - True (1) if the prefixes should be stripped, and false (0) otherwise.
+ */
+#define NSL_SHOULD_STRIP_PREFIX(...)                                                               \
+    (NSL_NSEP(||, NSL_FORALL_INIT(NSL__SHOULD_STRIP_PREFIX, __VA_ARGS__))                          \
+     || (NSL_NARGS(NSL_STRIP_PREFIX) == 0))
+#define NSL__SHOULD_STRIP_PREFIX(...)                                                              \
+    (NSL_NARGS(NSL_NCAT_SEP(_, NSL, __VA_ARGS__, STRIP, PREFIX)) == 0)
+
+/*!
+ * Evaluates whether or not the implementation should be included for the
+ * current module. The module name is passed as arguments and it is checked if
+ * the corresponding macros are defined.
+ *
+ * For example, `NSL_SHOULD_INCLUDE_IMPLEMENTATION(A, B, C)` would evaluate to
+ * true (1) if the module `nonstdlib/A/B/C` should include its implementation,
+ * and false (0) otherwise.
+ *
+ * NOTE on the implementation of this macro: The macro cannot use `defined()` to
+ * determine if the relevant macros are defined, as that is undefined behavior.
+ * Instead, `NSL_NARGS` is used. If the macro is defined, it should expand to
+ * nothing, thus `NSL_NARGS` would evaluate to 0. Otherwise, it will not be
+ * expanded, and `NSL_NARGS` would evaluate to 1.
+ *
+ * # Parameters
+ * - The path names that make up the module names.
+ *
+ * # Returns
+ * - True (1) if the implementation should be included, and false (0) otherwise.
+ */
+#define NSL_SHOULD_INCLUDE_IMPLEMENTATION(...)                                                     \
+    (NSL_NSEP(||, NSL_FORALL_INIT(NSL__SHOULD_INCLUDE_IMPLEMENTATION, __VA_ARGS__))                \
+     || (NSL_NARGS(NSL_IMPLEMENTATION) == 0))
+#define NSL__SHOULD_INCLUDE_IMPLEMENTATION(...)                                                    \
+    (NSL_NARGS(NSL_NCAT_SEP(_, NSL, __VA_ARGS__, IMPLEMENTATION)) == 0)
+
+/******************************************************************************/
+/*                                                                            */
 /*                                STRIP PREFIX                                */
 /*                                                                            */
 /******************************************************************************/
 
-#if defined(NSL_STRIP_PREFIX) || defined(NSL_COMMON_STRIP_PREFIX)
+#if NSL_SHOULD_STRIP_PREFIX(COMMON)
 #    define is_of_type        nsl_is_of_type
 #    define assert_is_of_type nsl_assert_is_of_type
 #    define todo              nsl_todo
