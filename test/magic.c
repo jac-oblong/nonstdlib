@@ -2,6 +2,29 @@
 
 #include <assert.h>
 
+void test_nargs(void) {
+    assert(NSL_NARGS(1, 2, 3) == 3);
+    assert(NSL_NARGS(a, b, c, e, f, g, h, i, j, k) == 10);
+    assert(NSL_NARGS() == 0);
+    // this goes over the argument limit for NARGS, so it should return the
+    // 128th argument, which is '1'
+    // clang-format off
+    assert(NSL_NARGS('0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
+                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
+                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
+                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
+                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
+                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
+                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
+                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
+                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
+                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
+                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
+                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
+                     '0', '0', '0', '0', '0', '0', '0', '1') == '1');
+    // clang-format on
+}
+
 void test_cat(void) {
     assert(NSL_CAT(1, 9) == 19);
     assert(NSL_CAT(4, 7) == 47);
@@ -36,27 +59,18 @@ void test_ncat_sep(void) {
     assert(NSL_NCAT_SEP(0, 1, 2, 3, 4, 5) == 102030405);
 }
 
-void test_nargs(void) {
-    assert(NSL_NARGS(1, 2, 3) == 3);
-    assert(NSL_NARGS(a, b, c, e, f, g, h, i, j, k) == 10);
-    assert(NSL_NARGS() == 0);
-    // this goes over the argument limit for NARGS, so it should return the
-    // 128th argument, which is '1'
-    // clang-format off
-    assert(NSL_NARGS('0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
-                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
-                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
-                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
-                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
-                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
-                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
-                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
-                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
-                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
-                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
-                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
-                     '0', '0', '0', '0', '0', '0', '0', '1') == '1');
-    // clang-format on
+void test_sep(void) {
+    assert(NSL_SEP(*, 2, 3) == 6);
+    assert(NSL_SEP(+, 2, 4) == 6);
+    assert(NSL_SEP(/, 12, 2) == 6);
+}
+
+void test_nsep(void) {
+    // should evaluate to nothing
+    NSL_NSEP(_)
+    assert(NSL_NSEP(*, 2, 3, 4, 5) == 120);
+    assert(NSL_NSEP(+, 2, 4, 6, 8) == 20);
+    assert(NSL_NSEP(/, 12, 2, 3) == 2);
 }
 
 void test_arg_head(void) {
@@ -160,11 +174,13 @@ void test_forall_init(void) {
 }
 
 int main() {
+    test_nargs();
     test_cat();
     test_cat_sep();
     test_ncat();
     test_ncat_sep();
-    test_nargs();
+    test_sep();
+    test_nsep();
     test_arg_head();
     test_arg_rest();
     test_arg_tail();

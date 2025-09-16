@@ -431,6 +431,173 @@
 #define NSL__NCAT_SEP127(sep, x, ...) NSL_CAT_SEP(sep, x, NSL__NCAT_SEP126(sep, __VA_ARGS__))
 
 /*!
+ * Separates the two provided arguments with `sep`. This does not concatenate
+ * any of the arguments, it just places `sep` between `a` and `b`.
+ *
+ * # Parameters
+ * - `sep`: The separator between the two arguments
+ * - `a`: The first argument. This will be placed before the separator.
+ * - `b`: The second argument. This will be placed after the separator.
+ *
+ * # Returns
+ * The two arguments with `sep` in the middle.
+ */
+#define NSL_SEP(sep, a, b) a sep b
+
+/*!
+ * Separates the provided arguments with `sep`. This does not concatenate any of
+ * the arguments, it just places `sep` between all arguments. For example,
+ * `NSL_NSEP(*, a, b, c, d)` would expand to `a * b * c * d`.
+ *
+ * `NSL_NSEP` requires two levels of indirection. This is to ensure that passing
+ * a macro that expands to the variadic arguments works correctly and is
+ * expanded.
+ *
+ * # Parameters
+ * - `sep`: The separator between the arguments
+ * - `...`: The arguments to be separated.
+ *
+ * # Requires
+ * - The number of arguments to be separated is less than 128. If 128 or more
+ *   arguments are provided, a compile time error is likely to be generated.
+ *   There is no guarantee of this, however.
+ *
+ * # Returns
+ * The arguments with `sep` between each pair.
+ */
+#define NSL_NSEP(sep, ...) NSL__NSEP(sep, __VA_ARGS__)
+#define NSL__NSEP(sep, ...)                                                                        \
+    NSL_CAT(NSL__NSEP, NSL_NARGS(__VA_ARGS__))(sep __VA_OPT__(, ) __VA_ARGS__)
+#define NSL__NSEP0(sep)
+#define NSL__NSEP1(sep, x)        x
+#define NSL__NSEP2(sep, x, ...)   NSL_SEP(sep, x, NSL__NSEP1(sep, __VA_ARGS__))
+#define NSL__NSEP3(sep, x, ...)   NSL_SEP(sep, x, NSL__NSEP2(sep, __VA_ARGS__))
+#define NSL__NSEP4(sep, x, ...)   NSL_SEP(sep, x, NSL__NSEP3(sep, __VA_ARGS__))
+#define NSL__NSEP5(sep, x, ...)   NSL_SEP(sep, x, NSL__NSEP4(sep, __VA_ARGS__))
+#define NSL__NSEP6(sep, x, ...)   NSL_SEP(sep, x, NSL__NSEP5(sep, __VA_ARGS__))
+#define NSL__NSEP7(sep, x, ...)   NSL_SEP(sep, x, NSL__NSEP6(sep, __VA_ARGS__))
+#define NSL__NSEP8(sep, x, ...)   NSL_SEP(sep, x, NSL__NSEP7(sep, __VA_ARGS__))
+#define NSL__NSEP9(sep, x, ...)   NSL_SEP(sep, x, NSL__NSEP8(sep, __VA_ARGS__))
+#define NSL__NSEP10(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP9(sep, __VA_ARGS__))
+#define NSL__NSEP11(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP10(sep, __VA_ARGS__))
+#define NSL__NSEP12(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP11(sep, __VA_ARGS__))
+#define NSL__NSEP13(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP12(sep, __VA_ARGS__))
+#define NSL__NSEP14(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP13(sep, __VA_ARGS__))
+#define NSL__NSEP15(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP14(sep, __VA_ARGS__))
+#define NSL__NSEP16(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP15(sep, __VA_ARGS__))
+#define NSL__NSEP17(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP16(sep, __VA_ARGS__))
+#define NSL__NSEP18(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP17(sep, __VA_ARGS__))
+#define NSL__NSEP19(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP18(sep, __VA_ARGS__))
+#define NSL__NSEP20(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP19(sep, __VA_ARGS__))
+#define NSL__NSEP21(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP20(sep, __VA_ARGS__))
+#define NSL__NSEP22(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP21(sep, __VA_ARGS__))
+#define NSL__NSEP23(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP22(sep, __VA_ARGS__))
+#define NSL__NSEP24(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP23(sep, __VA_ARGS__))
+#define NSL__NSEP25(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP24(sep, __VA_ARGS__))
+#define NSL__NSEP26(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP25(sep, __VA_ARGS__))
+#define NSL__NSEP27(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP26(sep, __VA_ARGS__))
+#define NSL__NSEP28(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP27(sep, __VA_ARGS__))
+#define NSL__NSEP29(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP28(sep, __VA_ARGS__))
+#define NSL__NSEP30(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP29(sep, __VA_ARGS__))
+#define NSL__NSEP31(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP30(sep, __VA_ARGS__))
+#define NSL__NSEP32(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP31(sep, __VA_ARGS__))
+#define NSL__NSEP33(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP32(sep, __VA_ARGS__))
+#define NSL__NSEP34(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP33(sep, __VA_ARGS__))
+#define NSL__NSEP35(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP34(sep, __VA_ARGS__))
+#define NSL__NSEP36(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP35(sep, __VA_ARGS__))
+#define NSL__NSEP37(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP36(sep, __VA_ARGS__))
+#define NSL__NSEP38(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP37(sep, __VA_ARGS__))
+#define NSL__NSEP39(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP38(sep, __VA_ARGS__))
+#define NSL__NSEP40(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP39(sep, __VA_ARGS__))
+#define NSL__NSEP41(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP40(sep, __VA_ARGS__))
+#define NSL__NSEP42(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP41(sep, __VA_ARGS__))
+#define NSL__NSEP43(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP42(sep, __VA_ARGS__))
+#define NSL__NSEP44(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP43(sep, __VA_ARGS__))
+#define NSL__NSEP45(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP44(sep, __VA_ARGS__))
+#define NSL__NSEP46(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP45(sep, __VA_ARGS__))
+#define NSL__NSEP47(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP46(sep, __VA_ARGS__))
+#define NSL__NSEP48(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP47(sep, __VA_ARGS__))
+#define NSL__NSEP49(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP48(sep, __VA_ARGS__))
+#define NSL__NSEP50(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP49(sep, __VA_ARGS__))
+#define NSL__NSEP51(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP50(sep, __VA_ARGS__))
+#define NSL__NSEP52(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP51(sep, __VA_ARGS__))
+#define NSL__NSEP53(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP52(sep, __VA_ARGS__))
+#define NSL__NSEP54(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP53(sep, __VA_ARGS__))
+#define NSL__NSEP55(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP54(sep, __VA_ARGS__))
+#define NSL__NSEP56(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP55(sep, __VA_ARGS__))
+#define NSL__NSEP57(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP56(sep, __VA_ARGS__))
+#define NSL__NSEP58(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP57(sep, __VA_ARGS__))
+#define NSL__NSEP59(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP58(sep, __VA_ARGS__))
+#define NSL__NSEP60(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP59(sep, __VA_ARGS__))
+#define NSL__NSEP61(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP60(sep, __VA_ARGS__))
+#define NSL__NSEP62(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP61(sep, __VA_ARGS__))
+#define NSL__NSEP63(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP62(sep, __VA_ARGS__))
+#define NSL__NSEP64(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP63(sep, __VA_ARGS__))
+#define NSL__NSEP65(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP64(sep, __VA_ARGS__))
+#define NSL__NSEP66(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP65(sep, __VA_ARGS__))
+#define NSL__NSEP67(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP66(sep, __VA_ARGS__))
+#define NSL__NSEP68(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP67(sep, __VA_ARGS__))
+#define NSL__NSEP69(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP68(sep, __VA_ARGS__))
+#define NSL__NSEP70(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP69(sep, __VA_ARGS__))
+#define NSL__NSEP71(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP70(sep, __VA_ARGS__))
+#define NSL__NSEP72(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP71(sep, __VA_ARGS__))
+#define NSL__NSEP73(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP72(sep, __VA_ARGS__))
+#define NSL__NSEP74(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP73(sep, __VA_ARGS__))
+#define NSL__NSEP75(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP74(sep, __VA_ARGS__))
+#define NSL__NSEP76(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP75(sep, __VA_ARGS__))
+#define NSL__NSEP77(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP76(sep, __VA_ARGS__))
+#define NSL__NSEP78(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP77(sep, __VA_ARGS__))
+#define NSL__NSEP79(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP78(sep, __VA_ARGS__))
+#define NSL__NSEP80(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP79(sep, __VA_ARGS__))
+#define NSL__NSEP81(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP80(sep, __VA_ARGS__))
+#define NSL__NSEP82(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP81(sep, __VA_ARGS__))
+#define NSL__NSEP83(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP82(sep, __VA_ARGS__))
+#define NSL__NSEP84(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP83(sep, __VA_ARGS__))
+#define NSL__NSEP85(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP84(sep, __VA_ARGS__))
+#define NSL__NSEP86(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP85(sep, __VA_ARGS__))
+#define NSL__NSEP87(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP86(sep, __VA_ARGS__))
+#define NSL__NSEP88(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP87(sep, __VA_ARGS__))
+#define NSL__NSEP89(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP88(sep, __VA_ARGS__))
+#define NSL__NSEP90(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP89(sep, __VA_ARGS__))
+#define NSL__NSEP91(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP90(sep, __VA_ARGS__))
+#define NSL__NSEP92(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP91(sep, __VA_ARGS__))
+#define NSL__NSEP93(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP92(sep, __VA_ARGS__))
+#define NSL__NSEP94(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP93(sep, __VA_ARGS__))
+#define NSL__NSEP95(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP94(sep, __VA_ARGS__))
+#define NSL__NSEP96(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP95(sep, __VA_ARGS__))
+#define NSL__NSEP97(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP96(sep, __VA_ARGS__))
+#define NSL__NSEP98(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP97(sep, __VA_ARGS__))
+#define NSL__NSEP99(sep, x, ...)  NSL_SEP(sep, x, NSL__NSEP98(sep, __VA_ARGS__))
+#define NSL__NSEP100(sep, x, ...) NSL_SEP(sep, x, NSL__NSEP99(sep, __VA_ARGS__))
+#define NSL__NSEP101(sep, x, ...) NSL_SEP(sep, x, NSL__NSEP100(sep, __VA_ARGS__))
+#define NSL__NSEP102(sep, x, ...) NSL_SEP(sep, x, NSL__NSEP101(sep, __VA_ARGS__))
+#define NSL__NSEP103(sep, x, ...) NSL_SEP(sep, x, NSL__NSEP102(sep, __VA_ARGS__))
+#define NSL__NSEP104(sep, x, ...) NSL_SEP(sep, x, NSL__NSEP103(sep, __VA_ARGS__))
+#define NSL__NSEP105(sep, x, ...) NSL_SEP(sep, x, NSL__NSEP104(sep, __VA_ARGS__))
+#define NSL__NSEP106(sep, x, ...) NSL_SEP(sep, x, NSL__NSEP105(sep, __VA_ARGS__))
+#define NSL__NSEP107(sep, x, ...) NSL_SEP(sep, x, NSL__NSEP106(sep, __VA_ARGS__))
+#define NSL__NSEP108(sep, x, ...) NSL_SEP(sep, x, NSL__NSEP107(sep, __VA_ARGS__))
+#define NSL__NSEP109(sep, x, ...) NSL_SEP(sep, x, NSL__NSEP108(sep, __VA_ARGS__))
+#define NSL__NSEP110(sep, x, ...) NSL_SEP(sep, x, NSL__NSEP109(sep, __VA_ARGS__))
+#define NSL__NSEP111(sep, x, ...) NSL_SEP(sep, x, NSL__NSEP110(sep, __VA_ARGS__))
+#define NSL__NSEP112(sep, x, ...) NSL_SEP(sep, x, NSL__NSEP111(sep, __VA_ARGS__))
+#define NSL__NSEP113(sep, x, ...) NSL_SEP(sep, x, NSL__NSEP112(sep, __VA_ARGS__))
+#define NSL__NSEP114(sep, x, ...) NSL_SEP(sep, x, NSL__NSEP113(sep, __VA_ARGS__))
+#define NSL__NSEP115(sep, x, ...) NSL_SEP(sep, x, NSL__NSEP114(sep, __VA_ARGS__))
+#define NSL__NSEP116(sep, x, ...) NSL_SEP(sep, x, NSL__NSEP115(sep, __VA_ARGS__))
+#define NSL__NSEP117(sep, x, ...) NSL_SEP(sep, x, NSL__NSEP116(sep, __VA_ARGS__))
+#define NSL__NSEP118(sep, x, ...) NSL_SEP(sep, x, NSL__NSEP117(sep, __VA_ARGS__))
+#define NSL__NSEP119(sep, x, ...) NSL_SEP(sep, x, NSL__NSEP118(sep, __VA_ARGS__))
+#define NSL__NSEP120(sep, x, ...) NSL_SEP(sep, x, NSL__NSEP119(sep, __VA_ARGS__))
+#define NSL__NSEP121(sep, x, ...) NSL_SEP(sep, x, NSL__NSEP120(sep, __VA_ARGS__))
+#define NSL__NSEP122(sep, x, ...) NSL_SEP(sep, x, NSL__NSEP121(sep, __VA_ARGS__))
+#define NSL__NSEP123(sep, x, ...) NSL_SEP(sep, x, NSL__NSEP122(sep, __VA_ARGS__))
+#define NSL__NSEP124(sep, x, ...) NSL_SEP(sep, x, NSL__NSEP123(sep, __VA_ARGS__))
+#define NSL__NSEP125(sep, x, ...) NSL_SEP(sep, x, NSL__NSEP124(sep, __VA_ARGS__))
+#define NSL__NSEP126(sep, x, ...) NSL_SEP(sep, x, NSL__NSEP125(sep, __VA_ARGS__))
+#define NSL__NSEP127(sep, x, ...) NSL_SEP(sep, x, NSL__NSEP126(sep, __VA_ARGS__))
+
+/*!
  * Evaluates to the head of the variadic arguments (i.e. the first argument).
  *
  * `NSL_ARG_HEAD` requires two levels of indirection. This is to ensure that
