@@ -61,3 +61,13 @@ Not necessarily in order.
 - *Sequencer*
 - *Unit Test*
 - *Build Tool*
+
+*** References
+
+- [[https://github.com/tsoding/nob.h/blob/main/nob.h][nob.h]]
+- [[https://github.com/nothings/stb/tree/master][stb]]
+- [[https://github.com/JacksonAllan/CC/blob/main/articles/Better_C_Generics_Part_1_The_Extendible_Generic.md#footnote_1][Better C Generics]]
+- [[https://github.com/hirrolot/metalang99][metalang99]]
+- [[https://github.com/stclib/STC][stc]]
+- [[http://www.gingerbill.org/series/memory-allocation-strategies/][Memory Allocation Strategies]]
+- [[https://github.com/tsoding/arena/tree/master][arena.h]]
