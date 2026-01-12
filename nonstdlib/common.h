@@ -69,6 +69,26 @@
 
 /******************************************************************************/
 /*                                                                            */
+/*                            C ARRAY LENGTH MACRO                            */
+/*                                                                            */
+/******************************************************************************/
+
+/*!
+ * Returns the length of the provided C array.
+ *
+ * # Parameters
+ * - `carr`: The C array to measure the length of.
+ *
+ * # Requires
+ * - `carr` is a C array that is NOT a pointer.
+ *
+ * # Returns
+ * The length (number of elements) of the C array.
+ */
+#define nsl_carrlen(carr) sizeof(carr) / sizeof(carr[0])
+
+/******************************************************************************/
+/*                                                                            */
 /*                            TYPE CHECKING MACROS                            */
 /*                                                                            */
 /******************************************************************************/
@@ -417,6 +437,7 @@ void nsl__todo_runtime(const char *message, const char *file, int line) {
 /******************************************************************************/
 
 #if NSL_SHOULD_STRIP_PREFIX(COMMON)
+#    define carrlen           nsl_carrlen
 #    define is_of_type        nsl_is_of_type
 #    define assert_is_of_type nsl_assert_is_of_type
 #    define todo              nsl_todo
