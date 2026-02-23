@@ -18,45 +18,96 @@
 # 																			  #
 ###############################################################################
 
+# By default, all commands are silenced. This reduces noise when running tests.
+# Run make with V=1 to enable verbose output.
 ifneq ($(V),1)
-	Q = @
+	Q := @
 endif
 
+# By default, everything is compiled with the highest level of optimization. Run
+# make with DEBUG=1 to enable debugging.
 ifneq ($(DEBUG),1)
-	OPTIMIZATION = -O3
+	OPTIMIZATION := -O3
 else
-	OPTIMIZATION = -ggdb
+	OPTIMIZATION := -ggdb
 endif
 
-BUILD_DIR   = build
-TEST_DIR    = test
-TESTS		= $(BUILD_DIR)/todo  \
-			  $(BUILD_DIR)/magic
-WARNINGS	= -Wall -Wextra -Werror -Wpedantic -Wconversion -Wwrite-strings -pedantic-errors
-CC			= gcc
-CC_FLAGS	= -std=c23 $(WARNINGS) -I. -fsanitize=address $(OPTIMIZATION)
+# This controls the depth to which the macro language functions.
+ifeq ($(MACRO_DEPTH),)
+	MACRO_DEPTH := 32
+endif
+
+BUILD_DIR   := build
+SCRIPT_DIR  := script
+SRC_DIR     := nonstdlib
+TEST_DIR    := test
+
+# Scripts are used to generate parts of the library that would be difficult or
+# impossible to maintain manually.
+SCRIPTS     := $(wildcard $(SCRIPT_DIR)/*.c)
+SCRIPT_BINS := $(SCRIPTS:$(SCRIPT_DIR)/%.c=$(BUILD_DIR)/script/%)
+SCRIPT_DEPS := $(SCRIPTS:$(SCRIPT_DIR)/%.c=$(BUILD_DIR)/script/%.d)
+
+TESTS		:= $(wildcard $(TEST_DIR)/*.c)
+TEST_BINS   := $(TESTS:$(TEST_DIR)/%.c=$(BUILD_DIR)/test/%)
+TEST_DEPS   := $(TESTS:$(TEST_DIR)/%.c=$(BUILD_DIR)/test/%.d)
+
+WARNINGS	:= -Wall -Wextra -Werror -Wpedantic -Wconversion -Wwrite-strings -pedantic-errors
+CC			:= gcc
+CC_FLAGS	:= -std=c23 $(WARNINGS) -I. -fsanitize=address $(OPTIMIZATION) -MMD
 
 
 .PHONY: all
-all: test
+all: scripts tests
 
-.PHONY: test
-test: $(BUILD_DIR) $(TESTS)
+.PHONY: tests
+tests: $(BUILD_DIR) scripts $(TEST_BINS)
 
-$(BUILD_DIR)/todo: $(TEST_DIR)/todo.c
+.PHONY: scripts
+scripts: $(BUILD_DIR) $(SCRIPT_BINS)
+
+-include $(SCRIPT_DEPS)
+-include $(TEST_DEPS)
+
+################################################################################
+#                                                                              #
+# TESTS                                                                        #
+#                                                                              #
+################################################################################
+
+$(BUILD_DIR)/test/todo: $(TEST_DIR)/todo.c
 	$(Q)$(CC) $(CC_FLAGS) $< -o $@
 	$(Q)if $@ &>/dev/null; then false; else true; fi
 	$(Q)if $(CC) $(CC_FLAGS) $< -o $@ -Dnsl_todo=nsl_todo_comptime &>/dev/null; then false; else true; fi
 	$(Q)echo "Todo - Test(s) Passed"
 
-$(BUILD_DIR)/magic: $(TEST_DIR)/magic.c
+$(BUILD_DIR)/test/magic: $(TEST_DIR)/magic.c
 	$(Q)$(CC) $(CC_FLAGS) $< -o $@
 	$(Q)$@
 	$(Q)echo "Magic - Test(s) Passed"
 
+################################################################################
+#                                                                              #
+# SCRIPTS                                                                      #
+#                                                                              #
+################################################################################
+
+$(BUILD_DIR)/script/magic: $(SCRIPT_DIR)/magic.c
+	$(Q)$(CC) $(CC_FLAGS) $< -o $@
+$(SRC_DIR)/magic.h: $(BUILD_DIR)/script/magic
+	$(Q)$< $@ $(MACRO_DEPTH)
+
+################################################################################
+#                                                                              #
+# DEPENDENCIES                                                                 #
+#                                                                              #
+################################################################################
+
 $(BUILD_DIR):
 	mkdir -p $@
+	mkdir -p $@/script
+	mkdir -p $@/test
 
 .PHONY: clean
 clean:
-	$(Q)rm -rf $(BUILD_DIR)/*
+	$(Q)find $(BUILD_DIR) -type f -delete

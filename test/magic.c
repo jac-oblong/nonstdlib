@@ -2,37 +2,26 @@
 
 #include <assert.h>
 
-void test_nargs(void) {
-    assert(NSL_NARGS(1, 2, 3) == 3);
-    assert(NSL_NARGS(a, b, c, e, f, g, h, i, j, k) == 10);
-    assert(NSL_NARGS() == 0);
-    // this goes over the argument limit for NARGS, so it should return the
-    // 128th argument, which is '1'
-    // clang-format off
-    assert(NSL_NARGS('0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
-                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
-                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
-                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
-                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
-                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
-                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
-                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
-                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
-                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
-                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
-                     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
-                     '0', '0', '0', '0', '0', '0', '0', '1') == '1');
-    // clang-format on
-}
-
 void test_cat(void) {
     assert(NSL_CAT(1, 9) == 19);
     assert(NSL_CAT(4, 7) == 47);
 }
 
+void test_sep(void) {
+    assert(NSL_SEP(*, 2, 3) == 6);
+    assert(NSL_SEP(+, 2, 4) == 6);
+    assert(NSL_SEP(/, 12, 2) == 6);
+}
+
 void test_cat_sep(void) {
     assert(NSL_CAT_SEP(0, 1, 9) == 109);
     assert(NSL_CAT_SEP(1, 4, 7) == 417);
+}
+
+void test_nargs(void) {
+    assert(NSL_NARGS(1, 2, 3) == 3);
+    assert(NSL_NARGS(a, b, c, e, f, g, h, i, j, k) == 10);
+    assert(NSL_NARGS() == 0);
 }
 
 void test_ncat(void) {
@@ -49,6 +38,14 @@ void test_ncat(void) {
     assert(NSL_NCAT(1, 2, 3, 4, 5, 6, 7, 8, 9) == 123456789);
 }
 
+void test_nsep(void) {
+    // should evaluate to nothing
+    NSL_NSEP(_)
+    assert(NSL_NSEP(*, 2, 3, 4, 5) == 120);
+    assert(NSL_NSEP(+, 2, 4, 6, 8) == 20);
+    assert(NSL_NSEP(/, 12, 2, 3) == 2);
+}
+
 void test_ncat_sep(void) {
     // should evaluate to nothing
     NSL_NCAT_SEP(_)
@@ -59,24 +56,17 @@ void test_ncat_sep(void) {
     assert(NSL_NCAT_SEP(0, 1, 2, 3, 4, 5) == 102030405);
 }
 
-void test_sep(void) {
-    assert(NSL_SEP(*, 2, 3) == 6);
-    assert(NSL_SEP(+, 2, 4) == 6);
-    assert(NSL_SEP(/, 12, 2) == 6);
-}
-
-void test_nsep(void) {
-    // should evaluate to nothing
-    NSL_NSEP(_)
-    assert(NSL_NSEP(*, 2, 3, 4, 5) == 120);
-    assert(NSL_NSEP(+, 2, 4, 6, 8) == 20);
-    assert(NSL_NSEP(/, 12, 2, 3) == 2);
+void test_arg_getn(void) {
+    assert(NSL_ARG_GETN(1, 0, 1) == 0);
+    assert(NSL_ARG_GETN(2, 0, 1, 2, 3) == 1);
+    assert(NSL_ARG_GETN(3, 0, 1, 2, 3) == 2);
+    assert(NSL_ARG_GETN(4, 0, 1, 2, 3) == 3);
 }
 
 void test_arg_head(void) {
     assert(NSL_ARG_HEAD(1) == 1);
     assert(NSL_ARG_HEAD(1, 2, 3, 4) == 1);
-    assert(NSL_ARG_HEAD(NSL__REVERSE_SEQUENCE_N) == 127);
+    assert(NSL_ARG_HEAD(NSL__REVERSE_SEQUENCE_N) == (NSL_MACRO_MAX_DEPTH - 1));
 }
 
 void test_arg_rest(void) {
@@ -91,7 +81,7 @@ void test_arg_rest(void) {
 
     unsigned long rev_seq[] = {NSL_ARG_REST(NSL__REVERSE_SEQUENCE_N)};
     for (unsigned long i = 0; i < sizeof(rev_seq) / sizeof(*rev_seq); i++) {
-        assert(rev_seq[i] == (126 - i));
+        assert(rev_seq[i] == (NSL_MACRO_MAX_DEPTH - 2 - i));
     }
 }
 
@@ -113,7 +103,7 @@ void test_arg_init(void) {
 
     unsigned long rev_seq[] = {NSL_ARG_INIT(NSL_ARG_REST(NSL__REVERSE_SEQUENCE_N))};
     for (unsigned long i = 0; i < sizeof(rev_seq) / sizeof(*rev_seq); i++) {
-        assert(rev_seq[i] == (126 - i));
+        assert(rev_seq[i] == (NSL_MACRO_MAX_DEPTH - 2 - i));
     }
 }
 
@@ -146,7 +136,7 @@ void test_foreach(void) {
 
     unsigned long rev_seq[] = {NSL_FOREACH(TIMES_10, NSL_ARG_REST(NSL__REVERSE_SEQUENCE_N))};
     for (unsigned long i = 0; i < sizeof(rev_seq) / sizeof(*rev_seq); i++) {
-        assert(rev_seq[i] == ((126 - i) * 10));
+        assert(rev_seq[i] == ((NSL_MACRO_MAX_DEPTH - 2 - i) * 10));
     }
 #undef TIMES_10
 }
@@ -174,13 +164,14 @@ void test_forall_init(void) {
 }
 
 int main() {
-    test_nargs();
     test_cat();
-    test_cat_sep();
-    test_ncat();
-    test_ncat_sep();
     test_sep();
+    test_cat_sep();
+    test_nargs();
+    test_ncat();
     test_nsep();
+    test_ncat_sep();
+    test_arg_getn();
     test_arg_head();
     test_arg_rest();
     test_arg_tail();

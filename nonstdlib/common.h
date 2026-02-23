@@ -80,7 +80,7 @@
  * # Returns
  * The length (number of elements) of the C array.
  */
-#define nsl_carrlen(carr) sizeof(carr) / sizeof(carr[0])
+#define nsl_carrlen(carr) sizeof((carr)) / sizeof((carr)[0])
 
 /******************************************************************************/
 /*                                                                            */
